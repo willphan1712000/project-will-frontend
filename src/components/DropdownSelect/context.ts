@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { Options } from "./Select";
+import { Options } from "./DropdownSelect";
 
 export type Data = {
     // some data type does here

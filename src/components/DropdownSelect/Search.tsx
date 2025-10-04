@@ -1,4 +1,4 @@
-import { Options } from './Select'
+import { Options } from './DropdownSelect'
 import styles from './styles.module.css'
 
 interface Props {

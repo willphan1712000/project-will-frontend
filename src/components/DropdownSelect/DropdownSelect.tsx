@@ -22,8 +22,9 @@ interface Props {
  * @param onChange - a function to set a value
  * @returns 
  */
-const Select = ({ options, value, onChange }: Props) => {
+const DropdownSelect = ({ options, value, onChange }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
+
   const selectRef = useRef<HTMLDivElement>(null)
   
   const clickHandler = (e: PointerEvent) => {
@@ -47,7 +48,8 @@ const Select = ({ options, value, onChange }: Props) => {
       setOpen
     }}>
       <div style={{
-        width: '200px'
+        width: '200px',
+        position: 'relative'
       }}
       ref={selectRef}
       >
@@ -63,7 +65,7 @@ const Select = ({ options, value, onChange }: Props) => {
               <IoMdClose />
             </div>
           </div>
-
+          
           {/* drop down */}
           {open && <Dropdown />}
       </div>
@@ -71,4 +73,4 @@ const Select = ({ options, value, onChange }: Props) => {
   )
 }
 
-export default Select
+export default DropdownSelect

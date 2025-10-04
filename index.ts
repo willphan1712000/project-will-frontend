@@ -1,2 +1,2 @@
-export { default as Select } from './src/components/Select/Select'
-export type { Options } from './src/components/Select/Select'
+export { default as DropdownSelect } from './src/components/DropdownSelect/DropdownSelect'
+export type { Options } from './src/components/DropdownSelect/DropdownSelect'
