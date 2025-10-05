@@ -7,11 +7,10 @@ export default defineConfig({
     dts: true,
     shims: true,
     skipNodeModulesBundle: true,
-    clean: true,
-    // injectStyle: true,
-    loader: {
-        '.css': 'css',
-        '.module.css': 'local-css'
-    },
-    esbuildPlugins: [cssPlugin()]
+    clean: true,    
+    esbuildPlugins: [
+        cssPlugin({
+            generateScopedName: "[name]__[local]___[hash:base64:5]",
+        })
+    ]
 });

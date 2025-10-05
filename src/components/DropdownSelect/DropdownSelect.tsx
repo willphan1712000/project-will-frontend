@@ -16,7 +16,7 @@ interface Props {
 }
 
 /**
- * Select component, allowing users to select options from dropdown menu
+ * Dropdown Select component, allowing users to select options from dropdown menu
  * @param options - list of options, which is an array of object [{ label: string, value: string }]
  * @param value - a chosen value
  * @param onChange - a function to set a value
