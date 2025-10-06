@@ -12,6 +12,12 @@ interface Props {
 
 /**
  * Range Slider component, allowing users to drag the slider to choose value they want
+ * @param min - minimum value
+ * @param max - maximum value
+ * @param color - color scheme of the range slider
+ * @param width - specify the width of the component
+ * @param value - a chosen value
+ * @param onChange - to set a value
  * @returns 
  */
 const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", value, onChange}: Props) => {
@@ -100,11 +106,11 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
       ref={sliderBorderRef}
     >
       <span className={styles.fill} style={{
-        backgroundColor: color,
+        background: color,
         width: `${percentange}%`
       }}></span>
       <span className={styles.thumb} style={{
-        backgroundColor: color,
+        background: color,
         left: `${percentange}%`
       }}
       onMouseMove={() => setHover(true)}
@@ -114,12 +120,12 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
           scale: isMouseDown || isHover ? "1": "0"
         }}>{value}</span>
         <span className={styles.thumb_shadow} style={{
-          backgroundColor: color,
+          background: color,
           scale: isMouseDown || isHover ? "1" : "0"
         }}></span>
       </span>
       <span className={styles.rest} style={{
-        backgroundColor: color
+        background: color
       }}></span>
     </div>
   )
