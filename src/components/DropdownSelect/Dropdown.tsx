@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import useMyContext from "./context"
 import Search from "./Search"
-import styles from './styles.module.css'
+import styles from './dropdownSelect.module.css'
 
 const Dropdown = () => {
   const { options, onChange, setOpen } = useMyContext()

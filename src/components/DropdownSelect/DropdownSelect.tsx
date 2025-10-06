@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MyContext } from './context'
 import Dropdown from './Dropdown'
-import styles from './styles.module.css'
+import styles from './dropdownSelect.module.css'
 import { IoMdClose } from "react-icons/io";
 
 export type Options = {
@@ -12,7 +12,8 @@ export type Options = {
 interface Props {
   options: Options,
   value: string
-  onChange: (value: string) => void
+  onChange: (value: string) => void,
+  width?: string
 }
 
 /**
@@ -22,7 +23,7 @@ interface Props {
  * @param onChange - a function to set a value
  * @returns 
  */
-const DropdownSelect = ({ options, value, onChange }: Props) => {
+const DropdownSelect = ({ options, value, onChange, width = "200" }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const selectRef = useRef<HTMLDivElement>(null)
@@ -48,7 +49,7 @@ const DropdownSelect = ({ options, value, onChange }: Props) => {
       setOpen
     }}>
       <div style={{
-        width: '200px',
+        width: `${width}px`,
         position: 'relative'
       }}
       ref={selectRef}

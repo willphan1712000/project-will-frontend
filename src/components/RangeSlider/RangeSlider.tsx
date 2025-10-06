@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import styles from './styles.module.css'
+import styles from './rangeSlider.module.css'
 
 interface Props {
   value: string,
