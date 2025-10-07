@@ -9,3 +9,5 @@ export { default as RangeSlider } from './src/components/RangeSlider/RangeSlider
 export { default as OptionSlider } from './src/components/OptionSlider/OptionSlider';
 export type { Options as SliderOptions } from './src/components/OptionSlider/OptionSlider';
 
+// ColorPickerSlider
+export { default as ColorPickerSlider } from './src/components/ColorPickerSlider/ColorPickerSlider';

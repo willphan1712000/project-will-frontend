@@ -34,7 +34,7 @@ const OptionSlider = ({ value, onChange, width = "200", options, color = "#f0f0f
             <div
               style={{
                 background: color,
-                border: value === option.value ? "solid 1px #000" : ""
+                border: value === option.value ? "solid 2px #000" : "solid 1px #000"
               }}
               className={styles.element} 
               key={key}

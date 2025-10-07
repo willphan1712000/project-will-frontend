@@ -1,32 +1,27 @@
-import { useEffect, useRef, useState } from 'react'
-import styles from './rangeSlider.module.css'
-import { decode, encode } from './functions'
+import { useEffect, useRef, useState } from 'react';
+import styles from './colorPickerSlider.module.css';
+import { decode, encode } from './functions';
 
 interface Props {
   value: string,
-  onChange: (value: string) => void
-  min?: string,
-  max?: string,
-  color?: string,
+  onChange: (value: string) => void,
   width?: string
 }
 
 /**
- * Range Slider component, allowing users to drag the slider to choose value they want
- * @param min - minimum value
- * @param max - maximum value
- * @param color - color scheme of the range slider
- * @param width - specify the width of the component
- * @param value - a chosen value
- * @param onChange - to set a value
+ * ColorPickerSlider component, allowing users to select a color by dragging the slider
+ * @param value
+ * @param onChange
+ * @param width
  * @returns 
  */
-const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", value, onChange}: Props) => {
-  let percentage = encode(value, min, max)
+const ColorPickerSlider = ({ value, onChange, width = "200" }: Props) => {
+  let percentage = encode(value)
   const sliderBorderRef = useRef<HTMLDivElement>(null)
+
   const [isMouseDown, setMouseDown] = useState<boolean>(false)
   const [isHover, setHover] = useState<boolean>(false)
-
+  
   const handleDrag = (isClicked: boolean, e: MouseEvent | React.MouseEvent | TouchEvent | React.TouchEvent) => {
     if(!isMouseDown && !isClicked) return
     
@@ -40,16 +35,12 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
       clientX = e.clientX;
     }
     percentage = (clientX - dimension.left) / dimension.width
-    let currentValue = decode(percentage, min, max)
-    if(currentValue > parseInt(max)) {
-      currentValue = parseInt(max)
-    }
-
-    if(currentValue < parseInt(min)) {
-      currentValue = parseInt(min)
-    }
-
-    onChange(currentValue.toString())
+    if(percentage < 0) percentage = 0
+    
+    if(percentage > 1) percentage = 0.99
+    // console.log(decode(1))
+    
+    onChange(decode(percentage))
   }
 
   useEffect(() => {
@@ -85,48 +76,34 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
   }, [isMouseDown])
 
   return (
-    <div className={styles.slider_border}
-      style={{
-        width: `${width}px`
-      }}
-      // mouse event handling
+    <div className={styles.border} style={{
+      width: `${width}px`
+    }}
       onMouseDown={e => {
         handleDrag(true, e)
         setMouseDown(true)
       }}
 
-      // touch event handling
       onTouchStart={e => {
         handleDrag(true, e)
         setMouseDown(true)
       }}
-
       ref={sliderBorderRef}
     >
-      <span className={styles.fill} style={{
-        background: color,
-        width: `${percentage}%`
-      }}></span>
-      <span className={styles.thumb} style={{
-        background: color,
+      <div className={styles.thumb} style={{
+        width: `${parseInt(width) * 0.1}px`,
+        background: value,
         left: `${percentage}%`
       }}
-      onMouseMove={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      >
-        <span className={styles.value} style={{
-          scale: isMouseDown || isHover ? "1": "0"
-        }}>{value}</span>
-        <span className={styles.thumb_shadow} style={{
-          background: color,
-          scale: isMouseDown || isHover ? "1" : "0"
-        }}></span>
-      </span>
-      <span className={styles.rest} style={{
-        background: color
-      }}></span>
+        onMouseMove={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      ></div>
+      <div className={styles.label} style={{
+        left: `${percentage}%`,
+        scale: isHover || isMouseDown ? "1" : "0"
+      }}>{value}</div>
     </div>
   )
 }
 
-export default RangeSlider
+export default ColorPickerSlider
