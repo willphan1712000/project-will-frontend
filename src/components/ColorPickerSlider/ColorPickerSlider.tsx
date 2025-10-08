@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import styles from './colorPickerSlider.module.css';
 import { decode, encode } from './functions';
+import styles from './styles';
 
 interface Props {
   value: string,
@@ -76,7 +76,8 @@ const ColorPickerSlider = ({ value, onChange, width = "200" }: Props) => {
   }, [isMouseDown])
 
   return (
-    <div className={styles.border} style={{
+    <div style={{
+      ...styles.border,
       width: `${width}px`
     }}
       onMouseDown={e => {
@@ -90,7 +91,8 @@ const ColorPickerSlider = ({ value, onChange, width = "200" }: Props) => {
       }}
       ref={sliderBorderRef}
     >
-      <div className={styles.thumb} style={{
+      <div style={{
+        ...styles.thumb,
         width: `${parseInt(width) * 0.1}px`,
         background: value,
         left: `${percentage}%`
@@ -98,7 +100,8 @@ const ColorPickerSlider = ({ value, onChange, width = "200" }: Props) => {
         onMouseMove={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       ></div>
-      <div className={styles.label} style={{
+      <div style={{
+        ...styles.label,
         left: `${percentage}%`,
         scale: isHover || isMouseDown ? "1" : "0"
       }}>{value}</div>

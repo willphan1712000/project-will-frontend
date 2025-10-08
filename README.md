@@ -1,14 +1,8 @@
 <img style="width: 15%" src="./will.png">
 
-## Will-js is a Web development library made easy for Full-stack Development to develop, build, and push to production created by Will Phan
+## Will-js is a Frontend package developed by Will Phan that makes Fronted development easy with pre-built UI components
 
-## It has pre-built classes that can be used for Web Development
-
-## Key Benefits
-
-- Simple syntax that includes object-oriented programming techniques
-- Pre-built functionalities that handle difficult tasks in Full-stack Development
-- Provides flexibility, maintainability, and extensibility
+## UI Components
 
 ## Technology
 
@@ -16,27 +10,12 @@
 
 ## Installation
 
-### Option 1: Clone this project to your local computer
-
-There is a file called W.ts that exports $$ function, this is the root function to use every other functions and classes.
-Simply import $$ to every ts files that you want to use Will-js
-
-```ts
-import { $$ } from "path/of/your/project/Web-Development/W";
-```
-
-### Options 2: Install from npm
+### Install from npm
 
 Run this command in your terminal (note: this assumes you have installed Nodejs)
 
 ```npm
-npm i @willphan1712000/w
-```
-
-Then import $$ function to every ts files that you want to use Will-js as an entry point where you can access every features of the library
-
-```ts
-import { $$ } from "@willphan1712000/w";
+npm i @willphan1712000/frontend
 ```
 
 ## How to use Will-js
