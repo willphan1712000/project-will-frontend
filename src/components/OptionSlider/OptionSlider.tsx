@@ -1,5 +1,5 @@
-import styles from './optionSlider.module.css';
 import { ReactNode } from 'react';
+import styles from './styles';
 
 export type Options = {
   label: ReactNode,
@@ -23,20 +23,22 @@ interface Props {
  */
 const OptionSlider = ({ value, onChange, width = "200", options, color = "#f0f0f7" }: Props) => {
   return (
-    <div className={styles.border} style={{
+    <div style={{
+      ...styles.border,
       width: `${width}px`,
     }}>
-      <div className={styles.background} style={{
+      <div style={{
+        ...styles.background,
         background: color
       }}></div>
-      <div className={styles.options}>
+      <div style={styles.options}>
         {options.map((option, key) => (
             <div
               style={{
+                ...styles.element,
                 background: color,
                 border: value === option.value ? "solid 2px #000" : "solid 1px #000"
-              }}
-              className={styles.element} 
+              }} 
               key={key}
               onClick={() => onChange(option.value)}
               title={option.value}

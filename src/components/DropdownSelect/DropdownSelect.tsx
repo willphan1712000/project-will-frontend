@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { MyContext } from './context'
 import Dropdown from './Dropdown'
-import styles from './dropdownSelect.module.css'
 import { IoMdClose } from "react-icons/io";
+import styles from './styles';
 
 export type Options = {
     label: string,
@@ -26,6 +26,7 @@ interface Props {
  */
 const DropdownSelect = ({ options, value, onChange, width = "200" }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
+  const [ isHoverClose, setHoverClose ] = useState<boolean>(false)
 
   const selectRef = useRef<HTMLDivElement>(null)
   
@@ -56,14 +57,22 @@ const DropdownSelect = ({ options, value, onChange, width = "200" }: Props) => {
       ref={selectRef}
       >
           {/* select box */}
-          <div className={styles.select_box} onClick={() => setOpen(prev => !prev)}>
+          <div style={styles.select_box}
+          onClick={() => setOpen(prev => !prev)}>
             {/* value */}
-            <div className={styles.value}>{value}</div>
+            <div style={styles.value}>{value}</div>
             {/* Clear value */}
-            <div className={styles.close} title='clear' onClick={() => {
-              onChange('')
-              setOpen(prev => !prev)
-            }}>
+            <div style={{
+              ...styles.close,
+              backgroundColor: isHoverClose ? '#f0f0f0' : '#fff'
+            }} title='clear'
+              onClick={() => {
+                onChange('')
+                setOpen(prev => !prev)
+              }}
+              onMouseEnter={() => setHoverClose(true)}
+              onMouseLeave={() => setHoverClose(false)}
+            >
               <IoMdClose />
             </div>
           </div>

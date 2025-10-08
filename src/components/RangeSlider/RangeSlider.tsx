@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import styles from './rangeSlider.module.css'
 import { decode, encode } from './functions'
+import styles from './styles'
 
 interface Props {
   value: string,
@@ -85,8 +85,9 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
   }, [isMouseDown])
 
   return (
-    <div className={styles.slider_border}
+    <div
       style={{
+        ...styles.slider_border,
         width: `${width}px`
       }}
       // mouse event handling
@@ -103,26 +104,31 @@ const RangeSlider = ({min = "0", max = "100", color = "#f0f0f7", width = "200", 
 
       ref={sliderBorderRef}
     >
-      <span className={styles.fill} style={{
+      <span style={{
+        ...styles.fill,
         background: color,
         width: `${percentage}%`
       }}></span>
-      <span className={styles.thumb} style={{
+      <span style={{
+        ...styles.thumb,
         background: color,
         left: `${percentage}%`
       }}
       onMouseMove={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       >
-        <span className={styles.value} style={{
+        <span style={{
+          ...styles.value,
           scale: isMouseDown || isHover ? "1": "0"
         }}>{value}</span>
-        <span className={styles.thumb_shadow} style={{
+        <span style={{
+          ...styles.thumb_shadow,
           background: color,
           scale: isMouseDown || isHover ? "1" : "0"
         }}></span>
       </span>
-      <span className={styles.rest} style={{
+      <span style={{
+        ...styles.rest,
         background: color
       }}></span>
     </div>
