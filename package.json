@@ -6,7 +6,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "watch": "tsup --watch",
+    "dev": "tsup --watch",
     "build": "tsup"
   },
   "peerDependencies": {
