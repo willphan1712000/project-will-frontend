@@ -1,12 +1,12 @@
 {
   "name": "@willphan1712000/frontend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Frontend Library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "watch": "tsup --watch",
+    "dev": "tsup --watch",
     "build": "tsup"
   },
   "peerDependencies": {

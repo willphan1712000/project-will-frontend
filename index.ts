@@ -11,3 +11,6 @@ export type { Options as SliderOptions } from './src/components/OptionSlider/Opt
 
 // ColorPickerSlider
 export { default as ColorPickerSlider } from './src/components/ColorPickerSlider/ColorPickerSlider';
+
+// MultiSelect
+export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect';
