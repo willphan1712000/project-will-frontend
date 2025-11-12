@@ -6,6 +6,9 @@
 
 tsconfig.json
 tsup.config.ts
-postcss.config.js
+.babelrc
+
+index.ts
 
 /.github
+

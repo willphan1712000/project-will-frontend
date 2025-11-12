@@ -9,10 +9,8 @@
     "dev": "tsup --watch",
     "build": "tsup"
   },
-  "peerDependencies": {
-    "react": ">=18.0.0"
-  },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.28.5",
     "@swc/core": "^1.13.5",
     "@testing-library/jest-dom": "^6.9.0",
     "@testing-library/react": "^16.3.0",
@@ -22,8 +20,6 @@
     "@types/react-dom": "^19.1.9",
     "esbuild-plugin-css-module": "^0.1.0",
     "esbuild-plugin-react18-css": "^0.0.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
     "ts-loader": "^9.5.4",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3",

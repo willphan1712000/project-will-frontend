@@ -14,3 +14,6 @@ export { default as ColorPickerSlider } from './src/components/ColorPickerSlider
 
 // MultiSelect
 export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect';
+
+// Button
+export { default as Button } from './src/components/Buttons/Button';
