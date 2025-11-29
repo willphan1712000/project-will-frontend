@@ -19,8 +19,8 @@ interface Props {
 /**
  * MultiSelect component, allowing users to select multiple options from dropdown menu with search
  * @param options - list of options, which is an array of object [{ label: string, value: string }]
- * @param value - a chosen value
- * @param onChange - a function to set a value
+ * @param value - an array of chosen values
+ * @param onChange - a function to set an array of values
  * @param width - specify the width of the component
  * @returns 
  */
@@ -31,7 +31,7 @@ const MultiSelect = ({ options, value, onChange, width = "200" }: Props) => {
 
   const selectRef = useRef<HTMLDivElement>(null)
   
-  const clickHandler = (e: PointerEvent) => {
+  const clickHandler = (e: MouseEvent) => {
       const select = selectRef.current as HTMLDivElement
       if(!select.contains(e.target as HTMLElement)) {
         setOpen(false)
