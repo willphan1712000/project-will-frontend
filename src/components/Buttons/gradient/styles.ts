@@ -10,7 +10,6 @@ const styles = (first: string, second: string) => {
     const styles: Styles = {
         container: {
           position: "relative",
-          cursor: 'pointer',
           borderRadius,
           padding: '3px'
         },
@@ -24,7 +23,8 @@ const styles = (first: string, second: string) => {
           borderRadius,
           backgroundColor: `${first}`,
           backgroundImage: `linear-gradient(43deg, ${first} 0%, ${second} 100%)`,
-          border: "none"
+          border: "none",
+          cursor: 'pointer',
         },
         btnAfter: {
             position: 'absolute',
