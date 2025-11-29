@@ -1,17 +1,42 @@
-import { useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { useButtonContext } from '../Button'
-import style from './gradientstyle.module.css'
+import stylesFunc from './styles'
 
 const Gradient = () => {
   const data = useButtonContext()
-
-  useEffect(() => {
-    document.documentElement.style.setProperty('--first-color', data.first!);
-    document.documentElement.style.setProperty('--second-color', data.second!);
-  }, []);
+  const styles = stylesFunc(data.first!, data.second!)
 
   return (
-    <button id={data.id} onClick={data.onClick} className={style.btn}><div style={{backgroundColor: data.main}} className={style.label}><p className={style.p} style={{color: `${data.text}`}}>{data.content}</p></div></button>
+    <div style={{...styles.container, overflow: data.isLoading ? 'hidden' : ''}}>
+      <button style={styles.btn} {...data.props}>
+        <div style={{position: 'relative'}}>
+          <div style={styles.labelBefore}></div>
+          <div style={{
+            ...styles.label,
+            backgroundColor: data.main
+          }}>
+            <p style={{
+              ...styles.p,
+              color: `${data.text}`
+            }}>{data.content}</p>
+          </div>
+          <div style={styles.labelAfter}></div>
+        </div>
+      </button>
+      {!data.isLoading && (
+          <div style={styles.btnAfter}></div>
+        )
+      }
+      {data.isLoading && <motion.div
+        style={styles.btnAfter}
+        animate={{ rotate : 360 }}
+        transition={{
+          ease: 'linear',
+          repeat: Infinity,
+          duration: 3
+        }}
+      />}
+    </div>
   )
 }
 

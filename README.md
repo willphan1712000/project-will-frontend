@@ -42,9 +42,9 @@ npm link @willphan1712000/frontend
 ```
 
 > [!NOTE]
-> if you encounter the problem 3. You might have more than one copy of React in the same app?
+> if you encounter the problem "3. You might have more than one copy of React in the same app?"
 > it means your application has loaded two different React instances. This breaks React Hooks, which rely on a single, shared state.
 > Run this to connect to react in your testing project
 ```npm
-npm link ./testing_project_path/node_modules/react
+npm link <path_to_your_testing_project>/node_modules/react
 ```

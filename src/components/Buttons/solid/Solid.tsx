@@ -10,9 +10,7 @@ const Solid = () => {
       position: "relative",
     }}>
       <button style={styles.btn} {...data.props}>
-        <div style={{
-          position: "relative"
-        }}>
+        <div style={{position: "relative"}}>
           <div style={styles.labelBefore}></div>
           <div style={{
             ...styles.label,

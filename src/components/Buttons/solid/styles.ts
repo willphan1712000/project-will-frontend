@@ -16,6 +16,7 @@ const styles = (first: string) => {
             padding: '2px',
             borderRadius: '0.75rem',
             backgroundColor: first,
+            border: "none"
         },
         "btnAfter": {
             position: 'absolute',
@@ -30,7 +31,7 @@ const styles = (first: string) => {
         "label": {
             borderRadius: '0.75rem',
             padding: '0.5rem 2rem',
-            color: 'white'
+            color: 'white',
         },
         "labelBefore": {
             position: 'absolute',

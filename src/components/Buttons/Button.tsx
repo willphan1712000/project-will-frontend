@@ -3,15 +3,19 @@ import Gradient from './gradient/Gradient'
 import Solid from './solid/Solid'
 
 interface Props {
-    buttonType?: | "gradient" | "solid" | "normal",
+    buttonType: | "gradient" | "solid" | "normal",
+}
+
+interface Data {
     content: string,
     main?: string,
     text?: string,
     first?: string,
     second?: string,
+    isLoading?: boolean
 }
 
-const ButtonContext = createContext<Props & { props?: React.ComponentProps<'button'> } | undefined>(undefined)
+const ButtonContext = createContext<Data & { props?: React.ComponentProps<'button'> } | undefined>(undefined)
 
 export function useButtonContext() {
   const data = useContext(ButtonContext)
@@ -39,18 +43,20 @@ const Button = ({
     main="#111723", 
     first = "#3e8fbc", 
     second = "#aa6392", 
-    text = "#fff", ...props
-} : Props & React.ComponentProps<'button'>) => {
+    text = "#fff",
+    isLoading = false,
+    ...props
+} : Props & Data & React.ComponentProps<'button'>) => {
     switch(buttonType) {
         case "gradient":
             return (
-                <ButtonContext.Provider value={{content, main, first, second, text, props}}>
+                <ButtonContext.Provider value={{content, main, first, second, text, props, isLoading}}>
                     <Gradient />
                 </ButtonContext.Provider>
             )
         case "solid":
             return (
-                <ButtonContext.Provider value={{content, main, first, text, props}}>
+                <ButtonContext.Provider value={{content, main, first, text, props, isLoading}}>
                     <Solid />
                 </ButtonContext.Provider>
             )
