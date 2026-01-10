@@ -7,7 +7,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
@@ -20,6 +21,9 @@
     "@types/react-dom": "^19.1.9",
     "esbuild-plugin-css-module": "^0.1.0",
     "esbuild-plugin-react18-css": "^0.0.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "ts-loader": "^9.5.4",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3",

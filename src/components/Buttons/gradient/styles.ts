@@ -1,30 +1,38 @@
-type Props = | "container" | "btn" | "btnAfter" | "label" | "labelBefore" | "labelAfter" | "p" | "neon"
+type Props =
+    | 'container'
+    | 'btn'
+    | 'btnAfter'
+    | 'label'
+    | 'labelBefore'
+    | 'labelAfter'
+    | 'p'
+    | 'neon';
 
 type Styles = {
-    [K in Props]: React.CSSProperties
-}
+    [K in Props]: React.CSSProperties;
+};
 
-const borderRadius = '20px'
+const borderRadius = '20px';
 
 const styles = (first: string, second: string) => {
     const styles: Styles = {
         container: {
-          position: "relative",
-          borderRadius,
-          padding: '3px'
+            position: 'relative',
+            borderRadius,
+            padding: '3px',
         },
         btn: {
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2px',
-          borderRadius,
-          backgroundColor: `${first}`,
-          backgroundImage: `linear-gradient(43deg, ${first} 0%, ${second} 100%)`,
-          border: "none",
-          cursor: 'pointer',
+            position: 'relative',
+            zIndex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '2px',
+            borderRadius,
+            backgroundColor: `${first}`,
+            backgroundImage: `linear-gradient(43deg, ${first} 0%, ${second} 100%)`,
+            border: 'none',
+            cursor: 'pointer',
         },
         btnAfter: {
             position: 'absolute',
@@ -39,10 +47,10 @@ const styles = (first: string, second: string) => {
             filter: 'blur(10px)',
         },
         label: {
-          backgroundColor: '#111723',
-          borderRadius,
-          padding: '0.5rem 2rem',
-          color: 'white',
+            backgroundColor: '#111723',
+            borderRadius,
+            padding: '0.5rem 2rem',
+            color: 'white',
         },
         labelBefore: {
             position: 'absolute',
@@ -67,24 +75,24 @@ const styles = (first: string, second: string) => {
             filter: 'blur(20px)',
         },
         p: {
-          position: 'relative',
-          zIndex: 1,
-          margin: 0
+            position: 'relative',
+            zIndex: 1,
+            margin: 0,
         },
         neon: {
-          content: '""',
-          background: 'conic-gradient(transparent 270deg, green, transparent)',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          aspectRatio: 1,
-          width: '100%'
-        }
-    }
+            content: '""',
+            background:
+                'conic-gradient(transparent 270deg, green, transparent)',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            aspectRatio: 1,
+            width: '100%',
+        },
+    };
 
-    return styles
-  };
-  
-  export default styles;
-  
+    return styles;
+};
+
+export default styles;

@@ -17,3 +17,6 @@ export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect
 
 // Button
 export { default as Button } from './src/components/Buttons/Button';
+
+// Avatar
+export { default as Avatar } from './src/components/Avatar/Avatar';

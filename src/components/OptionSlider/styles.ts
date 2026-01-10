@@ -1,8 +1,8 @@
-type Props = | "border" | "background" | "options" | "element";
+type Props = 'border' | 'background' | 'options' | 'element';
 
 type Styles = {
-    [K in Props]: React.CSSProperties
-}
+    [K in Props]: React.CSSProperties;
+};
 
 const styles: Styles = {
     border: {
@@ -17,7 +17,7 @@ const styles: Styles = {
         msOverflowStyle: 'none',
         boxSizing: 'border-box',
         margin: 0,
-        padding: 0
+        padding: 0,
     },
     background: {
         position: 'relative',
@@ -26,7 +26,7 @@ const styles: Styles = {
         opacity: '0.3',
         boxSizing: 'border-box',
         margin: 0,
-        padding: 0
+        padding: 0,
     },
     options: {
         height: '100%',
@@ -56,8 +56,8 @@ const styles: Styles = {
         border: 'solid 1px #000',
         boxSizing: 'border-box',
         margin: 0,
-        padding: 0
+        padding: 0,
     },
-}
+};
 
-export default styles
+export default styles;
