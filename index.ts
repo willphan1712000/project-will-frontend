@@ -19,4 +19,9 @@ export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect
 export { default as Button } from './src/components/Buttons/Button';
 
 // Avatar
-export { default as Avatar } from './src/components/Avatar/Avatar';
+
+// Utilities
+export { default as InputFile } from './src/utilities/react/Input/InputFile';
+export { default as UploadImage } from './src/utilities/react/Image/UploadImage';
+export { default as Image } from './src/utilities/react/Image/Image';
+export { default as ImageEditor } from './src/utilities/react/Image/ImageEditor';

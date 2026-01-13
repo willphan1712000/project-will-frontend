@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Avatar = () => {
-    const [image, setImage] = useState(null);
-    return (
-        <div>
-            <input type="file" id="avatar" accept="image/*" />
-        </div>
-    );
+    return <div></div>;
 };
 
 export default Avatar;
