@@ -24,4 +24,4 @@ export { default as Button } from './src/components/Buttons/Button';
 export { default as InputFile } from './src/utilities/react/Input/InputFile';
 export { default as UploadImage } from './src/utilities/react/Image/UploadImage';
 export { default as Image } from './src/utilities/react/Image/Image';
-export { default as ImageEditor } from './src/utilities/react/Image/ImageEditor';
+export { default as ImageEditor } from './src/utilities/react/Image/ImageEditor/ImageEditor';

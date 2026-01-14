@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import TransformController from './TransformController';
 
 type Dimension = [x: number, y: number, angle: number, w: number, h: number];
@@ -13,12 +14,11 @@ type Dimension = [x: number, y: number, angle: number, w: number, h: number];
  *
  * @example
  * ```ts
- * <div className="frame"> (2)
- *      <div className="wrapper"> (1)
- *          <img className="img__preview" /> (3)
+ * <div class="frame"> (2)
+ *      <div class="wrapper"> (1)
+ *          <img class="img__preview" /> (3)
  *      </div>
  * </div>
- * <div class="controller"></div> (4)
  * ```
  */
 export default class Transform {
@@ -46,7 +46,7 @@ export default class Transform {
         this.ele2 = ele2!; // Element 2
         this.x = 0;
         this.y = 0;
-        this.angle = 0;
+        this.angle = 90;
         this.w = 0;
         this.h = 0;
 
@@ -73,11 +73,9 @@ export default class Transform {
 
         this.controllerClassName = '_' + Date.now().toString();
         this.isRotateOffScreen = false;
-
-        this.initialize();
     }
 
-    private async initialize() {
+    public async initialize() {
         const transformController = new TransformController(
             this.wrapperClass,
             this.frameClass,
@@ -88,11 +86,12 @@ export default class Transform {
         this.controllerContainer = document.querySelector(
             '.' + this.controllerClassName + '--container'
         )!;
+
         this.controller = document.querySelector(
             '.' + this.controllerClassName
         )!;
 
-        this.transform(); // add transform to image
+        this.transform(); // main trigger point for image transformation
         this.handleElementGoOffScreen(
             '.' + this.controllerClassName + ' .rotate',
             '.' + this.controllerClassName + ' .rotate.shadow',
@@ -105,19 +104,43 @@ export default class Transform {
     }
 
     public reset(): void {
-        const width = this.imgFrame.clientWidth;
-        const height = width / this.ratio;
-        this.resize(width, height);
-        // this.repositionElement(100, 100 / this.ratio);
-        this.repositionElement(width / 2, this.imgFrame.clientHeight / 2);
-        this.rotateBox(0);
-        this.setValue(
-            0,
-            this.imgFrame.clientHeight / 2 - this.img.height / 2,
-            0,
-            width,
-            height
+        this.setState({
+            x: 0,
+            y: this.imgFrame.clientHeight / 2 - this.img.height / 2,
+            angle: 0,
+            w: this.imgFrame.clientWidth,
+        });
+
+        // this.repositionElement(width / 2, this.imgFrame.clientHeight / 2);
+        // this.resize(width, height);
+        // this.rotateBox(0);
+        // this.setValue(
+        //     0,
+        //     this.imgFrame.clientHeight / 2 - this.img.height / 2,
+        //     0,
+        //     width,
+        //     height
+        // );
+    }
+
+    public setState({
+        x,
+        y,
+        angle,
+        w,
+    }: {
+        x: number;
+        y: number;
+        angle: number;
+        w: number;
+    }): void {
+        this.repositionElement(
+            x + this.imgFrame.clientWidth / 2,
+            y + this.img.height / 2
         );
+        this.rotateBox(angle);
+        this.resize(w, w / this.ratio);
+        this.setValue(x, y, angle, w, w / this.ratio);
     }
 
     private setValue(
@@ -217,7 +240,7 @@ export default class Transform {
         return this;
     }
 
-    public transform(): Transform {
+    private transform(): Transform {
         const controllerWrapper = this.controllerContainer;
         const boxWrapper = this.ele1;
 
@@ -620,17 +643,6 @@ export default class Transform {
         });
 
         this.reset();
-        return this;
-    }
-
-    public cleanup(): Transform {
-        window.removeEventListener('mousedown', () => {});
-        window.removeEventListener('mouseup', () => {});
-        window.removeEventListener('mousemove', () => {});
-
-        window.removeEventListener('touchstart', () => {});
-        window.removeEventListener('touchend', () => {});
-        window.removeEventListener('touchmove', () => {});
         return this;
     }
 }

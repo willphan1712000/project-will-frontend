@@ -23,8 +23,8 @@ function ToImageSrc(file: File) {
 }
 
 /**
- * UploadImage Image component
- * - Take image binary and convert it to base 64 format
+ * Upload Image component
+ * - Upload image binary and convert it to base 64 format
  * @param setSrc
  * @returns
  */
@@ -38,13 +38,7 @@ const UploadImage = ({
     }
 
     return (
-        <InputFile
-            onChoose={(file: File) => {
-                handleSetSrc(file);
-            }}
-            acceptType="image/*"
-            {...props}
-        />
+        <InputFile onChoose={handleSetSrc} acceptType="image/*" {...props} />
     );
 };
 

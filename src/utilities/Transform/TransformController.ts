@@ -1,3 +1,8 @@
+import $ from 'jquery';
+
+/**
+ * This will add a controller right after frame element
+ */
 export default class TransformController {
     private wrapper!: string;
     private frame!: string;

@@ -7,7 +7,7 @@ interface CanvasInterface {
     createCanvas(
         width: number,
         height: number
-    ): [HTMLCanvasElement, CanvasRenderingContext2D];
+    ): { canvas: HTMLCanvasElement; context: CanvasRenderingContext2D };
 
     /**
      * draw an image on canvas
@@ -22,7 +22,10 @@ interface CanvasInterface {
         canvas: HTMLCanvasElement,
         containerWidth: number,
         containerHeight: number
-    ): [CanvasRenderingContext2D, string, string];
+    ): {
+        context: CanvasRenderingContext2D;
+        src: string;
+    };
 
     /**
      * Draw a color on canvas
@@ -40,16 +43,19 @@ export default class Canvas implements CanvasInterface {
     public createCanvas(
         width: number,
         height: number
-    ): [HTMLCanvasElement, CanvasRenderingContext2D] {
+    ): { canvas: HTMLCanvasElement; context: CanvasRenderingContext2D } {
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const context = canvas.getContext('2d')!;
         canvas.width = width;
         canvas.height = height;
-        return [canvas, ctx!];
+        return {
+            canvas,
+            context,
+        };
     }
 
     public drawImage(
-        e: any,
+        e: HTMLImageElement,
         ctx: CanvasRenderingContext2D,
         x: number,
         y: number,
@@ -58,7 +64,10 @@ export default class Canvas implements CanvasInterface {
         canvas: HTMLCanvasElement,
         containerWidth: number,
         containerHeight: number
-    ): [CanvasRenderingContext2D, string, string] {
+    ): {
+        context: CanvasRenderingContext2D;
+        src: string;
+    } {
         const ratioX = canvas.width / containerWidth;
         const ratioY = canvas.height / containerHeight;
         let finalX = x * ratioX;
@@ -79,9 +88,12 @@ export default class Canvas implements CanvasInterface {
             finalHeight
         );
         ctx.restore();
-        const src = ctx.canvas.toDataURL(e);
-        const srcEncoded = ctx.canvas.toDataURL(e).split(',')[1];
-        return [ctx, src, srcEncoded];
+        const src = ctx.canvas.toDataURL();
+        const srcEncoded = src.split(',')[1];
+        return {
+            context: ctx,
+            src: src,
+        };
     }
 
     public drawColor(
