@@ -28,7 +28,7 @@ const Gradient = () => {
                                 color: `${data.text}`,
                             }}
                         >
-                            {data.content}
+                            {data.children} {data.content}
                         </p>
                     </div>
                     <div style={styles.labelAfter}></div>

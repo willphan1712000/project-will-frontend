@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import Gradient from './gradient/Gradient';
 import Solid from './solid/Solid';
 
@@ -15,8 +15,12 @@ interface Data {
     isLoading?: boolean;
 }
 
+interface Children {
+    children?: ReactNode;
+}
+
 const ButtonContext = createContext<
-    (Data & { props?: React.ComponentProps<'button'> }) | undefined
+    (Data & Children & { props?: React.ComponentProps<'button'> }) | undefined
 >(undefined);
 
 export function useButtonContext() {
@@ -47,8 +51,9 @@ const Button = ({
     second = '#aa6392',
     text = '#fff',
     isLoading = false,
+    children = undefined,
     ...props
-}: Props & Data & React.ComponentProps<'button'>) => {
+}: Props & Data & Children & React.ComponentProps<'button'>) => {
     switch (buttonType) {
         case 'gradient':
             return (
@@ -61,6 +66,7 @@ const Button = ({
                         text,
                         props,
                         isLoading,
+                        children,
                     }}
                 >
                     <Gradient />
@@ -69,7 +75,15 @@ const Button = ({
         case 'solid':
             return (
                 <ButtonContext.Provider
-                    value={{ content, main, first, text, props, isLoading }}
+                    value={{
+                        content,
+                        main,
+                        first,
+                        text,
+                        props,
+                        isLoading,
+                        children,
+                    }}
                 >
                     <Solid />
                 </ButtonContext.Provider>

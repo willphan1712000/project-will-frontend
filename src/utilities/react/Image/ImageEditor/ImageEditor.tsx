@@ -9,7 +9,7 @@ interface Props {
     setSrc?: (src?: string) => void;
     isOpen?: boolean;
     setOpen?: (open: boolean) => void;
-    isNew?: boolean;
+    isNew: boolean;
 }
 
 /**
@@ -38,19 +38,27 @@ const ImageEditor = ({
     const [transform, setTransform] = useState<Transform | undefined>(
         undefined
     );
-    const [transformState, setTransformState] = useState<
+
+    const transformState = useRef<
         { x: number; y: number; angle: number; w: number } | undefined
     >(undefined);
+    const originalSrc = useMemo(() => {
+        transformState.current = undefined;
+        return src;
+    }, [isNew]);
 
-    const originalSrc = useMemo(() => src, [isNew]);
-
-    async function handleTransform() {
+    async function createTransform() {
         if (!frame.current || !wrapper.current || !img.current) return;
 
         const transform = new Transform(wrapper.current, frame.current);
         await transform.initialize();
-        console.log(transformState);
-        transformState ? transform.setState(transformState) : transform.reset();
+
+        if (transformState.current) {
+            transform.setState(transformState.current);
+        } else {
+            transform.reset();
+        }
+
         setTransform(transform);
     }
 
@@ -60,8 +68,8 @@ const ImageEditor = ({
 
         const canvasInstance = new Canvas();
         const { canvas, context } = canvasInstance.createCanvas(700, 700);
-        const [x, y, angle, w] = transform.exportData();
-        setTransformState({ x, y, angle, w });
+        const { x, y, angle } = transform.exportData();
+        transformState.current = transform.exportData();
 
         const { src } = canvasInstance.drawImage(
             img.current,
@@ -93,11 +101,7 @@ const ImageEditor = ({
     }
 
     useEffect(() => {
-        if (isOpen) {
-            handleTransform();
-        } else {
-            setTransform(undefined);
-        }
+        isOpen ? createTransform() : setTransform(undefined);
     }, [isOpen]);
 
     if (!isOpen) return;

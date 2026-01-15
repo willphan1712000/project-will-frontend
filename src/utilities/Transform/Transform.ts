@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import TransformController from './TransformController';
 
-type Dimension = [x: number, y: number, angle: number, w: number, h: number];
-
 /**
  * Element 1 : Image Wrapper
  *
@@ -91,16 +89,17 @@ export default class Transform {
             '.' + this.controllerClassName
         )!;
 
-        this.transform(); // main trigger point for image transformation
         this.handleElementGoOffScreen(
             '.' + this.controllerClassName + ' .rotate',
             '.' + this.controllerClassName + ' .rotate.shadow',
             'rotate'
-        ).handleElementGoOffScreen(
-            '.' + this.controllerClassName + ' .delete',
-            '.' + this.controllerClassName + ' .delete.shadow',
-            'delete'
-        ); // add hanle go off screen
+        )
+            .handleElementGoOffScreen(
+                '.' + this.controllerClassName + ' .delete',
+                '.' + this.controllerClassName + ' .delete.shadow',
+                'delete'
+            )
+            .transform(); // add hanle go off screen, main trigger point for image transformation
     }
 
     public reset(): void {
@@ -157,8 +156,20 @@ export default class Transform {
         this.h = h !== undefined ? h : this.h;
     }
 
-    public exportData(): Dimension {
-        return [this.x, this.y, this.angle, this.w, this.h];
+    public exportData(): {
+        x: number;
+        y: number;
+        angle: number;
+        w: number;
+        h: number;
+    } {
+        return {
+            x: this.x,
+            y: this.y,
+            angle: this.angle,
+            w: this.w,
+            h: this.h,
+        };
     }
 
     private repositionElement(x: number, y: number): void {
@@ -295,7 +306,7 @@ export default class Transform {
                 type === 'desk' ? event.clientX : event.touches[0].clientX;
             let mousePressY =
                 type === 'desk' ? event.clientY : event.touches[0].clientY;
-            let [, , , w, h] = this.exportData();
+            let { w, h } = this.exportData();
 
             const eventMoveHandler = (event: any) => {
                 let x =
