@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faRotate, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * This will add a controller right after frame element
@@ -137,10 +139,10 @@ export default class TransformController {
                     <div class="dot resize resize-topright"><div class="circle"></div></div>
                     <div class="dot resize resize-bottomleft"><div class="circle"></div></div>
                     <div class="dot resize resize-bottomright"><div class="circle"></div></div>
-                    <div class="dot rotate"><i class="fa-solid fa-rotate"></i></div>
-                    <div class="dot rotate shadow" style="visibility: hidden;"><i class="fa-solid fa-rotate"></i></div>
-                    <div class="dot delete"><i class="fa-solid fa-trash"></i></div>
-                    <div class="dot delete shadow" style="visibility: hidden;"><i class="fa-solid fa-trash"></i></div>
+                    <div class="dot rotate">${icon(faRotate).html[0]}</div>
+                    <div class="dot rotate shadow" style="visibility: hidden;">${icon(faRotate).html[0]}</div>
+                    <div class="dot delete">${icon(faTrash).html[0]}</div>
+                    <div class="dot delete shadow" style="visibility: hidden;">${icon(faTrash).html[0]}</div>
                 </div>
             </div>
             `;

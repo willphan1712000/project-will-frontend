@@ -1,7 +1,7 @@
 import InputFile from '../Input/InputFile';
 
 interface Props {
-    setSrc?: (src: string) => void;
+    setSrc?: (src?: string) => void;
 }
 
 function ToImageSrc(file: File) {
@@ -38,7 +38,14 @@ const UploadImage = ({
     }
 
     return (
-        <InputFile onChoose={handleSetSrc} acceptType="image/*" {...props} />
+        <>
+            <InputFile
+                onChoose={handleSetSrc}
+                acceptType="image/*"
+                {...props}
+                hidden
+            />
+        </>
     );
 };
 

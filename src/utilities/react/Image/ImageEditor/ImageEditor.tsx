@@ -18,11 +18,18 @@ interface Props {
  * - Color editing, contrast, ...
  * - ...
  *
- * How it works
  * @param src source of an image to edit
  * @param setSrc modify source state
- * @param isOpen open state of edit pannel
+ * @param isOpen boolean open state of edit pannel
  * @param setSrc modify open state
+ * @param isNew boolean - a random state that signals whether there is a new image that has been chosen. Toggle between true and false
+ *
+ * HOW IT WORKS
+ * - Use useMemo to memorize src value across renders until isNew changes. Also reset transformState to undefined, telling there is a new image that needs to be edited as new
+ * - When isOpen changes, it can either initialize a transform object on already rendered elements (that can either receive its previous state if exists or be reset as new) or set transform object to undefined.
+ * - When hitting Accept button, it uses handleCanvasToSrc function to draw current image src along with current transform state on a canvas, ready to extract a new image url from it. Then new src state value will be set and component re-renders
+ * - When hitting cancel button, it changes isOpen state
+ * - When hitting reset button, it runs reset method on transform object state
  */
 const ImageEditor = ({
     src,

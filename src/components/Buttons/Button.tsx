@@ -89,7 +89,11 @@ const Button = ({
                 </ButtonContext.Provider>
             );
         default:
-            return <button {...props}>{content}</button>;
+            return (
+                <button {...props}>
+                    {children} {content}
+                </button>
+            );
     }
 };
 
