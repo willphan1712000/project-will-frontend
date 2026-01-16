@@ -4,7 +4,14 @@
  * - Add false draggable
  */
 const Image = ({ ...props }: React.ComponentProps<'img'>) => {
-    return <img {...props} alt="Will-Image-Component" draggable={false} />;
+    return (
+        <img
+            style={{ width: '100%', height: '100%' }}
+            {...props}
+            alt="Will-Image-Component"
+            draggable={false}
+        />
+    );
 };
 
 export default Image;

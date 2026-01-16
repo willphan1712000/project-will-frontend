@@ -26,3 +26,6 @@ export { default as InputFile } from './src/utilities/react/Input/InputFile';
 export { default as UploadImage } from './src/utilities/react/Image/UploadImage';
 export { default as Image } from './src/utilities/react/Image/Image';
 export { default as ImageEditor } from './src/utilities/react/Image/ImageEditor/ImageEditor';
+export { default as Canvas } from './src/utilities/canvas/Canvas';
+export { default as ImageUtilities } from './src/utilities/canvas/Image';
+export { default as Transform } from './src/utilities/Transform/Transform';

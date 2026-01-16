@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './ImageEditor.styles';
-import Transform from '../../../Transform/Transform';
-import Button from '../../../../components/Buttons/Button';
-import Canvas from '../../../canvas/Canvas';
+import { Transform, Button, Canvas } from '@';
 
 interface Props {
     src?: string;

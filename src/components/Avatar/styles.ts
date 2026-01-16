@@ -1,7 +1,11 @@
-type Name = 'upload' | 'container' | 'remove' | 'edit';
+type Name = 'upload' | 'container' | 'remove' | 'edit' | 'image' | 'unknown';
 
 type Styles = {
     [K in Name]: React.CSSProperties;
+};
+
+export const others = {
+    iconSize: '20',
 };
 
 const button: React.CSSProperties = {
@@ -23,6 +27,20 @@ const styles: Styles = {
         height: '100%',
         display: 'flex',
         position: 'relative',
+    },
+    image: {
+        borderRadius: '50%',
+        background: 'white',
+        objectFit: 'cover',
+        width: '100%',
+        height: '100%',
+    },
+    unknown: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     upload: {
         ...button,

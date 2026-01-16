@@ -1,25 +1,7 @@
-import InputFile from '../Input/InputFile';
+import { InputFile, ImageUtilities } from '@';
 
 interface Props {
     setSrc?: (src?: string) => void;
-}
-
-function ToImageSrc(file: File) {
-    return new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (readerEvent) => {
-            if (readerEvent.target?.result) {
-                resolve(readerEvent.target?.result as string);
-            } else {
-                reject('Error getting the image source');
-            }
-        };
-
-        reader.onerror = () => {
-            reject('Error getting the image source');
-        };
-    });
 }
 
 /**
@@ -33,7 +15,9 @@ const UploadImage = ({
     ...props
 }: Props & React.ComponentProps<'input'>) => {
     async function handleSetSrc(file: File) {
-        const src = await ToImageSrc(file);
+        const src = await ImageUtilities.FromFileToImageSrc(file);
+        if (!src) return;
+
         setSrc(src);
     }
 

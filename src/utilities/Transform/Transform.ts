@@ -187,8 +187,8 @@ export default class Transform {
         const img = this.img;
         const wrapper = this.ele1;
 
-        controller.style.width = w + 3 + 'px';
-        controller.style.height = h + 3 + 'px';
+        controller.style.width = w + 'px';
+        controller.style.height = h + 'px';
         img.style.width = w + 'px';
         wrapper.style.width = w + 'px';
         // img.style.height = h + 'px';
