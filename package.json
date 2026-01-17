@@ -7,8 +7,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
-    "prepare": "husky"
+    "build": "tsup"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
