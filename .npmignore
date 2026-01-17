@@ -8,6 +8,10 @@ tsconfig.json
 tsup.config.ts
 .babelrc
 
+.lintstagedrc
+.prettierignore
+.prettierrc
+
 index.ts
 
 /.github
