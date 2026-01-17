@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles, { others } from './TextArea.styles';
 
 interface Props {
@@ -66,6 +66,11 @@ const TextArea = ({
     const labelTextColor = isFocus
         ? `${options ? options.focusColor : others.textFocus}`
         : `${others.textRelease}`;
+
+    useEffect(() => {
+        transitionOnFocus();
+        transitionOffFocus();
+    }, []);
 
     return (
         <div style={styles.container}>
