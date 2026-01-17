@@ -4,8 +4,10 @@ type Styles = {
     [K in Name]: React.CSSProperties;
 };
 
+const labelHeight = 20;
+
 export const others = {
-    topRelease: '50%',
+    topRelease: `${labelHeight + 5}px`,
     topFocus: '0',
 
     fontSizeRelease: '16px',
@@ -23,20 +25,23 @@ export const others = {
 const styles: Styles = {
     input: {
         boxSizing: 'border-box',
-        height: '40px',
+        height: '100%',
         width: '100%',
         border: `${others.border} ${others.borderRelease}`,
         borderRadius: '6px',
         padding: '10px',
         outline: 'none',
+        resize: 'none',
     },
     container: {
         width: '100%',
+        height: '100%',
         position: 'relative',
     },
     label: {
+        height: `${labelHeight}px`,
         position: 'absolute',
-        top: '50%',
+        top: `${labelHeight + 5}px`,
         left: '10px',
         fontSize: '16px',
         transform: 'translateY(-50%)',
