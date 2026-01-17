@@ -1,13 +1,13 @@
-type Props = | "btn" | "btnAfter" | "label" | "labelBefore" | "labelAfter" | "p"
+type Props = 'btn' | 'btnAfter' | 'label' | 'labelBefore' | 'labelAfter' | 'p';
 
 type Styles = {
-    [K in Props]: React.CSSProperties
-}
+    [K in Props]: React.CSSProperties;
+};
 
 const styles = (first: string) => {
     const styles: Styles = {
-        "btn": {
-            cursor: "pointer",
+        btn: {
+            cursor: 'pointer',
             position: 'relative',
             zIndex: 0,
             display: 'flex',
@@ -16,9 +16,9 @@ const styles = (first: string) => {
             padding: '2px',
             borderRadius: '0.75rem',
             backgroundColor: first,
-            border: "none"
+            border: 'none',
         },
-        "btnAfter": {
+        btnAfter: {
             position: 'absolute',
             top: 0,
             left: 0,
@@ -26,14 +26,14 @@ const styles = (first: string) => {
             height: '100%',
             zIndex: -1,
             backgroundColor: first,
-            filter: 'blur(10px)'
-          },
-        "label": {
+            filter: 'blur(10px)',
+        },
+        label: {
             borderRadius: '0.75rem',
             padding: '0.5rem 2rem',
             color: 'white',
         },
-        "labelBefore": {
+        labelBefore: {
             position: 'absolute',
             top: '20%',
             right: '50%',
@@ -42,9 +42,9 @@ const styles = (first: string) => {
             content: '""', // See note below
             zIndex: 0,
             backgroundColor: first,
-            filter: 'blur(15px)'
+            filter: 'blur(15px)',
         },
-        "labelAfter": {
+        labelAfter: {
             position: 'absolute',
             top: '20%',
             left: '50%',
@@ -52,15 +52,15 @@ const styles = (first: string) => {
             height: '50%',
             content: '""', // See note below
             zIndex: 0,
-            filter: 'blur(20px)'
+            filter: 'blur(20px)',
         },
-        "p": {
+        p: {
             zIndex: 1,
-            position: "relative",
-            margin: 0
-        }
-    }
-    return styles
-}
+            position: 'relative',
+            margin: 0,
+        },
+    };
+    return styles;
+};
 
-export default styles
+export default styles;

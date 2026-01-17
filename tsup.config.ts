@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup';
-import cssModulePlugin from "esbuild-plugin-css-module";
- 
+import cssModulePlugin from 'esbuild-plugin-css-module';
+
 export default defineConfig({
     format: ['cjs', 'esm'],
     entry: ['./index.ts'],
@@ -13,7 +13,7 @@ export default defineConfig({
     },
     esbuildPlugins: [
         cssModulePlugin({
-            generateScopedName: "[name]__[local]___[hash:base64:5]",
-        })
-    ]
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
+        }),
+    ],
 });
