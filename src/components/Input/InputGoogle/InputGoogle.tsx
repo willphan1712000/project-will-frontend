@@ -4,7 +4,10 @@ import styles, { others } from './InputGoogle.styles';
 interface Props {
     value?: string;
     setValue?: (value?: string) => void;
-    labelColor?: string;
+    label?: string;
+    options?: {
+        focusColor: string;
+    };
 }
 
 /**
@@ -13,22 +16,23 @@ interface Props {
  * @link
  * https://accounts.google.com
  *
- * @param value
- * @param setValue
- * @param labelColor color of label. It should match the background color where the component resides in. Default to white color
+ * @param value value of input
+ * @param setValue set value function
+ * @param options options object containing focusColor property -> color when input is focused
  *
  * @example
  * ... component declaration
  * const [value, setValue] = useState<string|undefined>('')
  *
  * return (
- *      <InputGoogle value={value} setValue={setValue} />
+ *      <InputGoogle value={value} setValue={setValue} label="Input Google Component Label" options={{ focusColor: "yellow" }}/>
  * )
  */
 const InputGoogle = ({
-    value,
+    value = '',
     setValue = () => {},
-    labelColor = '#fff',
+    label = 'Input Google Component Label',
+    options,
     ...props
 }: Props & React.ComponentProps<'input'>) => {
     const [isFocus, setFocus] = useState<boolean>(false);
@@ -60,10 +64,10 @@ const InputGoogle = ({
     }
 
     const inputBorder = isFocus
-        ? `${others.border} ${others.borderFocus}`
+        ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
         : `${others.border} ${others.borderRelease}`;
     const labelTextColor = isFocus
-        ? `${others.textFocus}`
+        ? `${options ? options.focusColor : others.textFocus}`
         : `${others.textRelease}`;
 
     return (
@@ -87,11 +91,10 @@ const InputGoogle = ({
                 style={{
                     ...styles.label,
                     color: labelTextColor,
-                    backgroundColor: labelColor,
                 }}
                 onClick={handleClickOnLabel}
             >
-                Enter Email or Phone number
+                {label}
             </span>
         </div>
     );
