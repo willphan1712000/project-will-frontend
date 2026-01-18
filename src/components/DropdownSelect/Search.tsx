@@ -6,6 +6,9 @@ interface Props {
     onSearch: React.Dispatch<React.SetStateAction<Options>>;
 }
 
+/**
+ * Private Search component -> take original options and perform onSearch operation on option label to find desired options
+ */
 const Search = ({ options, onSearch }: Props) => {
     return (
         <div style={styles.search_border}>
@@ -17,7 +20,7 @@ const Search = ({ options, onSearch }: Props) => {
                 onChange={(e) =>
                     onSearch(
                         options.filter((ele) => {
-                            return ele.value
+                            return ele.label
                                 .toLowerCase()
                                 .includes(e.target.value.toLowerCase());
                         })

@@ -1,8 +1,15 @@
 <img style="width: 15%" src="./will.png">
 
-## Will-js is a Frontend package developed by Will Phan that makes Fronted development easy with pre-built UI components
+## Frontend package developed by Will Phan that makes Fronted development easy with pre-built UI components
 
 ## UI Components
+- DropdownSelect, type Options
+- RangeSlider
+- OptionSlider, type SliderOptions
+- ColorPickerSlider
+- MultiSelect
+- Button
+- Avatar
 
 ## Technology
 
