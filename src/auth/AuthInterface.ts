@@ -1,6 +1,32 @@
 /**
  * This interface provides a comprehensive guides on how to design auth object used for authentication on client side
- * - Copyright: Will Phan
+ * 
+ * @example
+ * 
+ * class auth implements AuthInterface {
+    getSignInUrl({ redirect, client_id, callback_api, }: {
+        redirect?: string;
+        client_id?: string;
+        callback_api?: string;
+    }): string {
+    ...
+    }
+    signin({ username, email, password, redirect, }: {
+        username: string;
+        email?: string;
+        password: string;
+        redirect?: string;
+    }): Promise<void> {
+    ...
+    }
+    validate({ state }: { state?: string; }): Promise<any> {
+    ...
+    }
+    signout({ state }: { state?: string; }): Promise<void> {
+    ...
+    }
+    
+}
  */
 export default interface AuthInterface<User = any> {
     /**

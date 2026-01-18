@@ -12,6 +12,10 @@ export const SessionContext = createContext<SessionContextType | undefined>(
 /**
  * Will-Auth - retrieve session
  * @returns session context
+ *
+ * @example
+ *
+ * const { isLoading, session } = useSession()
  */
 export default function useSession() {
     const data = useContext(SessionContext);
