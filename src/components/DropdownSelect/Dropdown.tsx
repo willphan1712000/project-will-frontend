@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import useMyContext from './context';
 import Search from './Search';
-// import styles from './dropdownSelect.module.css'
 import styles from './styles';
 
+/**
+ * Private Dropdown component -> handle dropdown list including search bar
+ */
 const Dropdown = () => {
     const { options, onChange, setOpen } = useMyContext();
     const [isVisible, setVisible] = useState<boolean>(true);

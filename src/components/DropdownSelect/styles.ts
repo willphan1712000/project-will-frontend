@@ -5,13 +5,18 @@ type Props =
     | 'element'
     | 'dropdown'
     | 'search_border'
-    | 'search';
+    | 'search'
+    | 'container';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
 };
 
 const styles: Styles = {
+    container: {
+        width: '100%',
+        position: 'relative',
+    },
     select_box: {
         borderRadius: '10px',
         border: 'solid 1px #dadada',
