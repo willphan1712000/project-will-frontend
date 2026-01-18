@@ -51,6 +51,7 @@ const useAuthClient = (
     return {
         isLoading,
         session: sessionRef.current,
+        auth,
     };
 };
 

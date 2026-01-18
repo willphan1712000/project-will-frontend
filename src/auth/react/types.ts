@@ -1,3 +1,5 @@
+import { AuthInterface } from '@';
+
 type SessionType =
     | {
           username?: string;
@@ -9,6 +11,7 @@ type SessionType =
 export type SessionContextType = {
     isLoading: boolean;
     session: SessionType;
+    auth: AuthInterface;
 };
 
 export default SessionType;
