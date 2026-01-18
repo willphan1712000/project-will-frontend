@@ -2,7 +2,7 @@ import { AuthInterface } from '..';
 import { SessionType } from '.';
 import { useEffect, useState } from 'react';
 import { SessionContextType } from './types';
-import handleAsync from '../../../utilities/handleAsync';
+import { tools } from '@';
 
 /**
  * Custom hook for auth
@@ -21,7 +21,7 @@ const useAuthClient = (
 
         const getSession = async () => {
             setLoading(true);
-            const { error, data: session } = await handleAsync(
+            const { error, data: session } = await tools.handleAsync(
                 auth.validate({})
             );
 

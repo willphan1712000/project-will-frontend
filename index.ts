@@ -36,6 +36,9 @@ export { default as Canvas } from './src/utilities/canvas/Canvas';
 export { default as ImageUtilities } from './src/utilities/canvas/Image';
 export { default as Transform } from './src/utilities/Transform/Transform';
 
+// Utility tools
+export { default as tools } from './src/utilities/tools/tools';
+
 // auth
 export type { AuthInterface } from './src/auth';
 export type { StorageInterface } from './src/auth';
@@ -43,4 +46,5 @@ export {
     useSession,
     SessionProvider,
     type SessionType,
+    useAuthClient,
 } from './src/auth/react';
