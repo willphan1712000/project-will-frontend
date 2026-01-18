@@ -35,3 +35,12 @@ export { default as ImageEditor } from './src/components/Image/ImageEditor/Image
 export { default as Canvas } from './src/utilities/canvas/Canvas';
 export { default as ImageUtilities } from './src/utilities/canvas/Image';
 export { default as Transform } from './src/utilities/Transform/Transform';
+
+// auth
+export type { AuthInterface } from './src/auth';
+export type { StorageInterface } from './src/auth';
+export {
+    useSession,
+    SessionProvider,
+    type SessionType,
+} from './src/auth/react';
