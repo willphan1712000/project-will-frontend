@@ -4,7 +4,13 @@ import { SessionContextType } from './types';
 
 /**
  * Custom Session Provider using React Context
- * - Copyright: Will Phan
+ *
+ * @example
+ *
+ * <SessionProvider value={useAuthClient(auth)}>
+ * ...
+ * </SessionProvider>
+ * // auth object implementing AuthInterface
  */
 const SessionProvider = ({
     value,

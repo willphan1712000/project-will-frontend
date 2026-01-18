@@ -1,6 +1,6 @@
 import { AuthInterface } from '..';
 import { SessionType } from '.';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SessionContextType } from './types';
 import { tools } from '@';
 
@@ -9,12 +9,18 @@ import { tools } from '@';
  * - Copyright: Will Phan
  * @param auth Auth object implementing AuthInterface
  * @returns SessionContextType
+ *
+ * @example
+ *
+ * const authClient = new auth() // auth class implements AuthInterface
+ * const { isLoading, session } = useAuthClient(authClient) // auth is an auth object
+ *
  */
 const useAuthClient = (
     auth: AuthInterface<SessionType>
 ): SessionContextType => {
-    const [session, setSession] = useState<SessionType | undefined>(undefined);
     const [isLoading, setLoading] = useState<boolean>(false);
+    const sessionRef = useRef<SessionType>(undefined);
 
     useEffect(() => {
         let is = true;
@@ -30,7 +36,7 @@ const useAuthClient = (
             }
 
             if (is) {
-                setSession(session);
+                sessionRef.current = session;
                 setLoading(false);
             }
         };
@@ -44,7 +50,7 @@ const useAuthClient = (
 
     return {
         isLoading,
-        session,
+        session: sessionRef.current,
     };
 };
 
