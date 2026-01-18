@@ -15,6 +15,7 @@ interface Props {
  *
  * @param value value of input
  * @param setValue set value function
+ * @param label set label
  * @param options options object containing focusColor property -> color when input is focused
  *
  * @example

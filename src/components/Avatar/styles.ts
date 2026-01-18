@@ -10,7 +10,7 @@ export const others = {
 
 const button: React.CSSProperties = {
     fontSize: '0.8rem',
-    border: 'none',
+    border: 'solid 1px black',
     borderRadius: '15px',
     padding: '3%',
     display: 'flex',
@@ -19,6 +19,7 @@ const button: React.CSSProperties = {
     alignItems: 'center',
     cursor: 'pointer',
     position: 'absolute',
+    backgroundColor: 'white',
 };
 
 const styles: Styles = {

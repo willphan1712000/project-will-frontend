@@ -13,7 +13,7 @@ import { tools } from '@';
  * @example
  *
  * const authClient = new auth() // auth class implements AuthInterface
- * const { isLoading, session } = useAuthClient(authClient) // auth is an auth object
+ * const { isLoading, session, auth } = useAuthClient(authClient) // auth is an auth object
  *
  */
 const useAuthClient = (
