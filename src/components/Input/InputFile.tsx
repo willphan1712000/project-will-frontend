@@ -71,9 +71,10 @@ const InputFile = ({
 
     return (
         <input
+            id={crypto.randomUUID()}
+            name="will-input"
             key={key}
             type="file"
-            {...props}
             onChange={(e) => {
                 const target = e.target as HTMLInputElement;
                 const file = target.files?.[0];
@@ -84,6 +85,7 @@ const InputFile = ({
                     onCancel();
                 }
             }}
+            {...props}
         />
     );
 };

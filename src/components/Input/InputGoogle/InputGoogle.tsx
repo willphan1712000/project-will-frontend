@@ -79,7 +79,8 @@ const InputGoogle = ({
     return (
         <div style={styles.container}>
             <input
-                id="will-input-google"
+                id={crypto.randomUUID()}
+                name="will-input-google"
                 ref={inputRef}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

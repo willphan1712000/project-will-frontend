@@ -76,7 +76,8 @@ const TextArea = ({
     return (
         <div style={styles.container}>
             <textarea
-                id="will-textarea"
+                id={crypto.randomUUID()}
+                name="will-textarea"
                 ref={inputRef}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
