@@ -1,6 +1,9 @@
 export interface IWElement {
-    /** Get Element */
-    getElement(): HTMLElement;
+    addEventListener<K extends keyof HTMLElementEventMap>(
+        type: K,
+        listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions
+    ): void;
 
     /**
      * Get element dimension
@@ -68,8 +71,12 @@ class WElement implements IWElement {
         this.element = element;
     }
 
-    getElement(): HTMLElement {
-        return this.element;
+    addEventListener<K extends keyof HTMLElementEventMap>(
+        type: K,
+        listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions
+    ): void {
+        this.element.addEventListener(type, listener, options);
     }
 
     drag(x: number, y: number): void {

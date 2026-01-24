@@ -1,3 +1,4 @@
+import { WMouseEvent, WTouchEvent } from './Events';
 import TransformOperation from './TransformOperation';
 import WElement, { IWElement } from './WElement';
 
@@ -30,6 +31,7 @@ export default class Transform {
     private rotate: IWElement;
 
     private transformOperation: TransformOperation;
+    private abortController: AbortController;
 
     constructor({
         container,
@@ -55,6 +57,7 @@ export default class Transform {
         this.rotate = new WElement(rotate);
 
         this.transformOperation = transformOperation;
+        this.abortController = new AbortController();
     }
 
     public initialize(): Transform {
@@ -64,10 +67,10 @@ export default class Transform {
         this.frame.setPosition('relative'); // origin coordinates for
         this.img.setPosition('absolute'); // this
 
-        this.transformOperation.subscribe(this.img);
-        this.transformOperation.subscribe(this.controller);
+        this.transformOperation.subscribe(this.controller); // register controller to transform operation
+        this.transformOperation.subscribe(this.img); // register img to transform operation
 
-        // this.reset()
+        this.transform(); // perform transform
 
         return this;
     }
@@ -93,12 +96,12 @@ export default class Transform {
     }
 
     public reset(): Transform {
-        const { x, y, width, height } = this.frame.getDimension();
-        const { height: imgHeight, ratio } = this.img.getDimension();
+        const { width } = this.frame.getDimension();
+        const { ratio } = this.img.getDimension();
 
         this.transformOperation.setDimension({
             x: 0,
-            y: 0,
+            y: width / 2 - width / ratio / 2,
             angle: 0,
             width,
             height: width / ratio,
@@ -108,10 +111,19 @@ export default class Transform {
     }
 
     public transform(): Transform {
+        this.transformOperation.addEventListener(
+            'mousedown',
+            (e) => new WMouseEvent().drag(e, this.transformOperation),
+            { signal: this.abortController.signal, capture: true }
+        );
+
+        // this.transformOperation.addEventListener('touchstart', e => (new WTouchEvent).drag(e, this.transformOperation), { signal: this.abortController.signal })
+
         return this;
     }
 
     public cleanup(): Transform {
+        this.abortController.abort();
         return this;
     }
 }

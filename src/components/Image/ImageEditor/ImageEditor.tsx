@@ -132,6 +132,11 @@ const ImageEditor = ({
     useEffect(() => {
         isOpen ? createTransform() : setTransform(undefined);
         handleWindowScroll(isOpen);
+
+        return () => {
+            transform?.cleanup();
+            setTransform(undefined);
+        };
     }, [isOpen]);
 
     if (!isOpen) return;

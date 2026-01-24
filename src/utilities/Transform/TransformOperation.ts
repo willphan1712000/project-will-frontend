@@ -15,11 +15,17 @@ class TransformOperation implements IWElement {
     private height: number = 0;
 
     setPosition(position: 'fixed' | 'relative' | 'absolute' | 'unset'): void {
-        throw new Error('Method not implemented.');
+        this.list.forEach((element) => {
+            element.setPosition(position);
+        });
     }
 
-    getElement(): HTMLElement {
-        throw new Error('Method not implemented.');
+    addEventListener<K extends keyof HTMLElementEventMap>(
+        type: K,
+        listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions
+    ): void {
+        this.list[0].addEventListener(type, listener, options);
     }
 
     setDimension({

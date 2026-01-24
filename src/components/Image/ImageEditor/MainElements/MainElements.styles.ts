@@ -60,7 +60,7 @@ const MainElementStyles: MainElementStyles = {
         top: 0,
         left: 0,
         display: 'block',
-        zIndex: 1,
+        zIndex: 0,
     },
     // controllerContainer: {
     //     position: 'absolute',
@@ -71,7 +71,6 @@ const MainElementStyles: MainElementStyles = {
         position: 'absolute',
         userSelect: 'none',
         border: 'solid 3px #6924d5',
-        zIndex: 1,
         top: 0,
         left: 0,
     },
