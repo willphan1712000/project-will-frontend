@@ -67,6 +67,8 @@ export default class Transform {
         this.transformOperation.subscribe(this.img);
         this.transformOperation.subscribe(this.controller);
 
+        // this.reset()
+
         return this;
     }
 
@@ -95,8 +97,8 @@ export default class Transform {
         const { height: imgHeight, ratio } = this.img.getDimension();
 
         this.transformOperation.setDimension({
-            x,
-            y: y + height / 2 - imgHeight / 2,
+            x: 0,
+            y: 0,
             angle: 0,
             width,
             height: width / ratio,

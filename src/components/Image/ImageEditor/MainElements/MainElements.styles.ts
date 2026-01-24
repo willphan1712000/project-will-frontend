@@ -25,10 +25,11 @@ const resize: React.CSSProperties = {
 const MainElementStyles: MainElementStyles = {
     container: {
         position: 'relative',
-        border: 'none',
-        borderRadius: '10px',
+        border: 'solid 4px #000',
+        borderStyle: 'dashed',
+        borderRadius: '50%',
         width: '100%',
-        maxWidth: '500px',
+        maxWidth: '508px',
         aspectRatio: 1,
         display: 'flex',
         justifyContent: 'center',
@@ -36,12 +37,10 @@ const MainElementStyles: MainElementStyles = {
         boxSizing: 'border-box',
     },
     frame: {
+        borderRadius: '50%',
         boxSizing: 'border-box',
         padding: '50px',
         backgroundColor: 'white',
-        border: 'solid 4px #000',
-        borderStyle: 'dashed',
-        borderRadius: '50%',
         overflow: 'hidden',
         maxWidth: '500px',
         width: '100%',
@@ -57,13 +56,11 @@ const MainElementStyles: MainElementStyles = {
     img: {
         objectFit: 'contain',
         position: 'absolute',
-        transformOrigin: 'top left',
         userSelect: 'none',
         top: 0,
         left: 0,
         display: 'block',
         zIndex: 1,
-        // transform: 'translate(-50%, -50%)',
     },
     // controllerContainer: {
     //     position: 'absolute',
@@ -71,14 +68,12 @@ const MainElementStyles: MainElementStyles = {
     //     userSelect: 'none',
     // },
     controller: {
-        transformOrigin: 'top left',
         position: 'absolute',
         userSelect: 'none',
         border: 'solid 3px #6924d5',
         zIndex: 1,
         top: 0,
         left: 0,
-        // transform: 'translate(-50%, -50%)',
     },
     resizeDown: {
         backgroundColor: '#6924d5',

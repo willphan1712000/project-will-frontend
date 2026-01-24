@@ -45,6 +45,8 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                     }
                     onMouseDown={() => settopLeft(true)}
                     onMouseUp={() => settopLeft(false)}
+                    onTouchStart={() => settopLeft(true)}
+                    onTouchEnd={() => settopLeft(false)}
                 >
                     <div style={topLeft ? styles.buttonBackground : {}}></div>
                 </div>
@@ -61,6 +63,8 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                     }
                     onMouseDown={() => settopRight(true)}
                     onMouseUp={() => settopRight(false)}
+                    onTouchStart={() => settopRight(true)}
+                    onTouchEnd={() => settopRight(false)}
                 >
                     <div style={topRight ? styles.buttonBackground : {}}></div>
                 </div>
@@ -77,6 +81,8 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                     }
                     onMouseDown={() => setbottomLeft(true)}
                     onMouseUp={() => setbottomLeft(false)}
+                    onTouchStart={() => setbottomLeft(true)}
+                    onTouchEnd={() => setbottomLeft(false)}
                 >
                     <div
                         style={bottomLeft ? styles.buttonBackground : {}}
@@ -95,6 +101,8 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                     }
                     onMouseDown={() => setbottomRight(true)}
                     onMouseUp={() => setbottomRight(false)}
+                    onTouchStart={() => setbottomRight(true)}
+                    onTouchEnd={() => setbottomRight(false)}
                 >
                     <div
                         style={bottomRight ? styles.buttonBackground : {}}

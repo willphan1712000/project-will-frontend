@@ -62,7 +62,7 @@ const ImageEditor = ({
         return src;
     }, [isNew]);
 
-    async function createTransform() {
+    function createTransform() {
         if (!frame.current || !img.current) return;
 
         const transform = new Transform({
@@ -77,7 +77,7 @@ const ImageEditor = ({
             rotate: rotate.current!,
             transformOperation: new TransformOperation(),
         });
-        await transform.initialize();
+        transform.initialize();
 
         if (transformState.current) {
             transform.setState(transformState.current);

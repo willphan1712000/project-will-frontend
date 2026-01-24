@@ -100,18 +100,20 @@ class WElement implements IWElement {
         width?: number;
         height?: number;
     }): void {
-        if (!this.element) return;
-        this.element.style.left = x ? x + 'px' : this.element.style.left;
-        this.element.style.top = y ? y + 'px' : this.element.style.top;
-        this.element.style.rotate = angle
-            ? angle + 'deg'
-            : this.element.style.rotate;
-        this.element.style.width = width
-            ? width + 'px'
-            : this.element.style.width;
-        this.element.style.height = height
-            ? height + 'px'
-            : this.element.style.height;
+        this.element.style.left =
+            x !== undefined
+                ? (x - this.element.clientLeft).toString() + 'px'
+                : this.element.style.left;
+        this.element.style.top =
+            y !== undefined
+                ? (y - this.element.clientTop).toString() + 'px'
+                : this.element.style.top;
+        this.element.style.rotate =
+            angle !== undefined ? angle + 'deg' : this.element.style.rotate;
+        this.element.style.width =
+            width !== undefined ? width + 'px' : this.element.style.width;
+        this.element.style.height =
+            height !== undefined ? height + 'px' : this.element.style.height;
     }
 
     public getDimension() {
