@@ -47,7 +47,33 @@ export class WMouseEvent implements IWEvent {
 
 export class WTouchEvent implements IWEvent {
     drag(e: TouchEvent, transformOperation: IWElement): void {
-        throw new Error('Method not implemented.');
+        e.stopPropagation();
+
+        const controler = new AbortController();
+        const { x: initX, y: initY } = transformOperation.getDimension();
+
+        let mousePressX = e.touches[0].clientX;
+        let mousePressY = e.touches[0].clientY;
+
+        const onTouchMove = (event: TouchEvent) => {
+            let x = event.touches[0].clientX;
+            let y = event.touches[0].clientY;
+            var posX = initX + (x - mousePressX);
+            var posY = initY + (y - mousePressY);
+            transformOperation.setDimension({ x: posX, y: posY });
+        };
+
+        const onTouchEnd = () => {
+            controler.abort();
+        };
+
+        window.addEventListener('touchmove', onTouchMove, {
+            signal: controler.signal,
+            passive: true,
+        });
+        window.addEventListener('touchend', onTouchEnd, {
+            signal: controler.signal,
+        });
     }
     rotate(e: TouchEvent, transformOperation: IWElement): void {
         throw new Error('Method not implemented.');

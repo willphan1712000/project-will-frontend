@@ -117,7 +117,15 @@ export default class Transform {
             { signal: this.abortController.signal, capture: true }
         );
 
-        // this.transformOperation.addEventListener('touchstart', e => (new WTouchEvent).drag(e, this.transformOperation), { signal: this.abortController.signal })
+        this.transformOperation.addEventListener(
+            'touchstart',
+            (e) => new WTouchEvent().drag(e, this.transformOperation),
+            {
+                signal: this.abortController.signal,
+                capture: true,
+                passive: true,
+            }
+        );
 
         return this;
     }

@@ -1,6 +1,6 @@
-import { SetStateAction, useEffect, useState } from 'react';
-import styles from './MainElements.styles';
+import { useEffect, useState } from 'react';
 import { FaArrowRotateLeft } from 'react-icons/fa6';
+import styles from './MainElements.styles';
 
 interface Props {
     refs: {
