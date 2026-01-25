@@ -6,7 +6,8 @@ type ControllerButtons =
     | 'bottomRight'
     | 'resizeDown'
     | 'rotate'
-    | 'buttonBackground';
+    | 'buttonBackground'
+    | 'buttonBackgroundDown';
 
 type MainElementStyles = {
     [K in ElementStyle | ControllerButtons]: React.CSSProperties;
@@ -19,6 +20,20 @@ const resize: React.CSSProperties = {
     height: '20px',
     borderRadius: '50%',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+    transition: 'all .1s linear',
+};
+
+const background: React.CSSProperties = {
+    visibility: 'hidden',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+    zIndex: -1,
     transition: 'all .1s linear',
 };
 
@@ -75,6 +90,7 @@ const MainElementStyles: MainElementStyles = {
         left: 0,
     },
     resizeDown: {
+        color: 'white',
         backgroundColor: '#6924d5',
     },
     topLeft: {
@@ -98,25 +114,19 @@ const MainElementStyles: MainElementStyles = {
         right: '-10px',
     },
     buttonBackground: {
-        backgroundColor: '#f0f0f0a8',
-        position: 'absolute',
-        top: '-15px',
-        left: '-15px',
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-        zIndex: -1,
-        transition: 'all .1s linear',
+        ...background,
+    },
+    buttonBackgroundDown: {
+        ...background,
+        visibility: 'visible',
     },
     rotate: {
-        position: 'absolute',
+        ...resize,
         top: '-50px',
-        left: 'calc(50% - 15px)',
         width: '30px',
         height: '30px',
-        backgroundColor: '#fff',
-        borderRadius: '50%',
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

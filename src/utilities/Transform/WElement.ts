@@ -45,20 +45,20 @@ export interface IWElement {
      * @param x
      * @param y
      */
-    drag(x: number, y: number): void;
+    drag(x?: number, y?: number): void;
 
     /**
      * Perform rotation
      * @param angle
      */
-    rotate(angle: number): void;
+    rotate(angle?: number): void;
 
     /**
      * Perform resize
      * @param width
      * @param height
      */
-    resize(width: number, height: number): void;
+    resize(width?: number, height?: number): void;
 }
 
 /**
@@ -79,15 +79,26 @@ class WElement implements IWElement {
         this.element.addEventListener(type, listener, options);
     }
 
-    drag(x: number, y: number): void {
-        this.setDimension({ x, y });
+    drag(x?: number, y?: number): void {
+        this.element.style.left =
+            x !== undefined
+                ? (x - this.element.clientLeft).toString() + 'px'
+                : this.element.style.left;
+        this.element.style.top =
+            y !== undefined
+                ? (y - this.element.clientTop).toString() + 'px'
+                : this.element.style.top;
     }
 
-    rotate(angle: number): void {
-        this.setDimension({ angle });
+    rotate(angle?: number): void {
+        this.element.style.rotate =
+            angle !== undefined ? angle + 'deg' : this.element.style.rotate;
     }
-    resize(width: number, height?: number): void {
-        this.setDimension({ width, height });
+    resize(width?: number, height?: number): void {
+        this.element.style.width =
+            width !== undefined ? width + 'px' : this.element.style.width;
+        this.element.style.height =
+            height !== undefined ? height + 'px' : this.element.style.height;
     }
 
     setPosition(position: 'fixed' | 'relative' | 'absolute' | 'unset'): void {
@@ -107,20 +118,9 @@ class WElement implements IWElement {
         width?: number;
         height?: number;
     }): void {
-        this.element.style.left =
-            x !== undefined
-                ? (x - this.element.clientLeft).toString() + 'px'
-                : this.element.style.left;
-        this.element.style.top =
-            y !== undefined
-                ? (y - this.element.clientTop).toString() + 'px'
-                : this.element.style.top;
-        this.element.style.rotate =
-            angle !== undefined ? angle + 'deg' : this.element.style.rotate;
-        this.element.style.width =
-            width !== undefined ? width + 'px' : this.element.style.width;
-        this.element.style.height =
-            height !== undefined ? height + 'px' : this.element.style.height;
+        this.drag(x, y);
+        this.rotate(angle);
+        this.resize(width, height);
     }
 
     public getDimension() {

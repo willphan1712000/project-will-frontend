@@ -5,6 +5,8 @@ import MainElements from './MainElements/MainElements';
 import Instruction from './Instruction';
 import TransformOperation from '@/src/utilities/Transform/TransformOperation';
 
+const transformOperation = new TransformOperation();
+
 interface Props {
     src?: string;
     setSrc?: (src?: string) => void;
@@ -75,7 +77,7 @@ const ImageEditor = ({
             bottomLeft: bottomLeft.current!,
             bottomRight: bottomRight.current!,
             rotate: rotate.current!,
-            transformOperation: new TransformOperation(),
+            transformOperation,
         });
         transform.initialize();
 
@@ -93,7 +95,7 @@ const ImageEditor = ({
 
         const canvasInstance = new Canvas();
         const { canvas, context } = canvasInstance.createCanvas(700, 700);
-        const { x, y, angle } = transform.getState();
+        const { x, y, angle, width, height } = transform.getState();
         transformState.current = transform.getState();
 
         const { src } = canvasInstance.drawImage(
@@ -104,8 +106,8 @@ const ImageEditor = ({
             1,
             angle,
             canvas,
-            frame.current.clientWidth,
-            frame.current.clientHeight
+            width,
+            height
         );
 
         return src;
@@ -134,7 +136,6 @@ const ImageEditor = ({
         handleWindowScroll(isOpen);
 
         return () => {
-            transform?.cleanup();
             setTransform(undefined);
         };
     }, [isOpen]);
@@ -157,6 +158,7 @@ const ImageEditor = ({
                     rotate,
                 }}
                 originalSrc={originalSrc}
+                transformOperation={transformOperation}
             />
 
             <div style={styles.buttons}>

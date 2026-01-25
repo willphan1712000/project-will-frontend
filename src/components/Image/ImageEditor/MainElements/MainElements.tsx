@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { FaArrowRotateLeft } from 'react-icons/fa6';
 import styles from './MainElements.styles';
+import TransformOperation from '@/src/utilities/Transform/TransformOperation';
+import Events from '@/src/utilities/Transform/Events';
 
 interface Props {
     refs: {
@@ -15,27 +17,25 @@ interface Props {
         rotate: React.RefObject<HTMLDivElement | null>;
     };
     originalSrc?: string;
+    transformOperation: TransformOperation;
 }
 
 /**
  * Implement all main elements for image editor
  * - The container element creates root coordinates to all other elements
- * - Mousedown event and Mouseup event are using true capture so that these elements are applied before the controller being dragged. the controller later on will also apply true capture for this purpose
  */
-const MainElements = ({ refs, originalSrc }: Props) => {
+const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
+    const mouseEvent = new Events.WMouseEvent(transformOperation);
+    const touchEvent = new Events.WTouchEvent(transformOperation);
+
     const [topLeft, settopLeft] = useState<boolean>(false);
     const [topRight, settopRight] = useState<boolean>(false);
     const [bottomLeft, setbottomLeft] = useState<boolean>(false);
     const [bottomRight, setbottomRight] = useState<boolean>(false);
+    const [rotate, setRotate] = useState<boolean>(false);
 
-    const handleEvent = (
-        e:
-            | React.MouseEvent<HTMLDivElement, MouseEvent>
-            | React.TouchEvent<HTMLDivElement>,
-        func: void
-    ) => {
-        e.stopPropagation();
-        func;
+    const handleBackground = (value: boolean) => {
+        return value ? styles.buttonBackgroundDown : styles.buttonBackground;
     };
 
     useEffect(() => {
@@ -46,6 +46,7 @@ const MainElements = ({ refs, originalSrc }: Props) => {
             settopRight(false);
             setbottomLeft(false);
             setbottomRight(false);
+            setRotate(false);
         };
 
         window.addEventListener(
@@ -74,7 +75,12 @@ const MainElements = ({ refs, originalSrc }: Props) => {
             <div ref={refs.frame} style={styles.frame}>
                 <img src={originalSrc} style={styles.img} ref={refs.img} />
             </div>
-            <div ref={refs.controller} style={styles.controller}>
+            <div
+                style={styles.controller}
+                ref={refs.controller}
+                onMouseDown={(e) => mouseEvent.drag(e)}
+                onTouchStart={(e) => touchEvent.drag(e)}
+            >
                 <div
                     ref={refs.topLeft}
                     style={
@@ -85,12 +91,14 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                               }
                             : styles.topLeft
                     }
-                    onMouseDownCapture={(e) => handleEvent(e, settopLeft(true))}
-                    onTouchStartCapture={(e) =>
-                        handleEvent(e, settopLeft(true))
-                    }
+                    onMouseDown={(e) => {
+                        settopLeft(true);
+                    }}
+                    onTouchStart={(e) => {
+                        settopLeft(true);
+                    }}
                 >
-                    <div style={topLeft ? styles.buttonBackground : {}}></div>
+                    <div style={handleBackground(topLeft)}></div>
                 </div>
 
                 <div
@@ -103,14 +111,14 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                               }
                             : styles.topRight
                     }
-                    onMouseDownCapture={(e) =>
-                        handleEvent(e, settopRight(true))
-                    }
-                    onTouchStartCapture={(e) =>
-                        handleEvent(e, settopRight(true))
-                    }
+                    onMouseDown={(e) => {
+                        settopRight(true);
+                    }}
+                    onTouchStart={(e) => {
+                        settopRight(true);
+                    }}
                 >
-                    <div style={topRight ? styles.buttonBackground : {}}></div>
+                    <div style={handleBackground(topRight)}></div>
                 </div>
 
                 <div
@@ -123,16 +131,14 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                               }
                             : styles.bottomLeft
                     }
-                    onMouseDownCapture={(e) =>
-                        handleEvent(e, setbottomLeft(true))
-                    }
-                    onTouchStartCapture={(e) =>
-                        handleEvent(e, setbottomLeft(true))
-                    }
+                    onMouseDown={(e) => {
+                        setbottomLeft(true);
+                    }}
+                    onTouchStart={(e) => {
+                        setbottomLeft(true);
+                    }}
                 >
-                    <div
-                        style={bottomLeft ? styles.buttonBackground : {}}
-                    ></div>
+                    <div style={handleBackground(bottomLeft)}></div>
                 </div>
 
                 <div
@@ -145,20 +151,34 @@ const MainElements = ({ refs, originalSrc }: Props) => {
                               }
                             : styles.bottomRight
                     }
-                    onMouseDownCapture={(e) =>
-                        handleEvent(e, setbottomRight(true))
-                    }
-                    onTouchStartCapture={(e) =>
-                        handleEvent(e, setbottomRight(true))
-                    }
+                    onMouseDown={(e) => {
+                        setbottomRight(true);
+                    }}
+                    onTouchStart={(e) => {
+                        settopRight(true);
+                    }}
                 >
-                    <div
-                        style={bottomRight ? styles.buttonBackground : {}}
-                    ></div>
+                    <div style={handleBackground(bottomRight)}></div>
                 </div>
 
-                <div ref={refs.rotate} style={styles.rotate}>
-                    <FaArrowRotateLeft />
+                <div
+                    ref={refs.rotate}
+                    style={
+                        rotate
+                            ? { ...styles.rotate, ...styles.resizeDown }
+                            : styles.rotate
+                    }
+                    onMouseDown={(e) => {
+                        setRotate(true);
+                        mouseEvent.rotate(e);
+                    }}
+                    onTouchStart={(e) => {
+                        setRotate(true);
+                        touchEvent.rotate(e);
+                    }}
+                >
+                    <div style={handleBackground(rotate)}></div>
+                    <FaArrowRotateLeft size="15" />
                 </div>
             </div>
         </div>

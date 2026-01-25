@@ -1,4 +1,3 @@
-import { WMouseEvent, WTouchEvent } from './Events';
 import TransformOperation from './TransformOperation';
 import WElement, { IWElement } from './WElement';
 
@@ -16,7 +15,11 @@ interface Props {
 }
 
 /**
- * Transform entity takes all these properties to perform smoothly
+ * Transform is responsible for setting dimension correctly for editor
+ * - Intialize state
+ * - Get state
+ * - Set state
+ * - Reset state
  */
 export default class Transform {
     private frame: IWElement;
@@ -31,7 +34,6 @@ export default class Transform {
     private rotate: IWElement;
 
     private transformOperation: TransformOperation;
-    private abortController: AbortController;
 
     constructor({
         container,
@@ -57,7 +59,6 @@ export default class Transform {
         this.rotate = new WElement(rotate);
 
         this.transformOperation = transformOperation;
-        this.abortController = new AbortController();
     }
 
     public initialize(): Transform {
@@ -67,10 +68,11 @@ export default class Transform {
         this.frame.setPosition('relative'); // origin coordinates for
         this.img.setPosition('absolute'); // this
 
+        const { x, y } = this.container.getDimension(); // get origin relative to the viewport
+        this.transformOperation.setOrigin({ x, y }); // set origin
+
         this.transformOperation.subscribe(this.controller); // register controller to transform operation
         this.transformOperation.subscribe(this.img); // register img to transform operation
-
-        this.transform(); // perform transform
 
         return this;
     }
@@ -107,31 +109,6 @@ export default class Transform {
             height: width / ratio,
         });
 
-        return this;
-    }
-
-    public transform(): Transform {
-        this.transformOperation.addEventListener(
-            'mousedown',
-            (e) => new WMouseEvent().drag(e, this.transformOperation),
-            { signal: this.abortController.signal, capture: true }
-        );
-
-        this.transformOperation.addEventListener(
-            'touchstart',
-            (e) => new WTouchEvent().drag(e, this.transformOperation),
-            {
-                signal: this.abortController.signal,
-                capture: true,
-                passive: true,
-            }
-        );
-
-        return this;
-    }
-
-    public cleanup(): Transform {
-        this.abortController.abort();
         return this;
     }
 }

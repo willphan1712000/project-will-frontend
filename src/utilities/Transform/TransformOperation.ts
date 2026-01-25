@@ -14,6 +14,9 @@ class TransformOperation implements IWElement {
     private width: number = 0;
     private height: number = 0;
 
+    private xOrigin: number = 0;
+    private yOrigin: number = 0;
+
     setPosition(position: 'fixed' | 'relative' | 'absolute' | 'unset'): void {
         this.list.forEach((element) => {
             element.setPosition(position);
@@ -41,18 +44,18 @@ class TransformOperation implements IWElement {
         width?: number;
         height?: number;
     }): void {
-        this.x = x ? x : this.x;
-        this.y = y ? y : this.y;
-        this.angle = angle ? angle : this.angle;
-        this.width = width ? width : this.width;
-        this.height = height ? height : this.height;
+        this.x = x !== undefined ? x : this.x;
+        this.y = y !== undefined ? y : this.y;
+        this.angle = angle !== undefined ? angle : this.angle;
+        this.width = width !== undefined ? width : this.width;
+        this.height = height !== undefined ? height : this.height;
 
         this.drag(x, y);
         this.rotate(angle);
         this.resize(width, height);
     }
 
-    public getDimension(): {
+    getDimension(): {
         x: number;
         y: number;
         angle: number;
@@ -80,18 +83,32 @@ class TransformOperation implements IWElement {
 
     drag(x?: number, y?: number): void {
         this.list.forEach((element) => {
-            element.setDimension({ x, y });
+            element.drag(x, y);
         });
     }
     rotate(angle?: number): void {
         this.list.forEach((element) => {
-            element.setDimension({ angle });
+            element.rotate(angle);
         });
     }
     resize(width?: number, height?: number): void {
         this.list.forEach((element) => {
-            element.setDimension({ width, height });
+            element.resize(width, height);
         });
+    }
+
+    handleElementOffScreen(): void {}
+
+    setOrigin({ x, y }: { x: number; y: number }): void {
+        this.xOrigin = x;
+        this.yOrigin = y;
+    }
+
+    getOrigin(): { x: number; y: number } {
+        return {
+            x: this.xOrigin,
+            y: this.yOrigin,
+        };
     }
 }
 
