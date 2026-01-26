@@ -29,7 +29,6 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
     const mouseEvent = new WMouseEvent(transformOperation);
     const touchEvent = new WTouchEvent(transformOperation);
 
-    const [drag, setDrag] = useState<boolean>(false);
     const [topLeft, settopLeft] = useState<boolean>(false);
     const [topRight, settopRight] = useState<boolean>(false);
     const [bottomLeft, setbottomLeft] = useState<boolean>(false);
@@ -37,7 +36,7 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
     const [rotate, setRotate] = useState<boolean>(false);
     const [reRender, triggierReRender] = useState<boolean>(false);
 
-    const { x, y, angle, width, height } = transformOperation.getDimension();
+    const { angle, width, height } = transformOperation.getDimension();
 
     const handleBackground = (value: boolean) => {
         return value ? styles.buttonBackgroundDown : styles.buttonBackground;
