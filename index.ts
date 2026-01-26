@@ -48,3 +48,6 @@ export {
     type SessionType,
     useAuthClient,
 } from './src/auth/react';
+
+// Math
+export { default as LinearAlgebra } from './src/utilities/math/LinearAlgebra';

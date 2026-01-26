@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { FaArrowRotateLeft } from 'react-icons/fa6';
 import styles from './MainElements.styles';
 import TransformOperation from '@/src/utilities/Transform/TransformOperation';
-import Events from '@/src/utilities/Transform/Events';
+import WMouseEvent from '@/src/utilities/Transform/Events/MouseEvents';
+import WTouchEvent from '@/src/utilities/Transform/Events/TouchEvents';
 
 interface Props {
     refs: {
@@ -25,8 +26,8 @@ interface Props {
  * - The container element creates root coordinates to all other elements
  */
 const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
-    const mouseEvent = new Events.WMouseEvent(transformOperation);
-    const touchEvent = new Events.WTouchEvent(transformOperation);
+    const mouseEvent = new WMouseEvent(transformOperation);
+    const touchEvent = new WTouchEvent(transformOperation);
 
     const [topLeft, settopLeft] = useState<boolean>(false);
     const [topRight, settopRight] = useState<boolean>(false);
@@ -93,9 +94,15 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                     }
                     onMouseDown={(e) => {
                         settopLeft(true);
+                        mouseEvent.resize(e, {
+                            topLeft: true,
+                        });
                     }}
                     onTouchStart={(e) => {
                         settopLeft(true);
+                        touchEvent.resize(e, {
+                            topLeft: true,
+                        });
                     }}
                 >
                     <div style={handleBackground(topLeft)}></div>
@@ -113,9 +120,15 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                     }
                     onMouseDown={(e) => {
                         settopRight(true);
+                        mouseEvent.resize(e, {
+                            topRight: true,
+                        });
                     }}
                     onTouchStart={(e) => {
                         settopRight(true);
+                        touchEvent.resize(e, {
+                            topRight: true,
+                        });
                     }}
                 >
                     <div style={handleBackground(topRight)}></div>
@@ -133,9 +146,15 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                     }
                     onMouseDown={(e) => {
                         setbottomLeft(true);
+                        mouseEvent.resize(e, {
+                            bottomLeft: true,
+                        });
                     }}
                     onTouchStart={(e) => {
                         setbottomLeft(true);
+                        touchEvent.resize(e, {
+                            bottomLeft: true,
+                        });
                     }}
                 >
                     <div style={handleBackground(bottomLeft)}></div>
@@ -153,9 +172,15 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                     }
                     onMouseDown={(e) => {
                         setbottomRight(true);
+                        mouseEvent.resize(e, {
+                            bottomRight: true,
+                        });
                     }}
                     onTouchStart={(e) => {
-                        settopRight(true);
+                        setbottomRight(true);
+                        touchEvent.resize(e, {
+                            bottomRight: true,
+                        });
                     }}
                 >
                     <div style={handleBackground(bottomRight)}></div>
