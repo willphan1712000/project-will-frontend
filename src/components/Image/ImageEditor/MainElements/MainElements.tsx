@@ -29,11 +29,15 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
     const mouseEvent = new WMouseEvent(transformOperation);
     const touchEvent = new WTouchEvent(transformOperation);
 
+    const [drag, setDrag] = useState<boolean>(false);
     const [topLeft, settopLeft] = useState<boolean>(false);
     const [topRight, settopRight] = useState<boolean>(false);
     const [bottomLeft, setbottomLeft] = useState<boolean>(false);
     const [bottomRight, setbottomRight] = useState<boolean>(false);
     const [rotate, setRotate] = useState<boolean>(false);
+    const [reRender, triggierReRender] = useState<boolean>(false);
+
+    const { x, y, angle, width, height } = transformOperation.getDimension();
 
     const handleBackground = (value: boolean) => {
         return value ? styles.buttonBackgroundDown : styles.buttonBackground;
@@ -70,6 +74,25 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
             controller.abort();
         };
     }, []);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        window.addEventListener(
+            'mousemove',
+            () => triggierReRender((prev) => !prev),
+            { signal: controller.signal }
+        );
+        window.addEventListener(
+            'touchmove',
+            () => triggierReRender((prev) => !prev),
+            { signal: controller.signal }
+        );
+
+        return () => {
+            controller.abort();
+        };
+    }, [reRender]);
 
     return (
         <div ref={refs.container} style={styles.container}>
@@ -204,6 +227,26 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                 >
                     <div style={handleBackground(rotate)}></div>
                     <FaArrowRotateLeft size="15" />
+                    {rotate && (
+                        <p
+                            style={{
+                                ...styles.label,
+                                rotate: `${-angle.toFixed(0)}deg`,
+                            }}
+                        >
+                            {angle.toFixed(0)}°
+                        </p>
+                    )}
+                    {(topLeft || topRight || bottomLeft || bottomRight) && (
+                        <p
+                            style={{
+                                ...styles.label,
+                                rotate: `${-angle.toFixed(0)}deg`,
+                            }}
+                        >
+                            w: {width.toFixed(0)}px, h: {height.toFixed(0)}px
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ type ControllerButtons =
     | 'bottomRight'
     | 'resizeDown'
     | 'rotate'
+    | 'label'
     | 'buttonBackground'
     | 'buttonBackgroundDown';
 
@@ -63,11 +64,6 @@ const MainElementStyles: MainElementStyles = {
         aspectRatio: 1 / 1,
         position: 'relative',
     },
-    // wrapper: {
-    //     position: 'absolute',
-    //     transformOrigin: 'top left',
-    //     userSelect: 'none',
-    // },
     img: {
         objectFit: 'contain',
         position: 'absolute',
@@ -77,11 +73,6 @@ const MainElementStyles: MainElementStyles = {
         display: 'block',
         zIndex: 0,
     },
-    // controllerContainer: {
-    //     position: 'absolute',
-    //     transformOrigin: 'top left',
-    //     userSelect: 'none',
-    // },
     controller: {
         position: 'absolute',
         userSelect: 'none',
@@ -130,6 +121,16 @@ const MainElementStyles: MainElementStyles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    label: {
+        position: 'absolute',
+        top: '-200%',
+        left: '50%',
+        transformOrigin: 'left',
+        transform: 'translate(-50%, 0)',
+        margin: 0,
+        color: 'black',
+        width: 'max-content',
     },
 };
 
