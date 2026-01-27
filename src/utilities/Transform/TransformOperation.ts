@@ -1,3 +1,4 @@
+import TransformOperationExtension from './TransformOperationExtension';
 import { IWElement } from './WElement';
 
 /**
@@ -5,34 +6,17 @@ import { IWElement } from './WElement';
  * - Design pattern used here is Composite Pattern
  * - Implement IWElement as group of IWElement
  */
-class TransformOperation implements IWElement {
+class TransformOperation
+    extends TransformOperationExtension
+    implements IWElement
+{
     private list: IWElement[] = [];
-    private sideEffectList: IWElement[] = [];
 
     private x: number = 0;
     private y: number = 0;
     private angle: number = 0;
     private width: number = 0;
     private height: number = 0;
-
-    private xOrigin: number = 0;
-    private yOrigin: number = 0;
-
-    private isSideEffect: boolean = false;
-
-    runSideEffectHandler(): void {
-        this.sideEffectList.forEach((element) => {
-            element.runSideEffectHandler();
-        });
-    }
-
-    setSideEffectState(value: boolean = false) {
-        this.isSideEffect = value;
-    }
-
-    getSideEffectState() {
-        return this.isSideEffect;
-    }
 
     setPosition(position: 'fixed' | 'relative' | 'absolute' | 'unset'): void {
         this.list.forEach((element) => {
@@ -98,10 +82,6 @@ class TransformOperation implements IWElement {
         this.list.push(element);
     }
 
-    subscribeSideEffect(element: IWElement): void {
-        this.sideEffectList.push(element);
-    }
-
     drag(x?: number, y?: number): void {
         this.list.forEach((element) => {
             element.drag(x, y);
@@ -116,18 +96,6 @@ class TransformOperation implements IWElement {
         this.list.forEach((element) => {
             element.resize(width, height);
         });
-    }
-
-    setOrigin({ x, y }: { x: number; y: number }): void {
-        this.xOrigin = x;
-        this.yOrigin = y;
-    }
-
-    getOrigin(): { x: number; y: number } {
-        return {
-            x: this.xOrigin,
-            y: this.yOrigin,
-        };
     }
 }
 

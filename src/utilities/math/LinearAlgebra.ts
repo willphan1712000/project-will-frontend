@@ -1,3 +1,9 @@
+/**
+ * Linear Algebra library - Will Phan
+ * - Vector used in this library will be 3 dimension vector = [x, y, 1] : number[]
+ * - Accessing x by using vector[0]
+ * - Accessing y by using vector[1]
+ */
 const LinearAlgebra = {
     /**
      * Translate a point by a vector

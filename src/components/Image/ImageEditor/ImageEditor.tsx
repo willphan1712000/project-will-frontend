@@ -93,22 +93,25 @@ const ImageEditor = ({
     function handleCanvasToSrc() {
         if (!frame.current || !img.current || !transform) return;
 
-        const canvasInstance = new Canvas();
-        const { canvas, context } = canvasInstance.createCanvas(700, 700);
+        const canvas = new Canvas(700, 700);
         const { x, y, angle, width, height } = transform.getState();
+        const { width: containerWidth, height: containerHeight } =
+            transformOperation.getOrigin();
+
         transformState.current = transform.getState();
 
-        const { src } = canvasInstance.drawImage(
-            img.current,
-            context,
+        canvas.drawImage({
+            e: img.current,
             x,
             y,
-            1,
             angle,
-            canvas,
             width,
-            height
-        );
+            height,
+            containerHeight,
+            containerWidth,
+        });
+
+        const { src } = canvas.get();
 
         return src;
     }

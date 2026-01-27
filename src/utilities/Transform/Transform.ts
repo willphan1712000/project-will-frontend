@@ -93,8 +93,8 @@ export default class Transform {
         this.frame.setPosition('relative'); // origin coordinates for
         this.img.setPosition('absolute'); // this
 
-        const { x, y } = this.container.getDimension(); // get origin relative to the viewport
-        this.transformOperation.setOrigin({ x, y }); // set origin
+        const { x, y, width, height } = this.container.getDimension(); // get origin relative to the viewport
+        this.transformOperation.setOrigin({ x, y, width, height }); // set origin
 
         this.transformOperation.subscribe(this.controller); // register controller to transform operation
         this.transformOperation.subscribe(this.img); // register img to transform operation
