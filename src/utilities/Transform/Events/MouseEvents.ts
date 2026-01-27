@@ -50,8 +50,9 @@ export default class WMouseEvent implements IWEvent {
         // Get origin
         const { x: xOrigin, y: yOrigin } = this.transformOperation.getOrigin();
 
-        // const compensation = this.isRotateOffScreen ? 180 : 0;
-        const compensation = false ? 180 : 0; // hardcoded
+        const compensation = this.transformOperation.getSideEffectState()
+            ? 180
+            : 0;
 
         const onMouseMove = (event: MouseEvent) => {
             let x = event.clientX - xOrigin;

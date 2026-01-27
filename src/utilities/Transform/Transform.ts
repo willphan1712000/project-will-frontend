@@ -15,7 +15,7 @@ interface Props {
 }
 
 /**
- * Transform is responsible for setting dimension correctly for editor
+ * Transform is responsible for correctly setting dimension and side effect for editor
  * - Intialize state
  * - Get state
  * - Set state
@@ -56,7 +56,32 @@ export default class Transform {
         this.topRight = new WElement(topRight);
         this.bottomLeft = new WElement(bottomLeft);
         this.bottomRight = new WElement(bottomRight);
-        this.rotate = new WElement(rotate);
+        this.rotate = new WElement(rotate, (element) => {
+            // This function is responsible for handling element going off the screen by moving it to the oppiste side if it disappears from the screen
+            const rotateAlias = element.nextElementSibling as HTMLElement;
+
+            const callback = (entries: any) => {
+                entries.forEach((entry: any) => {
+                    if (!entry.isIntersecting) {
+                        element.style.top = 'auto';
+                        element.style.bottom = '-50px';
+                        this.transformOperation.setSideEffectState(true);
+                    } else {
+                        element.style.bottom = 'auto';
+                        element.style.top = '-50px';
+                        this.transformOperation.setSideEffectState(false);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(callback, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1,
+            });
+
+            observer.observe(rotateAlias);
+        });
 
         this.transformOperation = transformOperation;
     }
@@ -73,6 +98,8 @@ export default class Transform {
 
         this.transformOperation.subscribe(this.controller); // register controller to transform operation
         this.transformOperation.subscribe(this.img); // register img to transform operation
+        this.transformOperation.subscribeSideEffect(this.rotate); // register rotate button as side effect element
+        this.transformOperation.runSideEffectHandler();
 
         return this;
     }

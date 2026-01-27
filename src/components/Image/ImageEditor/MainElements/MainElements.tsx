@@ -54,37 +54,31 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
         };
 
         window.addEventListener(
+            'mousemove',
+            () => {
+                triggierReRender((prev) => !prev);
+            },
+            { signal: controller.signal }
+        );
+        window.addEventListener(
+            'touchmove',
+            () => {
+                triggierReRender((prev) => !prev);
+            },
+            { signal: controller.signal }
+        );
+        window.addEventListener(
             'mouseup',
             () => {
                 handler();
             },
             { signal: controller.signal }
         );
-
         window.addEventListener(
             'touchend',
             () => {
                 handler();
             },
-            { signal: controller.signal }
-        );
-
-        return () => {
-            controller.abort();
-        };
-    }, []);
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        window.addEventListener(
-            'mousemove',
-            () => triggierReRender((prev) => !prev),
-            { signal: controller.signal }
-        );
-        window.addEventListener(
-            'touchmove',
-            () => triggierReRender((prev) => !prev),
             { signal: controller.signal }
         );
 
@@ -247,6 +241,12 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                         </p>
                     )}
                 </div>
+                <div
+                    style={{
+                        ...styles.rotate,
+                        zIndex: -99,
+                    }}
+                ></div>
             </div>
         </div>
     );

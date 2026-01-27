@@ -1,4 +1,10 @@
 export interface IWElement {
+    /**
+     * Add Event Listener
+     * @param type
+     * @param listener
+     * @param options
+     */
     addEventListener<K extends keyof HTMLElementEventMap>(
         type: K,
         listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
@@ -59,6 +65,11 @@ export interface IWElement {
      * @param height
      */
     resize(width?: number, height?: number): void;
+
+    /**
+     * Method runs a side effect handler for a specific element
+     */
+    runSideEffectHandler(): void;
 }
 
 /**
@@ -66,9 +77,19 @@ export interface IWElement {
  */
 class WElement implements IWElement {
     private element: HTMLElement;
+    private sideEffectCallback?: (e: HTMLElement) => void;
 
-    constructor(element: HTMLElement) {
+    constructor(
+        element: HTMLElement,
+        sideEffectCallback?: (e: HTMLElement) => void
+    ) {
         this.element = element;
+        this.sideEffectCallback = sideEffectCallback;
+    }
+
+    runSideEffectHandler(): void {
+        if (!this.sideEffectCallback) return;
+        this.sideEffectCallback(this.element);
     }
 
     addEventListener<K extends keyof HTMLElementEventMap>(

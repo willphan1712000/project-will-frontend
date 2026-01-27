@@ -52,8 +52,9 @@ export default class WTouchEvent implements IWEvent {
         // Get origin
         const { x: xOrigin, y: yOrigin } = this.transformOperation.getOrigin();
 
-        // const compensation = this.isRotateOffScreen ? 180 : 0;
-        const compensation = false ? 180 : 0; // hardcoded
+        const compensation = this.transformOperation.getSideEffectState()
+            ? 180
+            : 0;
 
         const onTouchMove = (event: TouchEvent) => {
             let x = event.touches[0].clientX - xOrigin;

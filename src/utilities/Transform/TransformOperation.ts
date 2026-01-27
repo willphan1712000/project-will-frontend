@@ -7,6 +7,7 @@ import { IWElement } from './WElement';
  */
 class TransformOperation implements IWElement {
     private list: IWElement[] = [];
+    private sideEffectList: IWElement[] = [];
 
     private x: number = 0;
     private y: number = 0;
@@ -16,6 +17,22 @@ class TransformOperation implements IWElement {
 
     private xOrigin: number = 0;
     private yOrigin: number = 0;
+
+    private isSideEffect: boolean = false;
+
+    runSideEffectHandler(): void {
+        this.sideEffectList.forEach((element) => {
+            element.runSideEffectHandler();
+        });
+    }
+
+    setSideEffectState(value: boolean = false) {
+        this.isSideEffect = value;
+    }
+
+    getSideEffectState() {
+        return this.isSideEffect;
+    }
 
     setPosition(position: 'fixed' | 'relative' | 'absolute' | 'unset'): void {
         this.list.forEach((element) => {
@@ -28,7 +45,7 @@ class TransformOperation implements IWElement {
         listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
         options?: boolean | AddEventListenerOptions
     ): void {
-        this.list[0].addEventListener(type, listener, options);
+        this.list[0].addEventListener(type, listener, options); // this is important, because this is composite component therefore every component will be affected by just one event listener attached to only one component. In this case, we use the first component in the list and therefore we use list[0]
     }
 
     setDimension({
@@ -81,6 +98,10 @@ class TransformOperation implements IWElement {
         this.list.push(element);
     }
 
+    subscribeSideEffect(element: IWElement): void {
+        this.sideEffectList.push(element);
+    }
+
     drag(x?: number, y?: number): void {
         this.list.forEach((element) => {
             element.drag(x, y);
@@ -96,8 +117,6 @@ class TransformOperation implements IWElement {
             element.resize(width, height);
         });
     }
-
-    handleElementOffScreen(): void {}
 
     setOrigin({ x, y }: { x: number; y: number }): void {
         this.xOrigin = x;
