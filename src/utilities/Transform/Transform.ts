@@ -58,18 +58,16 @@ export default class Transform {
         this.bottomRight = new WElement(bottomRight);
         this.rotate = new WElement(rotate, (element) => {
             // This function is responsible for handling element going off the screen by moving it to the oppiste side if it disappears from the screen
-            const rotateAlias = element.nextElementSibling as HTMLElement;
+            const rotateBottom = element.nextElementSibling as HTMLElement; // bottom rotate button
 
             const callback = (entries: any) => {
                 entries.forEach((entry: any) => {
                     if (!entry.isIntersecting) {
-                        element.style.top = 'auto';
-                        element.style.bottom = '-50px';
-                        this.transformOperation.setSideEffectState(true);
+                        element.style.visibility = 'hidden';
+                        rotateBottom.style.display = 'flex';
                     } else {
-                        element.style.bottom = 'auto';
-                        element.style.top = '-50px';
-                        this.transformOperation.setSideEffectState(false);
+                        element.style.visibility = 'visible';
+                        rotateBottom.style.display = 'none';
                     }
                 });
             };
@@ -80,7 +78,7 @@ export default class Transform {
                 threshold: 0.1,
             });
 
-            observer.observe(rotateAlias);
+            observer.observe(element);
         });
 
         this.transformOperation = transformOperation;

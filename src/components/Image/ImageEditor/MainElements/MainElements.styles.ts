@@ -6,6 +6,7 @@ type ControllerButtons =
     | 'bottomRight'
     | 'resizeDown'
     | 'rotate'
+    | 'rotateBottom'
     | 'label'
     | 'buttonBackground'
     | 'buttonBackgroundDown';
@@ -22,6 +23,7 @@ const resize: React.CSSProperties = {
     borderRadius: '50%',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
     transition: 'all .1s linear',
+    cursor: 'pointer',
 };
 
 const background: React.CSSProperties = {
@@ -121,6 +123,19 @@ const MainElementStyles: MainElementStyles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        cursor: 'alias',
+    },
+    rotateBottom: {
+        ...resize,
+        display: 'none',
+        bottom: '-50px',
+        width: '30px',
+        height: '30px',
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'alias',
     },
     label: {
         position: 'absolute',

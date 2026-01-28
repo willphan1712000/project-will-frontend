@@ -1,31 +1,21 @@
-import { useEffect, useState } from 'react';
-import { FaArrowRotateLeft } from 'react-icons/fa6';
-import styles from './MainElements.styles';
-import TransformOperation from '@/src/utilities/Transform/TransformOperation';
 import WMouseEvent from '@/src/utilities/Transform/Events/MouseEvents';
 import WTouchEvent from '@/src/utilities/Transform/Events/TouchEvents';
-
-interface Props {
-    refs: {
-        container: React.RefObject<HTMLDivElement | null>;
-        frame: React.RefObject<HTMLDivElement | null>;
-        img: React.RefObject<HTMLImageElement | null>;
-        controller: React.RefObject<HTMLDivElement | null>;
-        topLeft: React.RefObject<HTMLDivElement | null>;
-        topRight: React.RefObject<HTMLDivElement | null>;
-        bottomLeft: React.RefObject<HTMLDivElement | null>;
-        bottomRight: React.RefObject<HTMLDivElement | null>;
-        rotate: React.RefObject<HTMLDivElement | null>;
-    };
-    originalSrc?: string;
-    transformOperation: TransformOperation;
-}
+import { useEffect, useState } from 'react';
+import useMyContext from '../context';
+import styles from './MainElements.styles';
+import Rotate from './Rotate';
 
 /**
  * Implement all main elements for image editor
  * - The container element creates root coordinates to all other elements
  */
-const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
+const MainElements = () => {
+    const {
+        refs,
+        imgRefs,
+        src: originalSrc,
+        transformOperation,
+    } = useMyContext();
     const mouseEvent = new WMouseEvent(transformOperation);
     const touchEvent = new WTouchEvent(transformOperation);
 
@@ -33,7 +23,6 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
     const [topRight, settopRight] = useState<boolean>(false);
     const [bottomLeft, setbottomLeft] = useState<boolean>(false);
     const [bottomRight, setbottomRight] = useState<boolean>(false);
-    const [rotate, setRotate] = useState<boolean>(false);
     const [reRender, triggierReRender] = useState<boolean>(false);
 
     const { angle, width, height } = transformOperation.getDimension();
@@ -50,7 +39,6 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
             settopRight(false);
             setbottomLeft(false);
             setbottomRight(false);
-            setRotate(false);
         };
 
         window.addEventListener(
@@ -90,7 +78,7 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
     return (
         <div ref={refs.container} style={styles.container}>
             <div ref={refs.frame} style={styles.frame}>
-                <img src={originalSrc} style={styles.img} ref={refs.img} />
+                <img src={originalSrc} style={styles.img} ref={imgRefs.img} />
             </div>
             <div
                 style={styles.controller}
@@ -202,51 +190,18 @@ const MainElements = ({ refs, originalSrc, transformOperation }: Props) => {
                     <div style={handleBackground(bottomRight)}></div>
                 </div>
 
-                <div
-                    ref={refs.rotate}
-                    style={
-                        rotate
-                            ? { ...styles.rotate, ...styles.resizeDown }
-                            : styles.rotate
-                    }
-                    onMouseDown={(e) => {
-                        setRotate(true);
-                        mouseEvent.rotate(e);
-                    }}
-                    onTouchStart={(e) => {
-                        setRotate(true);
-                        touchEvent.rotate(e);
-                    }}
-                >
-                    <div style={handleBackground(rotate)}></div>
-                    <FaArrowRotateLeft size="15" />
-                    {rotate && (
-                        <p
-                            style={{
-                                ...styles.label,
-                                rotate: `${-angle.toFixed(0)}deg`,
-                            }}
-                        >
-                            {angle.toFixed(0)}°
-                        </p>
-                    )}
-                    {(topLeft || topRight || bottomLeft || bottomRight) && (
-                        <p
-                            style={{
-                                ...styles.label,
-                                rotate: `${-angle.toFixed(0)}deg`,
-                            }}
-                        >
-                            w: {width.toFixed(0)}px, h: {height.toFixed(0)}px
-                        </p>
-                    )}
-                </div>
-                <div
-                    style={{
-                        ...styles.rotate,
-                        zIndex: -99,
-                    }}
-                ></div>
+                <Rotate />
+
+                {(topLeft || topRight || bottomLeft || bottomRight) && (
+                    <p
+                        style={{
+                            ...styles.label,
+                            rotate: `${-angle.toFixed(0)}deg`,
+                        }}
+                    >
+                        w: {width.toFixed(0)}px, h: {height.toFixed(0)}px
+                    </p>
+                )}
             </div>
         </div>
     );

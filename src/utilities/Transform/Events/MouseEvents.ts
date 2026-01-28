@@ -37,7 +37,16 @@ export default class WMouseEvent implements IWEvent {
         });
     }
 
-    rotate(e: MouseEvent | React.MouseEvent<HTMLElement, MouseEvent>): void {
+    rotate(
+        e: MouseEvent | React.MouseEvent<HTMLElement, MouseEvent>,
+        options: {
+            top?: boolean;
+            bottom?: boolean;
+        } = {
+            top: false,
+            bottom: false,
+        }
+    ): void {
         e.stopPropagation();
         const controller = new AbortController();
 
@@ -50,7 +59,8 @@ export default class WMouseEvent implements IWEvent {
         // Get origin
         const { x: xOrigin, y: yOrigin } = this.transformOperation.getOrigin();
 
-        const compensation = 0;
+        let compensation = options.top ? 0 : 180;
+        compensation = options.bottom ? 180 : 0;
 
         const onMouseMove = (event: MouseEvent) => {
             let x = event.clientX - xOrigin;

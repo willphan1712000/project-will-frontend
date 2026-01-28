@@ -4,6 +4,7 @@ import { Transform, Button, Canvas } from '@';
 import MainElements from './MainElements/MainElements';
 import Instruction from './Instruction';
 import TransformOperation from '@/src/utilities/Transform/TransformOperation';
+import { MyContext } from './context';
 
 const transformOperation = new TransformOperation();
 
@@ -51,6 +52,7 @@ const ImageEditor = ({
     const bottomLeft = useRef<HTMLDivElement>(null);
     const bottomRight = useRef<HTMLDivElement>(null);
     const rotate = useRef<HTMLDivElement>(null);
+    const rotateBottom = useRef<HTMLDivElement>(null);
 
     const [transform, setTransform] = useState<Transform | undefined>(
         undefined
@@ -146,42 +148,48 @@ const ImageEditor = ({
     if (!isOpen) return;
 
     return (
-        <div style={styles.imageEditor}>
-            <Instruction />
-            <MainElements
-                refs={{
+        <MyContext.Provider
+            value={{
+                refs: {
                     container,
                     frame,
-                    img,
                     controller,
                     topLeft,
                     topRight,
                     bottomLeft,
                     bottomRight,
                     rotate,
-                }}
-                originalSrc={originalSrc}
-                transformOperation={transformOperation}
-            />
-
-            <div style={styles.buttons}>
-                <Button
-                    buttonType="solid"
-                    content="Accept"
-                    onClick={handleAccept}
-                />
-                <Button
-                    buttonType="solid"
-                    content="Cancel"
-                    onClick={handleCancel}
-                />
-                <Button
-                    buttonType="solid"
-                    content="Reset"
-                    onClick={handleReset}
-                />
+                    rotateBottom,
+                },
+                imgRefs: {
+                    img,
+                },
+                src: originalSrc,
+                transformOperation,
+            }}
+        >
+            <div style={styles.imageEditor}>
+                <Instruction />
+                <MainElements />
+                <div style={styles.buttons}>
+                    <Button
+                        buttonType="solid"
+                        content="Accept"
+                        onClick={handleAccept}
+                    />
+                    <Button
+                        buttonType="solid"
+                        content="Cancel"
+                        onClick={handleCancel}
+                    />
+                    <Button
+                        buttonType="solid"
+                        content="Reset"
+                        onClick={handleReset}
+                    />
+                </div>
             </div>
-        </div>
+        </MyContext.Provider>
     );
 };
 

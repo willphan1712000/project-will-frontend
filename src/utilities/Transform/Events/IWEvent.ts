@@ -11,7 +11,11 @@ export default interface IWEvent {
             | MouseEvent
             | React.MouseEvent<HTMLElement, MouseEvent>
             | TouchEvent
-            | React.TouchEvent<HTMLElement>
+            | React.TouchEvent<HTMLElement>,
+        options: {
+            top?: boolean;
+            bottom?: boolean;
+        }
     ): void;
     resize(
         e:

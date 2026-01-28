@@ -38,7 +38,16 @@ export default class WTouchEvent implements IWEvent {
             signal: controller.signal,
         });
     }
-    rotate(e: TouchEvent | React.TouchEvent<HTMLElement>): void {
+    rotate(
+        e: TouchEvent | React.TouchEvent<HTMLElement>,
+        options: {
+            top?: boolean;
+            bottom?: boolean;
+        } = {
+            top: false,
+            bottom: false,
+        }
+    ): void {
         e.stopPropagation();
 
         const controller = new AbortController();
@@ -52,7 +61,8 @@ export default class WTouchEvent implements IWEvent {
         // Get origin
         const { x: xOrigin, y: yOrigin } = this.transformOperation.getOrigin();
 
-        const compensation = 0;
+        let compensation = options.top ? 0 : 180;
+        compensation = options.bottom ? 180 : 0;
 
         const onTouchMove = (event: TouchEvent) => {
             let x = event.touches[0].clientX - xOrigin;
