@@ -139,7 +139,7 @@ const MainElementStyles: MainElementStyles = {
     },
     label: {
         position: 'absolute',
-        top: '-200%',
+        top: '-100px',
         left: '50%',
         transformOrigin: 'left',
         transform: 'translate(-50%, 0)',

@@ -100,6 +100,8 @@ const Rotate = () => {
                     <p
                         style={{
                             ...styles.label,
+                            top: 'auto',
+                            bottom: '-100px',
                             rotate: `${-angle.toFixed(0)}deg`,
                         }}
                     >
