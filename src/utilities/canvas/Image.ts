@@ -23,7 +23,7 @@ const Image = {
         });
     },
     /**
-     * Convert urlst
+     * Take a url, look for the corresponding image file, and convert it to base64 format
      * @param url
      * @returns
      */

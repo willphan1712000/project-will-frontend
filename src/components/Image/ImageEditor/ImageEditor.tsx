@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './ImageEditor.styles';
 import { Transform, Button, Canvas } from '@';
+import MainElements from './MainElements/MainElements';
+import Instruction from './Instruction';
+import TransformOperation from '@/src/utilities/Transform/TransformOperation';
+import { MyContext } from './context';
+
+const transformOperation = new TransformOperation();
 
 interface Props {
     src?: string;
@@ -36,27 +42,46 @@ const ImageEditor = ({
     setOpen = () => {},
     isNew = false,
 }: Props) => {
+    const container = useRef<HTMLDivElement>(null);
     const frame = useRef<HTMLDivElement>(null);
-    const wrapper = useRef<HTMLDivElement>(null);
     const img = useRef<HTMLImageElement>(null);
+
+    const controller = useRef<HTMLDivElement>(null);
+    const topLeft = useRef<HTMLDivElement>(null);
+    const topRight = useRef<HTMLDivElement>(null);
+    const bottomLeft = useRef<HTMLDivElement>(null);
+    const bottomRight = useRef<HTMLDivElement>(null);
+    const rotate = useRef<HTMLDivElement>(null);
+    const rotateBottom = useRef<HTMLDivElement>(null);
 
     const [transform, setTransform] = useState<Transform | undefined>(
         undefined
     );
 
     const transformState = useRef<
-        { x: number; y: number; angle: number; w: number } | undefined
+        { x: number; y: number; angle: number; width: number } | undefined
     >(undefined);
     const originalSrc = useMemo(() => {
         transformState.current = undefined;
         return src;
     }, [isNew]);
 
-    async function createTransform() {
-        if (!frame.current || !wrapper.current || !img.current) return;
+    function createTransform() {
+        if (!frame.current || !img.current) return;
 
-        const transform = new Transform(wrapper.current, frame.current);
-        await transform.initialize();
+        const transform = new Transform({
+            container: container.current!,
+            frame: frame.current!,
+            img: img.current!,
+            controller: controller.current!,
+            topLeft: topLeft.current!,
+            topRight: topRight.current!,
+            bottomLeft: bottomLeft.current!,
+            bottomRight: bottomRight.current!,
+            rotate: rotate.current!,
+            transformOperation,
+        });
+        transform.initialize();
 
         if (transformState.current) {
             transform.setState(transformState.current);
@@ -68,25 +93,27 @@ const ImageEditor = ({
     }
 
     function handleCanvasToSrc() {
-        if (!frame.current || !wrapper.current || !img.current || !transform)
-            return;
+        if (!frame.current || !img.current || !transform) return;
 
-        const canvasInstance = new Canvas();
-        const { canvas, context } = canvasInstance.createCanvas(700, 700);
-        const { x, y, angle } = transform.exportData();
-        transformState.current = transform.exportData();
+        const canvas = new Canvas(700, 700);
+        const { x, y, angle, width, height } = transform.getState();
+        const { width: containerWidth, height: containerHeight } =
+            transformOperation.getOrigin();
 
-        const { src } = canvasInstance.drawImage(
-            img.current,
-            context,
+        transformState.current = transform.getState();
+
+        canvas.drawImage({
+            e: img.current,
             x,
             y,
-            1,
             angle,
-            canvas,
-            frame.current.clientWidth,
-            frame.current.clientHeight
-        );
+            width,
+            height,
+            containerHeight,
+            containerWidth,
+        });
+
+        const { src } = canvas.get();
 
         return src;
     }
@@ -105,38 +132,64 @@ const ImageEditor = ({
         transform.reset();
     }
 
+    function handleWindowScroll(isOpen: boolean) {
+        document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    }
+
     useEffect(() => {
         isOpen ? createTransform() : setTransform(undefined);
+        handleWindowScroll(isOpen);
+
+        return () => {
+            setTransform(undefined);
+        };
     }, [isOpen]);
 
     if (!isOpen) return;
 
     return (
-        <div style={styles.imageEditor}>
-            <p>Drag, Zoom, or Rotate image</p>
-            <div ref={frame} style={styles.frame}>
-                <div ref={wrapper} style={styles.wrapper}>
-                    <img src={originalSrc} style={styles.img} ref={img} />
+        <MyContext.Provider
+            value={{
+                refs: {
+                    container,
+                    frame,
+                    controller,
+                    topLeft,
+                    topRight,
+                    bottomLeft,
+                    bottomRight,
+                    rotate,
+                    rotateBottom,
+                },
+                imgRefs: {
+                    img,
+                },
+                src: originalSrc,
+                transformOperation,
+            }}
+        >
+            <div style={styles.imageEditor}>
+                <Instruction />
+                <MainElements />
+                <div style={styles.buttons}>
+                    <Button
+                        buttonType="solid"
+                        content="Accept"
+                        onClick={handleAccept}
+                    />
+                    <Button
+                        buttonType="solid"
+                        content="Cancel"
+                        onClick={handleCancel}
+                    />
+                    <Button
+                        buttonType="solid"
+                        content="Reset"
+                        onClick={handleReset}
+                    />
                 </div>
             </div>
-            <div style={styles.buttons}>
-                <Button
-                    buttonType="solid"
-                    content="Accept"
-                    onClick={handleAccept}
-                />
-                <Button
-                    buttonType="solid"
-                    content="Cancel"
-                    onClick={handleCancel}
-                />
-                <Button
-                    buttonType="solid"
-                    content="Reset"
-                    onClick={handleReset}
-                />
-            </div>
-        </div>
+        </MyContext.Provider>
     );
 };
 

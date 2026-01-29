@@ -79,7 +79,7 @@ const Avatar = ({ src, setValue }: Props) => {
                 }}
             />
 
-            {src !== defaultImage.current && (
+            {src !== defaultImage.current && defaultImage.current !== '' && (
                 <>
                     <Button
                         style={styles.remove}
