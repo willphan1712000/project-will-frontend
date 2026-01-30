@@ -66,7 +66,8 @@ const Avatar = ({ src, setValue, options }: Props) => {
             initialImage.current =
                 (await ImageUtilities.FromStringToImageSrc(src)) ?? src;
 
-            setValue(src ? initialImage.current : defaultImage.current);
+            src === initialImage.current ? setNew((prev) => !prev) : undefined; // this is important because in case src is equal to initial image, setValue below is not going to give another re-render
+            setValue(src ? initialImage.current : defaultImage.current); // another re-render here is important
         })();
     }, []);
 
