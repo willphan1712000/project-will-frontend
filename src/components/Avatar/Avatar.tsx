@@ -10,6 +10,9 @@ import { useEffect, useRef, useState } from 'react';
 interface Props {
     src?: string;
     setValue: (src?: string) => void;
+    options?: {
+        defaultImage?: string;
+    };
 }
 
 /**
@@ -24,33 +27,48 @@ interface Props {
  * @param src source of an image which will be converted to base64 format automatically
  * @param setValue set state function for src
  *
+ * @dataflow
+ * - source of an image can be undefined. This case, source should be set to default image. In case there is no default image provided, source should be undefined. As source of image is edited, source changes and updates on the image preview
+ * - Every source needs to be converted to base64 format using provided conversion method
+ * - There is a defaultImage reference that stores the value of default image across the entire component so it can be used to restore default image when clicking delete button or when source of image is undefined
+ * - There is an initialImage reference that stores the value of an initial value of image source
+ *
  * @example
  * ... component declaration
  * const [src, setValue] = useState<string|undefined>(initialImageStringUrl)
  *
  * return (
- *  <Avatar src={src} setValue={setValue} />
+ *  <Avatar src={src} setValue={setValue} options={{defaultImage: unknown}}/>
  * )
  */
-const Avatar = ({ src, setValue }: Props) => {
+const Avatar = ({ src, setValue, options }: Props) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [isNew, setNew] = useState<boolean>(false);
 
+    const defaultImage = useRef<string | undefined>(undefined);
+    const initialImage = useRef<string | undefined>(undefined);
+
     const uploadImageRef = useRef<HTMLInputElement>(null);
-    const defaultImage = useRef<string>('');
 
-    async function setSrc() {
-        const translatedSrc = await ImageUtilities.FromStringToImageSrc(src);
-
-        if (!translatedSrc) return;
-
-        defaultImage.current = translatedSrc;
-        setValue(translatedSrc);
-    }
+    const isAbleToEdit = initialImage.current
+        ? src !== defaultImage.current && src !== initialImage.current
+        : false; // derived state from src
+    const isAbleToRemove = initialImage.current
+        ? src !== defaultImage.current
+        : false; // derived state from src
 
     useEffect(() => {
-        setSrc();
-    }, [src]);
+        (async function setSrc() {
+            defaultImage.current =
+                (await ImageUtilities.FromStringToImageSrc(
+                    options?.defaultImage
+                )) ?? options?.defaultImage;
+            initialImage.current =
+                (await ImageUtilities.FromStringToImageSrc(src)) ?? src;
+
+            setValue(src ? initialImage.current : defaultImage.current);
+        })();
+    }, []);
 
     return (
         <div style={styles.container}>
@@ -79,26 +97,26 @@ const Avatar = ({ src, setValue }: Props) => {
                 }}
             />
 
-            {src !== defaultImage.current && defaultImage.current !== '' && (
-                <>
-                    <Button
-                        style={styles.remove}
-                        onClick={() => {
-                            setValue(defaultImage.current);
-                            setNew((prev) => !prev);
-                        }}
-                    >
-                        <FaTrashCan size={others.iconSize} color="red" />
-                        Remove
-                    </Button>
-                    <Button
-                        style={styles.edit}
-                        onClick={() => setOpen((prev) => !prev)}
-                    >
-                        <RiEditLine size={others.iconSize} />
-                        Edit
-                    </Button>
-                </>
+            {isAbleToRemove && (
+                <Button
+                    style={styles.remove}
+                    onClick={() => {
+                        setValue(defaultImage.current ?? undefined);
+                        setNew((prev) => !prev);
+                    }}
+                >
+                    <FaTrashCan size={others.iconSize} color="red" />
+                    Remove
+                </Button>
+            )}
+            {isAbleToEdit && (
+                <Button
+                    style={styles.edit}
+                    onClick={() => setOpen((prev) => !prev)}
+                >
+                    <RiEditLine size={others.iconSize} />
+                    Edit
+                </Button>
             )}
         </div>
     );
