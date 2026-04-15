@@ -39,7 +39,6 @@ const Modern = ({
 
     return (
         <a
-            {...props}
             style={{
                 ...styles(first).btn,
                 border: hover
@@ -58,6 +57,7 @@ const Modern = ({
             }}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
+            {...props}
         >
             {children}
         </a>
