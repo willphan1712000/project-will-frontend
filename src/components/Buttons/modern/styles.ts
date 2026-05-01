@@ -20,6 +20,7 @@ const styles = (first: string) => {
             backgroundColor: `color-mix(in srgb, ${first} 20%, transparent)`,
             fontSize: '15px',
             transition: 'all .1s linear',
+            whiteSpace: 'nowrap',
         },
     };
     return styles;

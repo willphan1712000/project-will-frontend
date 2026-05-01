@@ -17,7 +17,7 @@ export const others = {
     textRelease: '#000',
     textFocus: '#0957d0',
 
-    border: 'solid 2px',
+    border: 'solid 1px',
 };
 
 const styles: Styles = {

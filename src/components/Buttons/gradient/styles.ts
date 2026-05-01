@@ -2,11 +2,11 @@ type Props =
     | 'container'
     | 'btn'
     | 'btnAfter'
-    | 'label'
+    | 'labelWrapper'
     | 'labelBefore'
+    | 'label'
     | 'labelAfter'
-    | 'p'
-    | 'neon';
+    | 'p';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
@@ -19,7 +19,7 @@ const styles = (first: string, second: string) => {
         container: {
             position: 'relative',
             borderRadius,
-            padding: '3px',
+            padding: '1px',
         },
         btn: {
             position: 'relative',
@@ -30,9 +30,10 @@ const styles = (first: string, second: string) => {
             padding: '2px',
             borderRadius,
             backgroundColor: `${first}`,
-            backgroundImage: `linear-gradient(43deg, ${first} 0%, ${second} 100%)`,
+            backgroundImage: `linear-gradient(${120}deg, ${first} 0%, ${second} 100%)`,
             border: 'none',
             cursor: 'pointer',
+            width: '100%',
         },
         btnAfter: {
             position: 'absolute',
@@ -43,8 +44,13 @@ const styles = (first: string, second: string) => {
             content: '""',
             zIndex: 0,
             backgroundColor: `${first}`,
-            backgroundImage: `linear-gradient(43deg, ${first} 0%, ${second} 100%)`,
-            filter: 'blur(10px)',
+            backgroundImage: `linear-gradient(${120}deg, ${first} 0%, ${second} 100%)`,
+            filter: 'blur(8px)',
+            borderRadius,
+        },
+        labelWrapper: {
+            position: 'relative',
+            width: '100%',
         },
         label: {
             backgroundColor: '#111723',
@@ -78,17 +84,6 @@ const styles = (first: string, second: string) => {
             position: 'relative',
             zIndex: 1,
             margin: 0,
-        },
-        neon: {
-            content: '""',
-            background:
-                'conic-gradient(transparent 270deg, green, transparent)',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            aspectRatio: 1,
-            width: '100%',
         },
     };
 
