@@ -74,7 +74,7 @@ const InputGoogle = ({
     useEffect(() => {
         transitionOnFocus();
         transitionOffFocus();
-    }, []);
+    }, [value]);
 
     return (
         <div style={styles.container}>
