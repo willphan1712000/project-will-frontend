@@ -38,29 +38,6 @@ const TextArea = ({
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    function transitionOnFocus() {
-        setFocus(true);
-        if (spanRef.current) {
-            spanRef.current.style.top = others.topFocus;
-            spanRef.current.style.fontSize = others.fontSizeFocus;
-        }
-    }
-
-    function transitionOffFocus() {
-        setFocus(false);
-
-        if (value) return;
-
-        if (spanRef.current) {
-            spanRef.current.style.top = others.topRelease;
-            spanRef.current.style.fontSize = others.fontSizeRelease;
-        }
-    }
-
-    function handleClickOnLabel() {
-        inputRef.current?.focus();
-    }
-
     const inputBorder = isFocus
         ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
         : `${others.border} ${others.borderRelease}`;
@@ -68,9 +45,37 @@ const TextArea = ({
         ? `${options ? options.focusColor : others.textFocus}`
         : `${others.textRelease}`;
 
+    function spanPositionWhenFocused() {
+        if (spanRef.current) {
+            spanRef.current.style.top = others.topFocus;
+            spanRef.current.style.fontSize = others.fontSizeFocus;
+        }
+    }
+
+    function spanPositionWhenNotFocused() {
+        if (spanRef.current) {
+            spanRef.current.style.top = others.topRelease;
+            spanRef.current.style.fontSize = others.fontSizeRelease;
+        }
+    }
+
+    function onFocus() {
+        setFocus(true);
+        spanPositionWhenFocused();
+    }
+
+    function offFocus() {
+        setFocus(false);
+        if (value) return;
+        spanPositionWhenNotFocused();
+    }
+
+    function focus() {
+        inputRef.current?.focus();
+    }
+
     useEffect(() => {
-        transitionOnFocus();
-        transitionOffFocus();
+        if (value) spanPositionWhenFocused();
     }, [value]);
 
     return (
@@ -85,8 +90,8 @@ const TextArea = ({
                     ...styles.input,
                     border: inputBorder,
                 }}
-                onFocus={transitionOnFocus}
-                onBlur={transitionOffFocus}
+                onFocus={onFocus}
+                onBlur={offFocus}
                 {...props}
             />
             <span
@@ -95,7 +100,7 @@ const TextArea = ({
                     ...styles.label,
                     color: labelTextColor,
                 }}
-                onClick={handleClickOnLabel}
+                onClick={focus}
             >
                 {label}
             </span>
