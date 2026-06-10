@@ -41,39 +41,44 @@ const InputGoogle = ({
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    function transitionOnFocus() {
-        setFocus(true);
+    const borderWhenFocused = isFocus
+        ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
+        : `${others.border} ${others.borderRelease}`;
+    const labelColorWhenFocused = isFocus
+        ? `${options ? options.focusColor : others.textFocus}`
+        : `${others.textRelease}`;
+
+    function spanPositionWhenFocused() {
         if (spanRef.current) {
             spanRef.current.style.top = others.topFocus;
             spanRef.current.style.fontSize = others.fontSizeFocus;
         }
     }
 
-    function transitionOffFocus() {
-        setFocus(false);
-
-        if (value) return;
-
+    function spanPositionWhenNotFocused() {
         if (spanRef.current) {
             spanRef.current.style.top = others.topRelease;
             spanRef.current.style.fontSize = others.fontSizeRelease;
         }
     }
 
-    function handleClickOnLabel() {
+    function onFocus() {
+        setFocus(true);
+        spanPositionWhenFocused();
+    }
+
+    function offFocus() {
+        setFocus(false);
+        if (value) return;
+        spanPositionWhenNotFocused();
+    }
+
+    function focus() {
         inputRef.current?.focus();
     }
 
-    const inputBorder = isFocus
-        ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
-        : `${others.border} ${others.borderRelease}`;
-    const labelTextColor = isFocus
-        ? `${options ? options.focusColor : others.textFocus}`
-        : `${others.textRelease}`;
-
     useEffect(() => {
-        transitionOnFocus();
-        transitionOffFocus();
+        if (value) spanPositionWhenFocused();
     }, [value]);
 
     return (
@@ -83,23 +88,25 @@ const InputGoogle = ({
                 name="will-input-google"
                 ref={inputRef}
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => {
+                    setValue(e.target.value);
+                }}
                 type="text"
                 style={{
                     ...styles.input,
-                    border: inputBorder,
+                    border: borderWhenFocused,
                 }}
-                onFocus={transitionOnFocus}
-                onBlur={transitionOffFocus}
+                onFocus={onFocus}
+                onBlur={offFocus}
                 {...props}
             />
             <span
                 ref={spanRef}
                 style={{
                     ...styles.label,
-                    color: labelTextColor,
+                    color: labelColorWhenFocused,
                 }}
-                onClick={handleClickOnLabel}
+                onClick={focus}
             >
                 {label}
             </span>
