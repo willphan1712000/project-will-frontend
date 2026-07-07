@@ -6,7 +6,10 @@ interface Props {
     setValue?: (value?: string) => void;
     label?: string;
     options?: {
-        focusColor: string;
+        focusColor?: string;
+        backgroundColor?: string;
+        textColor?: string;
+        borderColor?: string;
     };
 }
 
@@ -41,12 +44,21 @@ const InputGoogle = ({
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const backgroundColor = options?.backgroundColor
+        ? options.backgroundColor
+        : others.backgroundColor;
+    const textColor = options?.textColor
+        ? options.textColor
+        : others.textRelease;
+    const borderColor = options?.borderColor
+        ? options.borderColor
+        : others.borderRelease;
     const borderWhenFocused = isFocus
         ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
-        : `${others.border} ${others.borderRelease}`;
+        : `${others.border} ${borderColor}`;
     const labelColorWhenFocused = isFocus
-        ? `${options ? options.focusColor : others.textFocus}`
-        : `${others.textRelease}`;
+        ? `${options?.focusColor ? options.focusColor : others.textFocus}`
+        : `${textColor}`;
 
     function spanPositionWhenFocused() {
         if (spanRef.current) {
@@ -95,6 +107,8 @@ const InputGoogle = ({
                 style={{
                     ...styles.input,
                     border: borderWhenFocused,
+                    backgroundColor,
+                    color: textColor,
                 }}
                 onFocus={onFocus}
                 onBlur={offFocus}
@@ -105,6 +119,7 @@ const InputGoogle = ({
                 style={{
                     ...styles.label,
                     color: labelColorWhenFocused,
+                    backgroundColor,
                 }}
                 onClick={focus}
             >
