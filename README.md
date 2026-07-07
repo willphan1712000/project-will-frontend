@@ -28,6 +28,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `Transform`
 - `tools`
 - `LinearAlgebra`
+- `useThemeState`
 
 ### Auth helpers
 - `useSession`
@@ -248,6 +249,44 @@ function AppProviders({ children }: { children: React.ReactNode }) {
 - `isLoading`
 - `session`
 - `auth`
+
+## Theme management usage
+
+### `useThemeState`
+
+A custom React hook for managing, persisting, and applying the application's theme state (`'light'`, `'dark'`, or `'system'`). It synchronizes state with browser `localStorage` and applies/removes the theme class on `document.body`.
+
+```tsx
+import { useThemeState } from '@willphan1712000/frontend';
+
+const Example = () => {
+  const { setThemeState, getThemeState } = useThemeState();
+
+  return (
+    <div>
+      <p>Current Theme: {getThemeState()}</p>
+      <button onClick={() => setThemeState('light')}>Light</button>
+      <button onClick={() => setThemeState('dark')}>Dark</button>
+      <button onClick={() => setThemeState('system')}>System</button>
+    </div>
+  );
+};
+```
+
+#### API Reference
+
+- `getThemeState(): 'light' | 'dark' | 'system'`  
+  Retrieves the active theme setting from `localStorage`. Defaults to `'light'`.
+- `setThemeState(mode: 'light' | 'dark' | 'system'): void`  
+  Sets the active theme setting.
+  - `'light'`: Stores `'light'`, removes `'will-dark'` class from `document.body`, and disables OS preference event listeners.
+  - `'dark'`: Stores `'dark'`, adds `'will-dark'` class to `document.body`, and disables OS preference event listeners.
+  - `'system'`: Stores `'system'`, automatically toggles `'will-dark'` based on OS preferences, and registers a listener to react to future OS preference changes.
+
+#### Configuration Details
+
+- **Local Storage Key:** `'will-theme'`
+- **CSS Class Applied to `<body>`:** `'will-dark'`
 
 ## Exported utilities
 
