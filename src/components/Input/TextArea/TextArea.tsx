@@ -6,7 +6,10 @@ interface Props {
     setValue?: (value?: string) => void;
     label?: string;
     options?: {
-        focusColor: string;
+        focusColor?: string;
+        backgroundColor?: string;
+        textColor?: string;
+        borderColor?: string;
     };
 }
 
@@ -38,12 +41,21 @@ const TextArea = ({
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const inputBorder = isFocus
+    const backgroundColor = options?.backgroundColor
+        ? options.backgroundColor
+        : others.backgroundColor;
+    const textColor = options?.textColor
+        ? options.textColor
+        : others.textRelease;
+    const borderColor = options?.borderColor
+        ? options.borderColor
+        : others.borderRelease;
+    const borderWhenFocused = isFocus
         ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
-        : `${others.border} ${others.borderRelease}`;
-    const labelTextColor = isFocus
-        ? `${options ? options.focusColor : others.textFocus}`
-        : `${others.textRelease}`;
+        : `${others.border} ${borderColor}`;
+    const labelColorWhenFocused = isFocus
+        ? `${options?.focusColor ? options.focusColor : others.textFocus}`
+        : `${textColor}`;
 
     function spanPositionWhenFocused() {
         if (spanRef.current) {
@@ -88,7 +100,9 @@ const TextArea = ({
                 onChange={(e) => setValue(e.target.value)}
                 style={{
                     ...styles.input,
-                    border: inputBorder,
+                    border: borderWhenFocused,
+                    backgroundColor,
+                    color: textColor,
                 }}
                 onFocus={onFocus}
                 onBlur={offFocus}
@@ -98,7 +112,8 @@ const TextArea = ({
                 ref={spanRef}
                 style={{
                     ...styles.label,
-                    color: labelTextColor,
+                    color: labelColorWhenFocused,
+                    backgroundColor,
                 }}
                 onClick={focus}
             >

@@ -20,6 +20,7 @@ export const others = {
     textFocus: '#0957d0',
 
     border: 'solid 1px',
+    backgroundColor: '#fff',
 };
 
 const styles: Styles = {
@@ -32,6 +33,8 @@ const styles: Styles = {
         padding: '10px',
         outline: 'none',
         resize: 'none',
+        backgroundColor: others.backgroundColor,
+        color: others.textRelease,
     },
     container: {
         width: '100%',
@@ -47,7 +50,8 @@ const styles: Styles = {
         transform: 'translateY(-50%)',
         transition: 'all .1s linear',
         padding: '0px 5px',
-        backgroundColor: 'white',
+        backgroundColor: others.backgroundColor,
+        color: others.textRelease,
     },
 };
 
