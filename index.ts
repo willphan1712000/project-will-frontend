@@ -52,3 +52,6 @@ export {
 
 // Math
 export { default as LinearAlgebra } from './src/utilities/math/LinearAlgebra';
+
+// theme
+export { default as useThemeState } from './src/utilities/theme/useThemeState';
