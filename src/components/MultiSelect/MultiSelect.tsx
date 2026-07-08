@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { MyContext } from './context';
 import Dropdown from './Dropdown';
-import { IoMdClose } from 'react-icons/io';
 import styles from './styles';
+import { X } from '../Icons';
 
 export type Options = {
     label: string;
@@ -13,18 +13,15 @@ interface Props {
     options: Options;
     value: string[];
     onChange: React.Dispatch<React.SetStateAction<string[]>>;
-    width?: string;
 }
 
 /**
  * MultiSelect component, allowing users to select multiple options from dropdown menu with search
- * @param options - list of options, which is an array of object [{ label: string, value: string }]
+ * @param options - list of options, which is an array of object Options {@link Options}
  * @param value - an array of chosen values
  * @param onChange - a function to set an array of values
- * @param width - specify the width of the component
- * @returns
  */
-const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
+const MultiSelect = ({ options, value, onChange }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
     const [isHoverClose, setHoverClose] = useState<boolean>(false);
     const [isHoverCloseEach, setHoverCloseEach] = useState<number>(-1);
@@ -53,13 +50,7 @@ const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
                 setOpen,
             }}
         >
-            <div
-                style={{
-                    width: `${width}px`,
-                    position: 'relative',
-                }}
-                ref={selectRef}
-            >
+            <div style={styles.container} ref={selectRef}>
                 {/* select box */}
                 <div
                     style={styles.select_box}
@@ -69,6 +60,7 @@ const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
                     <div style={styles.value}>
                         {value.map((eachValue, key) => (
                             <div style={styles.eachValue} key={key}>
+                                {eachValue}
                                 <span
                                     onMouseEnter={() => {
                                         setHoverCloseEach(key);
@@ -79,10 +71,6 @@ const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
                                     title="Remove this option"
                                     style={{
                                         ...styles.closeEach,
-                                        scale:
-                                            isHoverCloseEach === key
-                                                ? '1.2'
-                                                : '1',
                                     }}
                                     onClick={() => {
                                         onChange((prev) =>
@@ -91,9 +79,8 @@ const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
                                         setOpen((prev) => !prev);
                                     }}
                                 >
-                                    <IoMdClose />
+                                    <X size="20" />
                                 </span>
-                                {eachValue}
                             </div>
                         ))}
                     </div>
@@ -111,7 +98,7 @@ const MultiSelect = ({ options, value, onChange, width = '200' }: Props) => {
                         onMouseEnter={() => setHoverClose(true)}
                         onMouseLeave={() => setHoverClose(false)}
                     >
-                        <IoMdClose />
+                        <X />
                     </div>
                 </div>
 

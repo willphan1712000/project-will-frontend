@@ -1,11 +1,7 @@
 import { ImageEditor, Image, UploadImage, Button, ImageUtilities } from '@';
-import { IoCloudUploadOutline } from 'react-icons/io5';
-import { FaTrashCan } from 'react-icons/fa6';
-import { RiEditLine } from 'react-icons/ri';
-
 import styles, { others } from './styles';
-
 import { useEffect, useRef, useState } from 'react';
+import { CloudUpload, Edit, TrashCan } from '@/src/components/Icons';
 
 interface Props {
     src?: string;
@@ -86,7 +82,7 @@ const Avatar = ({ src, setValue, options }: Props) => {
                 style={styles.upload}
                 onClick={() => uploadImageRef.current?.click()}
             >
-                <IoCloudUploadOutline size={others.iconSize} />
+                <CloudUpload size={others.iconSize} />
                 Upload
             </Button>
             <UploadImage
@@ -106,7 +102,7 @@ const Avatar = ({ src, setValue, options }: Props) => {
                         setNew((prev) => !prev);
                     }}
                 >
-                    <FaTrashCan size={others.iconSize} color="red" />
+                    <TrashCan size={others.iconSize} color="red" />
                     Remove
                 </Button>
             )}
@@ -115,7 +111,7 @@ const Avatar = ({ src, setValue, options }: Props) => {
                     style={styles.edit}
                     onClick={() => setOpen((prev) => !prev)}
                 >
-                    <RiEditLine size={others.iconSize} />
+                    <Edit size={others.iconSize} />
                     Edit
                 </Button>
             )}

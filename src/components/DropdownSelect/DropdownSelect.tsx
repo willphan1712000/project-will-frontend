@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { X } from '../Icons';
 import { MyContext } from './context';
 import Dropdown from './Dropdown';
-import { IoMdClose } from 'react-icons/io';
 import styles from './styles';
 
+/**
+ * Represents the structure of options available in the dropdown selection.
+ *
+ * Each item in the array contains:
+ * @property {string} label - The user-friendly text displayed in the dropdown list.
+ * @property {string} value - The actual value associated with the option.
+ */
 export type Options = {
     label: string;
     value: string;
@@ -17,10 +24,11 @@ interface Props {
 
 /**
  * Dropdown Select component, allowing users to select options from dropdown menu
- * @param options - list of options, which is an array of object [{ label: string, value: string }]
- * @param value - a chosen value
- * @param onChange - a function to set a value
- * @returns
+ *
+ * @param options - List of select options of type {@link Options}
+ * @param value - The currently selected value
+ * @param onChange - Callback function triggered when a new value is selected
+ * @returns React Element rendering the dropdown select input
  */
 const DropdownSelect = ({ options, value, onChange }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -72,7 +80,7 @@ const DropdownSelect = ({ options, value, onChange }: Props) => {
                         onMouseEnter={() => setHoverClose(true)}
                         onMouseLeave={() => setHoverClose(false)}
                     >
-                        <IoMdClose />
+                        <X />
                     </div>
                 </div>
 

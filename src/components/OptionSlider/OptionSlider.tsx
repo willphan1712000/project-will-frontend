@@ -9,7 +9,6 @@ export type Options = {
 interface Props {
     value: string;
     onChange: (value: string) => void;
-    width?: string;
     options: Options;
     color?: string;
 }
@@ -18,13 +17,11 @@ interface Props {
  * Option Slider component, allowing users to select a value they want with the help of element representaion. Label is a React Node jsx that represents the option. For example, if a value was a font, the label would be a React Node jsx that represents a character using the font
  * @param value - a chosen value
  * @param onChange - to set a value
- * @options - list of options, format [{ label: React Node Syntax, value: string }]
- * @returns
+ * @options - list of options, format Options {@link Options}
  */
 const OptionSlider = ({
     value,
     onChange,
-    width = '200',
     options,
     color = '#f0f0f7',
 }: Props) => {
@@ -32,7 +29,8 @@ const OptionSlider = ({
         <div
             style={{
                 ...styles.border,
-                width: `${width}px`,
+                width: `100%`,
+                height: `100%`,
             }}
         >
             <div

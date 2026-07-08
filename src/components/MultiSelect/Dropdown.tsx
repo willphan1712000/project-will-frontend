@@ -53,28 +53,31 @@ const Dropdown = () => {
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
-            {optionsCopy.map((option, key) => (
-                <div
-                    key={key}
-                    style={{
-                        ...styles.element,
-                        backgroundColor:
-                            keyOnHover === key ? '#f0f0f0' : '#fff',
-                    }}
-                    onClick={() => {
-                        onChange((prev) => {
-                            if (prev.includes(option.value)) return [...prev];
+            {optionsCopy.map(
+                (option: { label: string; value: string }, key: number) => (
+                    <div
+                        key={key}
+                        style={{
+                            ...styles.element,
+                            backgroundColor:
+                                keyOnHover === key ? '#f0f0f0' : '#fff',
+                        }}
+                        onClick={() => {
+                            onChange((prev) => {
+                                if (prev.includes(option.value))
+                                    return [...prev];
 
-                            return [...prev, option.value];
-                        });
-                        setOpen((prev) => !prev);
-                    }}
-                    onMouseEnter={() => setKeyOnHover(key)}
-                    onMouseLeave={() => setKeyOnHover(-1)}
-                >
-                    {option.label}
-                </div>
-            ))}
+                                return [...prev, option.value];
+                            });
+                            setOpen((prev) => !prev);
+                        }}
+                        onMouseEnter={() => setKeyOnHover(key)}
+                        onMouseLeave={() => setKeyOnHover(-1)}
+                    >
+                        {option.label}
+                    </div>
+                )
+            )}
         </div>
     );
 };

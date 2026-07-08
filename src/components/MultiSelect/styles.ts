@@ -7,14 +7,23 @@ type Props =
     | 'element'
     | 'dropdown'
     | 'search_border'
-    | 'search';
+    | 'search'
+    | 'container';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
 };
 
 const styles: Styles = {
+    container: {
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+    },
     select_box: {
+        boxSizing: 'border-box',
+        width: '100%',
+        height: '100%',
         borderRadius: '10px',
         border: 'solid 1px #dadada',
         padding: '5px 10px',
@@ -30,28 +39,28 @@ const styles: Styles = {
         flexWrap: 'wrap',
     },
     eachValue: {
+        height: '100%',
         borderRadius: '5px',
         backgroundColor: '#f0f0f7',
         padding: '5px',
         position: 'relative',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: '1rem',
+        gap: '5px',
     },
     closeEach: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        transform: 'translate(50%, -50%)',
         borderRadius: '50%',
-        backgroundColor: '#fc2c2cf0',
         aspectRatio: 1,
-        width: '24px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'white',
-        transition: 'scale .2s linear',
-        transformOrigin: 'top right',
+        color: '#000',
     },
     close: {
+        padding: '1%',
         borderRadius: '50%',
         width: '20px',
         height: '20px',
@@ -66,6 +75,7 @@ const styles: Styles = {
         justifyContent: 'flex-start',
         alignItems: 'center',
         cursor: 'pointer',
+        fontSize: '1rem',
     },
     dropdown: {
         position: 'absolute',
