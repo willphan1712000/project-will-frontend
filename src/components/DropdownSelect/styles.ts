@@ -15,9 +15,13 @@ type Styles = {
 const styles: Styles = {
     container: {
         width: '100%',
+        height: '100%',
         position: 'relative',
     },
     select_box: {
+        boxSizing: 'border-box',
+        width: '100%',
+        height: '100%',
         borderRadius: '10px',
         border: 'solid 1px #dadada',
         padding: '5px 10px',
@@ -30,6 +34,7 @@ const styles: Styles = {
         marginRight: 'auto',
     },
     close: {
+        padding: '1%',
         borderRadius: '50%',
         width: '20px',
         height: '20px',

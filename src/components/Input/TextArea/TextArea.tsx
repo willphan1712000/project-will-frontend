@@ -19,14 +19,24 @@ interface Props {
  * @param value value of input
  * @param setValue set value function
  * @param label set label
- * @param options options object containing focusColor property -> color when input is focused
+ * @param options options object containing styling properties (focusColor, backgroundColor, textColor, borderColor)
  *
  * @example
  * ... component declaration
  * const [value, setValue] = useState<string|undefined>('')
  *
  * return (
- *      <TextArea value={value} setValue={setValue} label="Text Component Label" options={{ focusColor: "yellow" }}/>
+ *      <TextArea
+ *          value={value}
+ *          setValue={setValue}
+ *          label="Text Component Label"
+ *          options={{
+ *              focusColor: "yellow",
+ *              backgroundColor: "white",
+ *              textColor: "black",
+ *              borderColor: "gray"
+ *          }}
+ *      />
  * )
  */
 const TextArea = ({
@@ -51,7 +61,7 @@ const TextArea = ({
         ? options.borderColor
         : others.borderRelease;
     const borderWhenFocused = isFocus
-        ? `${others.border} ${options ? options.focusColor : others.borderFocus}`
+        ? `${others.border} ${options?.focusColor ? options.focusColor : others.borderFocus}`
         : `${others.border} ${borderColor}`;
     const labelColorWhenFocused = isFocus
         ? `${options?.focusColor ? options.focusColor : others.textFocus}`

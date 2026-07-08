@@ -4,7 +4,7 @@ import styles from './MainElements.styles';
 import useMyContext from '../context';
 import WMouseEvent from '@/src/utilities/Transform/Events/MouseEvents';
 import WTouchEvent from '@/src/utilities/Transform/Events/TouchEvents';
-import { FaArrowRotateLeft } from 'react-icons/fa6';
+import { ArrowRotateLeft } from '@/src/components/Icons';
 
 const Rotate = () => {
     const [rotate, setRotate] = useState<boolean>(false);
@@ -66,7 +66,7 @@ const Rotate = () => {
                 }}
             >
                 <div style={handleBackground(rotate)}></div>
-                <FaArrowRotateLeft size="15" />
+                <ArrowRotateLeft size="15" />
                 {rotate && (
                     <p
                         style={{
@@ -95,7 +95,7 @@ const Rotate = () => {
                 }}
             >
                 <div style={handleBackground(rotate)}></div>
-                <FaArrowRotateLeft size="15" />
+                <ArrowRotateLeft size="15" />
                 {rotate && (
                     <p
                         style={{
