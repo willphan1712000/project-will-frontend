@@ -1,6 +1,6 @@
 {
   "name": "@willphan1712000/frontend",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Frontend Library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,23 +11,15 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
-    "@swc/core": "^1.13.5",
-    "@testing-library/jest-dom": "^6.9.0",
-    "@testing-library/react": "^16.3.0",
-    "@types/jest": "^27.5.2",
-    "@types/jquery": "^3.5.33",
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
     "esbuild-plugin-css-module": "^0.1.0",
-    "esbuild-plugin-react18-css": "^0.0.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
-    "ts-loader": "^9.5.4",
+    "sass": "^1.101.0",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "web-vitals": "^5.1.0"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "framer-motion": "^12.23.24"
