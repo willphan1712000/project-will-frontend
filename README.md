@@ -12,6 +12,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `RangeSlider`
 - `OptionSlider`
 - `ColorPickerSlider`
+- `DynamicList`
 - `Button`
 - `ModernButton`
 - `Avatar`
@@ -202,6 +203,37 @@ Props:
 - `src?: string`
 - `setValue: (src?: string) => void`
 - `options?: { defaultImage?: string }`
+
+### `DynamicList`
+
+`DynamicList` is an interactive list component that allows users to add, remove, edit, and reorder (via drag-and-drop) a list of text inputs.
+
+```tsx
+import { useState } from 'react';
+import { DynamicList } from '@willphan1712000/frontend';
+
+const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
+
+<DynamicList
+  values={values}
+  onChange={setValues}
+  options={{
+    label: 'option',
+    backgroundColor: '#ffffff',
+    borderColor: '#e2e8f0',
+    textColor: '#1a202c'
+  }}
+/>
+```
+
+Props:
+- `values: string[]` - An array of strings representing the current values in the list.
+- `onChange: (values: React.SetStateAction<string[]>) => void` - Callback triggered when the list values change.
+- `options?: object` - Optional configurations:
+  - `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
+  - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
+  - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
+  - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
 
 ## Auth usage
 

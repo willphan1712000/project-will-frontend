@@ -1,17 +1,9 @@
-// DropSelect component
 export { default as DropdownSelect } from './src/components/DropdownSelect/DropdownSelect';
-
-// RangeSlider component
 export { default as RangeSlider } from './src/components/RangeSlider/RangeSlider';
-
-// OptionSlider component
 export { default as OptionSlider } from './src/components/OptionSlider/OptionSlider';
-
-// ColorPickerSlider
 export { default as ColorPickerSlider } from './src/components/ColorPickerSlider/ColorPickerSlider';
-
-// MultiSelect
 export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect';
+export { default as DynamicList } from './src/components/DynamicList/DynamicList';
 
 // Button
 export { default as Button } from './src/components/Buttons/Button';
