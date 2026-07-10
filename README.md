@@ -13,6 +13,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `OptionSlider`
 - `ColorPickerSlider`
 - `DynamicList`
+- `FileDropZone`
 - `Button`
 - `ModernButton`
 - `Avatar`
@@ -234,6 +235,41 @@ Props:
   - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
   - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
   - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
+
+### `FileDropZone`
+
+`FileDropZone` provides an interactive drag-and-drop area for uploading files, with custom validation by file extension and support for custom styling.
+
+```tsx
+import { useState } from 'react';
+import { FileDropZone } from '@willphan1712000/frontend';
+
+const [file, setFile] = useState<File | undefined>(undefined);
+
+<FileDropZone
+  label="Upload configuration"
+  accept=".json"
+  file={file}
+  onFileSelect={setFile}
+  options={{
+    backgroundColor: '#fafafa',
+    borderColor: '#1a73e8',
+    textColor: '#3c4043',
+    destructive: '#d93025'
+  }}
+/>
+```
+
+Props:
+- `label: string` - The text prompt displayed inside the drop zone.
+- `accept: string` - Allowed file extension/type suffix (e.g. `".json"`).
+- `file?: File` - Optional initial file to display as selected.
+- `onFileSelect: (file: File) => void` - Callback function triggered when a valid file is dropped or selected.
+- `options?: object` - Optional configuration for custom styling:
+  - `backgroundColor?: string` - Custom background color of the drop zone (defaults to `'#fff'`).
+  - `borderColor?: string` - Custom border color of the drop zone (defaults to `'#fff'`).
+  - `textColor?: string` - Custom text and icon color inside the drop zone (defaults to `'#000'`).
+  - `destructive?: string` - Custom color for error messages (defaults to `'#df0408'`).
 
 ## Auth usage
 

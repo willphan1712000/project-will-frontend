@@ -4,7 +4,7 @@ import { GripVertical, TrashCan } from '../Icons';
 
 interface Props {
     values: string[];
-    onChange: (values: React.SetStateAction<string[]>) => void;
+    onChange: React.Dispatch<React.SetStateAction<string[]>>;
     options?: {
         label?: string;
         backgroundColor?: string;
@@ -44,9 +44,6 @@ const DynamicList = ({
 }: Props) => {
     const { backgroundColor, borderColor, textColor: color, label } = options;
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
-    const [hoveredDeleteIndex, setHoveredDeleteIndex] = useState<number | null>(
-        null
-    );
 
     const handleDragStart = (i: number) => setDraggedIndex(i);
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>, i: number) => {
@@ -112,8 +109,6 @@ const DynamicList = ({
 
                         <button
                             onClick={() => removeValue(index)}
-                            onMouseEnter={() => setHoveredDeleteIndex(index)}
-                            onMouseLeave={() => setHoveredDeleteIndex(null)}
                             style={{
                                 ...styles.deleteButton,
                             }}
