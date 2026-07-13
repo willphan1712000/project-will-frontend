@@ -14,6 +14,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `ColorPickerSlider`
 - `DynamicList`
 - `FileDropZone`
+- `Info`
 - `Button`
 - `ModernButton`
 - `Avatar`
@@ -140,6 +141,26 @@ Props:
 
 ### `RangeSlider`
 
+```tsx
+import { useState } from 'react';
+import { RangeSlider } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('50');
+
+  return (
+    <RangeSlider
+      value={value}
+      onChange={setValue}
+      min="0"
+      max="100"
+      width="240"
+      color="#2563eb"
+    />
+  );
+}
+```
+
 Props:
 - `value: string`
 - `onChange: (value: string) => void`
@@ -152,6 +173,31 @@ Props:
 
 The package exports `SliderOptions` for this component.
 
+```tsx
+import { useState } from 'react';
+import { OptionSlider } from '@willphan1712000/frontend';
+
+const options = [
+  { label: 'Low', value: 'low' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'High', value: 'high' },
+];
+
+export default function Example() {
+  const [value, setValue] = useState('medium');
+
+  return (
+    <OptionSlider
+      value={value}
+      onChange={setValue}
+      options={options}
+      width="260"
+      color="#2563eb"
+    />
+  );
+}
+```
+
 Props:
 - `value: string`
 - `onChange: (value: string) => void`
@@ -161,12 +207,44 @@ Props:
 
 ### `ColorPickerSlider`
 
+```tsx
+import { useState } from 'react';
+import { ColorPickerSlider } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('#2563eb');
+
+  return (
+    <ColorPickerSlider
+      value={value}
+      onChange={setValue}
+      width="240"
+    />
+  );
+}
+```
+
 Props:
 - `value: string`
 - `onChange: (value: string) => void`
 - `width?: string`
 
 ### `Button`
+
+```tsx
+import { Button } from '@willphan1712000/frontend';
+
+export default function Example() {
+  return (
+    <Button
+      buttonType="gradient"
+      content="Submit"
+      type="button"
+      onClick={() => console.log('clicked')}
+    />
+  );
+}
+```
 
 Supports:
 - `buttonType="normal"`
@@ -270,6 +348,26 @@ Props:
   - `borderColor?: string` - Custom border color of the drop zone (defaults to `'#fff'`).
   - `textColor?: string` - Custom text and icon color inside the drop zone (defaults to `'#000'`).
   - `destructive?: string` - Custom color for error messages (defaults to `'#df0408'`).
+
+### `Info`
+
+`Info` renders a hover-help icon that displays a tooltip-style message when hovered. The tooltip automatically flips to the opposite side when it would overflow the viewport edges.
+
+```tsx
+import { Info } from '@willphan1712000/frontend';
+
+<Info
+  message="Helpful guidance for this field."
+  options={{
+    color: '#1f2937',
+    backgroundColor: '#f3f4f6',
+  }}
+/>
+```
+
+Props:
+- `message?: string` - Tooltip content shown on hover.
+- `options?: { color?: string; backgroundColor?: string }` - Optional styling for the tooltip text and background.
 
 ## Auth usage
 

@@ -52,7 +52,6 @@ const Info = ({
 
     if (isHover && pRef.current) {
         const rect = pRef.current.getBoundingClientRect();
-        console.log(rect.top <= 0);
         top =
             rect.top <= 0
                 ? { top: '100%', bottom: undefined }
