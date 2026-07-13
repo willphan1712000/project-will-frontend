@@ -5,6 +5,7 @@ export { default as ColorPickerSlider } from './src/components/ColorPickerSlider
 export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect';
 export { default as DynamicList } from './src/components/DynamicList/DynamicList';
 export { default as FileDropZone } from './src/components/FileDropZone/FileDropZone';
+export { default as Info } from './src/components/Info/Info';
 
 // Button
 export { default as Button } from './src/components/Buttons/Button';
