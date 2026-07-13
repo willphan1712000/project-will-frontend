@@ -5,7 +5,6 @@ export { default as ColorPickerSlider } from './src/components/ColorPickerSlider
 export { default as MultiSelect } from './src/components/MultiSelect/MultiSelect';
 export { default as DynamicList } from './src/components/DynamicList/DynamicList';
 export { default as FileDropZone } from './src/components/FileDropZone/FileDropZone';
-export { default as Calendar } from './src/components/Calender/Calendar';
 export { default as Info } from './src/components/Info/Info';
 
 // Button
