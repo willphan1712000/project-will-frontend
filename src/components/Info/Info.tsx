@@ -65,7 +65,7 @@ const Info = ({
     return (
         <div style={styles.container}>
             <InfoIcon
-                color={color}
+                color={backgroundColor}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             />
