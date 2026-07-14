@@ -15,6 +15,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `DynamicList`
 - `FileDropZone`
 - `Info`
+- `Overlay`
 - `Button`
 - `ModernButton`
 - `Avatar`
@@ -368,6 +369,37 @@ import { Info } from '@willphan1712000/frontend';
 Props:
 - `message?: string` - Tooltip content shown on hover.
 - `options?: { color?: string; backgroundColor?: string }` - Optional styling for the tooltip text and background.
+
+### `Overlay`
+
+`Overlay` renders a full-screen background overlay (with a backdrop blur effect) around a central content container. Clicking outside the content container (on the overlay itself) triggers a close callback.
+
+```tsx
+import { useState } from 'react';
+import { Overlay } from '@willphan1712000/frontend';
+
+const [isOpen, setIsOpen] = useState(false);
+
+<Overlay
+  open={isOpen}
+  close={() => setIsOpen(false)}
+  options={{
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  }}
+>
+  <div style={{ padding: '20px', background: '#fff', borderRadius: '8px' }}>
+    <h3>Overlay Content</h3>
+    <p>This is inside the overlay.</p>
+  </div>
+</Overlay>
+```
+
+Props:
+- `open?: boolean` - Controls whether the overlay is visible.
+- `close?: () => void` - Callback function triggered when the overlay is clicked (outside the child element).
+- `options?: object` - Optional custom configurations:
+  - `backgroundColor?: string` - Custom background color of the overlay (defaults to `'#fff'`).
+- `children?: React.ReactNode` - Content inside the center container.
 
 ## Auth usage
 
