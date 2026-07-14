@@ -17,6 +17,7 @@ let track = false;
  * - Users freely interact with the main element
  * - When clicking on the main element, nothing happens
  * - When clicking on the overlay element, a state changes
+ * - We can treat this component as div element with ...props
  *
  * @param open - open overlay modal state
  * @param close - method to change open state
@@ -40,29 +41,23 @@ const Overlay = ({
     close,
     options = { backgroundColor: '#fff' },
     children,
-}: Props) => {
+    ...props
+}: Props & React.ComponentProps<'div'>) => {
     const { backgroundColor } = options;
     if (!open) return null;
     return (
         <div
             style={{ ...styles.overlay, backgroundColor }}
-            onMouseDown={() => {
-                track = true;
+            onMouseDown={(e) => {
+                if (e.target === e.currentTarget) track = true;
             }}
-            onMouseUp={() => {
-                if (track && close) {
-                    close();
-                    track = false;
-                }
+            onMouseUp={(e) => {
+                if (e.target === e.currentTarget && track && close) close();
+                track = false;
             }}
+            {...props}
         >
-            <div
-                style={styles.child}
-                onMouseDown={(e) => e.stopPropagation()}
-                onMouseUp={(e) => e.stopPropagation()}
-            >
-                {children}
-            </div>
+            {children}
         </div>
     );
 };
