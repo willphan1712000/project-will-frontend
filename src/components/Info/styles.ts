@@ -20,6 +20,7 @@ const styles: Styles = {
         textAlign: 'center',
         transition: 'all 0.08s linear',
         transformOrigin: 'bottom left',
+        zIndex: 99999999,
     },
 };
 
