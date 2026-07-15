@@ -34,14 +34,14 @@ export { default as Transform } from './src/utilities/Transform/Transform';
 export { default as tools } from './src/utilities/tools/tools';
 
 // auth
-export type { AuthInterface } from '@/src/auth';
-export type { StorageInterface } from '@/src/auth';
-export {
-    useSession,
-    SessionProvider,
-    type SessionType,
-    useAuthClient,
-} from '@/src/auth/react';
+// export type { AuthInterface } from '@/src/auth';
+// export type { StorageInterface } from '@/src/auth';
+// export {
+//     useSession,
+//     SessionProvider,
+//     type SessionType,
+//     useAuthClient,
+// } from '@/src/auth/react';
 
 // Math
 export { default as LinearAlgebra } from './src/utilities/math/LinearAlgebra';

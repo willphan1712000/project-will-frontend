@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { decode, encode } from './functions';
+import Info from '@/src/components/Info/Info';
 import styles from './styles';
 
 interface Props {
@@ -9,17 +10,26 @@ interface Props {
     max?: string;
     color?: string;
     width?: string;
+    isReadOnly?: boolean;
+    description?: string;
+    options?: {
+        backgroundColor?: string;
+        textColor?: string;
+    };
 }
 
 /**
  * Range Slider component, allowing users to drag the slider to choose value they want
- * @param min - minimum value
- * @param max - maximum value
- * @param color - color scheme of the range slider
- * @param width - specify the width of the component
+ * @param min - minimum value (defaults to '0')
+ * @param max - maximum value (defaults to '100')
+ * @param color - color scheme of the range slider (defaults to '#f0f0f7')
+ * @param width - specify the width of the component (defaults to '200')
  * @param value - a chosen value
  * @param onChange - to set a value
- * @returns
+ * @param isReadOnly - if true, disables sliding or dragging (defaults to false)
+ * @param description - description tooltip text shown on hover of the info icon
+ * @param options - configuration options for custom styling (backgroundColor, textColor)
+ * @returns React Component
  */
 const RangeSlider = ({
     min = '0',
@@ -28,7 +38,15 @@ const RangeSlider = ({
     width = '200',
     value,
     onChange,
+    isReadOnly = false,
+    description = '',
+    options = {
+        backgroundColor: '#fff',
+        textColor: '#000',
+    },
 }: Props) => {
+    const { backgroundColor, textColor } = options;
+
     let percentage = encode(value, min, max);
     const sliderBorderRef = useRef<HTMLDivElement>(null);
     const [isMouseDown, setMouseDown] = useState<boolean>(false);
@@ -97,61 +115,76 @@ const RangeSlider = ({
     }, [isMouseDown]);
 
     return (
-        <div
-            style={{
-                ...styles.slider_border,
-                width: `${width}px`,
-            }}
-            // mouse event handling
-            onMouseDown={(e) => {
-                handleDrag(true, e);
-                setMouseDown(true);
-            }}
-            // touch event handling
-            onTouchStart={(e) => {
-                handleDrag(true, e);
-                setMouseDown(true);
-            }}
-            ref={sliderBorderRef}
-        >
-            <span
+        <div style={styles.container}>
+            <div
                 style={{
-                    ...styles.fill,
-                    background: color,
-                    width: `${percentage}%`,
+                    ...styles.slider_border,
+                    width: `${width}px`,
                 }}
-            ></span>
-            <span
-                style={{
-                    ...styles.thumb,
-                    background: color,
-                    left: `${percentage}%`,
+                // mouse event handling
+                onMouseDown={(e) => {
+                    if (isReadOnly) return;
+                    handleDrag(true, e);
+                    setMouseDown(true);
                 }}
-                onMouseMove={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
+                // touch event handling
+                onTouchStart={(e) => {
+                    if (isReadOnly) return;
+                    handleDrag(true, e);
+                    setMouseDown(true);
+                }}
+                ref={sliderBorderRef}
             >
                 <span
                     style={{
-                        ...styles.value,
-                        scale: isMouseDown || isHover ? '1' : '0',
+                        ...styles.fill,
+                        background: color,
+                        width: `${percentage}%`,
                     }}
+                ></span>
+                <span
+                    style={{
+                        ...styles.thumb,
+                        background: color,
+                        left: `${percentage}%`,
+                    }}
+                    onMouseMove={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
                 >
-                    {value}
+                    <span
+                        style={{
+                            ...styles.value,
+                            backgroundColor: textColor,
+                            color: backgroundColor,
+                            scale: isMouseDown || isHover ? '1' : '0',
+                        }}
+                    >
+                        {value}
+                    </span>
+                    <span
+                        style={{
+                            ...styles.thumb_shadow,
+                            background: color,
+                            scale: isMouseDown || isHover ? '1' : '0',
+                        }}
+                    ></span>
                 </span>
                 <span
                     style={{
-                        ...styles.thumb_shadow,
+                        ...styles.rest,
                         background: color,
-                        scale: isMouseDown || isHover ? '1' : '0',
                     }}
                 ></span>
-            </span>
-            <span
-                style={{
-                    ...styles.rest,
-                    background: color,
-                }}
-            ></span>
+            </div>
+            <div style={styles.info}>
+                <Info
+                    message={isReadOnly ? 'Locked - Read Only' : description}
+                    options={{
+                        backgroundColor: textColor,
+                        color: backgroundColor,
+                    }}
+                />
+            </div>
         </div>
     );
 };

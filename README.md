@@ -170,6 +170,8 @@ Props:
 
 ### `RangeSlider`
 
+`RangeSlider` allows users to select a numeric value within a range by dragging a slider track, with custom tooltip info display and read-only support.
+
 ```tsx
 import { useState } from 'react';
 import { RangeSlider } from '@willphan1712000/frontend';
@@ -185,18 +187,29 @@ export default function Example() {
       max="100"
       width="240"
       color="#2563eb"
+      isReadOnly={false}
+      description="Select the volume percentage"
+      options={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+      }}
     />
   );
 }
 ```
 
 Props:
-- `value: string`
-- `onChange: (value: string) => void`
-- `min?: string`
-- `max?: string`
-- `color?: string`
-- `width?: string`
+- `value: string` - The current value.
+- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
+- `min?: string` - Minimum value of the range (defaults to `'0'`).
+- `max?: string` - Maximum value of the range (defaults to `'100'`).
+- `color?: string` - Custom track/thumb color (defaults to `'#f0f0f7'`).
+- `width?: string` - The width of the slider component in pixels (defaults to `'200'`).
+- `isReadOnly?: boolean` - If set to `true`, disables dragging or changing the slider, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `options?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
+  - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
 
 ### `OptionSlider`
 
