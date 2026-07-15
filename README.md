@@ -106,19 +106,47 @@ export default function Example() {
 
 ### `DropdownSelect`
 
+`DropdownSelect` is a custom dropdown selection input component that supports filtering options via an integrated search input, as well as read-only states and custom tooltip info guidance.
+
 ```tsx
+import { useState } from 'react';
 import { DropdownSelect, type Options } from '@willphan1712000/frontend';
 
 const options: Options = [
   { label: 'Apple', value: 'apple' },
   { label: 'Orange', value: 'orange' },
 ];
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <DropdownSelect
+      options={options}
+      value={value}
+      onChange={setValue}
+      isReadOnly={false}
+      description="Choose your preferred fruit"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+        hoverBackgroundColor: '#f0f0f0',
+      }}
+    />
+  );
+}
 ```
 
 Props:
-- `options: { label: string; value: string }[]`
-- `value: string`
-- `onChange: (value: string) => void`
+- `options: { label: string; value: string }[]` - List of select options.
+- `value: string` - The currently selected value.
+- `onChange: (value: string) => void` - Callback function triggered when a new value is selected.
+- `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
+  - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
+  - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
 
 ### `MultiSelect`
 

@@ -7,7 +7,8 @@ import styles from './styles';
  * Private Dropdown component -> handle dropdown list including search bar
  */
 const Dropdown = () => {
-    const { options, onChange, setOpen } = useMyContext();
+    const { options, onChange, setOpen, config } = useMyContext();
+    const { backgroundColor, textColor: color, hoverBackgroundColor } = config!;
     const [isVisible, setVisible] = useState<boolean>(true);
     const [keyOnHover, setKeyOnHover] = useState<number>(-1);
     const [optionsCopy, setOption] = useState(options);
@@ -38,20 +39,24 @@ const Dropdown = () => {
         };
     }, []);
 
+    const isVisibleVar = isVisible
+        ? {
+              ...styles.dropdown,
+              top: 'calc(100% + 5px)',
+          }
+        : {
+              ...styles.dropdown,
+              bottom: 'calc(100% + 5px)',
+          };
+
     return (
         <div
             ref={dropdownRef}
-            style={
-                isVisible
-                    ? {
-                          ...styles.dropdown,
-                          top: 'calc(100% + 5px)',
-                      }
-                    : {
-                          ...styles.dropdown,
-                          bottom: 'calc(100% + 5px)',
-                      }
-            }
+            style={{
+                ...isVisibleVar,
+                backgroundColor,
+                color,
+            }}
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
@@ -61,7 +66,10 @@ const Dropdown = () => {
                     style={{
                         ...styles.element,
                         backgroundColor:
-                            keyOnHover === key ? '#f0f0f0' : '#fff',
+                            keyOnHover === key
+                                ? hoverBackgroundColor
+                                : backgroundColor,
+                        color,
                     }}
                     onClick={() => {
                         onChange(option.value);

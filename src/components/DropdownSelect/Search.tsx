@@ -1,3 +1,4 @@
+import useMyContext from './context';
 import { Options } from './DropdownSelect';
 import styles from './styles';
 
@@ -10,11 +11,17 @@ interface Props {
  * Private Search component -> take original options and perform onSearch operation on option label to find desired options
  */
 const Search = ({ options, onSearch }: Props) => {
+    const { config } = useMyContext();
+    const { backgroundColor, textColor: color } = config!;
     return (
         <div style={styles.search_border}>
             <input
                 placeholder="Search"
-                style={styles.search}
+                style={{
+                    ...styles.search,
+                    backgroundColor,
+                    color,
+                }}
                 id="search"
                 name="search"
                 onChange={(e) =>

@@ -6,7 +6,8 @@ type Props =
     | 'dropdown'
     | 'search_border'
     | 'search'
-    | 'container';
+    | 'container'
+    | 'info';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
@@ -17,6 +18,9 @@ const styles: Styles = {
         width: '100%',
         height: '100%',
         position: 'relative',
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '5px',
     },
     select_box: {
         boxSizing: 'border-box',
@@ -76,13 +80,18 @@ const styles: Styles = {
     },
     search: {
         width: '100%',
-        borderRadius: '5px',
+        borderRadius: '0',
         padding: '5px',
-        border: 'solid 1px #dadada',
+        border: 'none',
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
         boxSizing: 'border-box',
+        outline: 'none',
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
 
