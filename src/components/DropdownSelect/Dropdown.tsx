@@ -60,7 +60,7 @@ const Dropdown = () => {
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
-            {optionsCopy.map((option, key) => (
+            {optionsCopy!.map((option, key) => (
                 <div
                     key={key}
                     style={{
@@ -72,7 +72,7 @@ const Dropdown = () => {
                         color,
                     }}
                     onClick={() => {
-                        onChange(option.value);
+                        onChange!(option.value);
                         setOpen((prev) => !prev);
                     }}
                     onMouseEnter={() => setKeyOnHover(key)}

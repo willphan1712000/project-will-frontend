@@ -1,11 +1,8 @@
 import { createContext, useContext } from 'react';
-import { Options } from './DropdownSelect';
+import WUII from '..';
 
 export type Data = {
-    // some data type does here
-    options: Options;
-    value: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     config?: {
         backgroundColor?: string;
@@ -14,7 +11,7 @@ export type Data = {
     };
 };
 
-export type ContextDataType = Data | undefined;
+export type ContextDataType = (WUII & Data) | undefined;
 
 export const MyContext = createContext<ContextDataType>(undefined);
 

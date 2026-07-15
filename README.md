@@ -2,7 +2,7 @@
 
 # `@willphan1712000/frontend`
 
-Reusable React UI components and frontend utilities packaged for application development.
+Reusable React UI components and frontend utilities packaged for application development following Will component interface called WUII which stands for Will UI Interface
 
 ## What this package includes
 
@@ -716,13 +716,11 @@ npm link <path_to_your_testing_project>/node_modules/react
 ```
 
 ## Notes
-
 - The package is built with `tsup`.
 - It ships CommonJS, ESM, and TypeScript declaration files.
 - Source code is written in TypeScript and React.
 
 ## Contributing
-
 If you find a bug or want to improve the package, open an issue or submit a pull request.
 
 Portfolio:

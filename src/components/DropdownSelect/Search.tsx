@@ -1,10 +1,10 @@
+import { Options } from '..';
 import useMyContext from './context';
-import { Options } from './DropdownSelect';
 import styles from './styles';
 
 interface Props {
-    options: Options;
-    onSearch: React.Dispatch<React.SetStateAction<Options>>;
+    options?: Options;
+    onSearch: React.Dispatch<React.SetStateAction<Options | undefined>>;
 }
 
 /**
@@ -26,8 +26,8 @@ const Search = ({ options, onSearch }: Props) => {
                 name="search"
                 onChange={(e) =>
                     onSearch(
-                        options.filter((ele) => {
-                            return ele.label
+                        options!.filter((ele) => {
+                            return ele.value
                                 .toLowerCase()
                                 .includes(e.target.value.toLowerCase());
                         })

@@ -4,55 +4,31 @@ import { MyContext } from './context';
 import Info from '@/src/components/Info/Info';
 import Dropdown from './Dropdown';
 import styles from './styles';
-
-/**
- * Represents the structure of options available in the dropdown selection.
- *
- * Each item in the array contains:
- * @property {string} label - The user-friendly text displayed in the dropdown list.
- * @property {string} value - The actual value associated with the option.
- */
-export type Options = {
-    label: string;
-    value: string;
-}[];
-
-interface Props {
-    options: Options;
-    value: string;
-    onChange: (value: string) => void;
-    isReadOnly?: boolean;
-    description?: string;
-    config?: {
-        backgroundColor?: string;
-        textColor?: string;
-        hoverBackgroundColor?: string;
-    };
-}
+import WUII from '@/src/components/index';
 
 /**
  * Dropdown Select component, allowing users to select options from dropdown menu
  *
  * @param options - List of select options of type {@link Options}
  * @param value - The currently selected value
- * @param onChange - Callback function triggered when a new value is selected
+ * @param setValue - Callback function triggered when a new value is selected
  * @param isReadOnly - If true, disables opening or changing the dropdown select (defaults to false)
  * @param description - Description tooltip text shown on hover of the info icon
- * @param config - Optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
+ * @param styling - Optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
  * @returns React Element rendering the dropdown select input
  */
 const DropdownSelect = ({
     options,
     value,
-    onChange,
+    setValue: onChange,
     isReadOnly = false,
     description = '',
-    config = {
+    styling: config = {
         backgroundColor: '#fff',
         textColor: '#000',
         hoverBackgroundColor: '#f0f0f0',
     },
-}: Props) => {
+}: WUII<string>) => {
     const { backgroundColor, textColor: color } = config;
 
     const [open, setOpen] = useState<boolean>(false);
@@ -104,7 +80,7 @@ const DropdownSelect = ({
                         title="clear"
                         onClick={() => {
                             if (isReadOnly) return;
-                            onChange('');
+                            if (onChange) onChange('');
                             setOpen((prev) => !prev);
                         }}
                     >
