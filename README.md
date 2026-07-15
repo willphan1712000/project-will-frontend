@@ -106,21 +106,51 @@ export default function Example() {
 
 ### `DropdownSelect`
 
+`DropdownSelect` is a custom dropdown selection input component that supports filtering options via an integrated search input, as well as read-only states and custom tooltip info guidance.
+
 ```tsx
+import { useState } from 'react';
 import { DropdownSelect, type Options } from '@willphan1712000/frontend';
 
 const options: Options = [
   { label: 'Apple', value: 'apple' },
   { label: 'Orange', value: 'orange' },
 ];
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <DropdownSelect
+      options={options}
+      value={value}
+      onChange={setValue}
+      isReadOnly={false}
+      description="Choose your preferred fruit"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+        hoverBackgroundColor: '#f0f0f0',
+      }}
+    />
+  );
+}
 ```
 
 Props:
-- `options: { label: string; value: string }[]`
-- `value: string`
-- `onChange: (value: string) => void`
+- `options: { label: string; value: string }[]` - List of select options.
+- `value: string` - The currently selected value.
+- `onChange: (value: string) => void` - Callback function triggered when a new value is selected.
+- `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
+  - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
+  - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
 
 ### `MultiSelect`
+
+`MultiSelect` is a custom selection input component allowing users to choose multiple options from a search-enabled dropdown list, featuring tag-style selected values, hover help tooltips, and read-only support.
 
 ```tsx
 import { useState } from 'react';
@@ -131,16 +161,40 @@ const options = [
   { label: 'TypeScript', value: 'typescript' },
 ];
 
-const [values, setValues] = useState<string[]>([]);
+export default function Example() {
+  const [values, setValues] = useState<string[]>([]);
+
+  return (
+    <MultiSelect
+      options={options}
+      value={values}
+      onChange={setValues}
+      isReadOnly={false}
+      description="Select your tech stack"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+        hoverBackgroundColor: '#f0f0f0',
+      }}
+    />
+  );
+}
 ```
 
 Props:
-- `options: { label: string; value: string }[]`
-- `value: string[]`
-- `onChange: React.Dispatch<React.SetStateAction<string[]>>`
-- `width?: string`
+- `options: { label: string; value: string }[]` - List of select options.
+- `value: string[]` - An array of currently selected values.
+- `onChange: React.Dispatch<React.SetStateAction<string[]>>` - State setter function to update selected values.
+- `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list, clearing all items, or removing individual options, and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
+  - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
+  - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
 
 ### `RangeSlider`
+
+`RangeSlider` allows users to select a numeric value within a range by dragging a slider track, with custom tooltip info display and read-only support.
 
 ```tsx
 import { useState } from 'react';
@@ -157,22 +211,33 @@ export default function Example() {
       max="100"
       width="240"
       color="#2563eb"
+      isReadOnly={false}
+      description="Select the volume percentage"
+      options={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+      }}
     />
   );
 }
 ```
 
 Props:
-- `value: string`
-- `onChange: (value: string) => void`
-- `min?: string`
-- `max?: string`
-- `color?: string`
-- `width?: string`
+- `value: string` - The current value.
+- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
+- `min?: string` - Minimum value of the range (defaults to `'0'`).
+- `max?: string` - Maximum value of the range (defaults to `'100'`).
+- `color?: string` - Custom track/thumb color (defaults to `'#f0f0f7'`).
+- `width?: string` - The width of the slider component in pixels (defaults to `'200'`).
+- `isReadOnly?: boolean` - If set to `true`, disables dragging or changing the slider, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `options?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
+  - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
 
 ### `OptionSlider`
 
-The package exports `SliderOptions` for this component.
+`OptionSlider` allows users to select a value by choosing from a set of options represented visually as blocks, with custom tooltip info display and read-only support.
 
 ```tsx
 import { useState } from 'react';
@@ -192,21 +257,32 @@ export default function Example() {
       value={value}
       onChange={setValue}
       options={options}
-      width="260"
       color="#2563eb"
+      isReadOnly={false}
+      description="Choose intensity level"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+      }}
     />
   );
 }
 ```
 
 Props:
-- `value: string`
-- `onChange: (value: string) => void`
-- `options: { label: ReactNode; value: string }[]`
-- `width?: string`
-- `color?: string`
+- `value: string` - The current value.
+- `onChange: (value: string) => void` - Callback function triggered when a new option is selected.
+- `options: { label: ReactNode; value: string }[]` - List of options. `label` can be a React Node representing the option.
+- `color?: string` - Background color of the slider track (defaults to `'#f0f0f7'`).
+- `isReadOnly?: boolean` - If set to `true`, disables changing the selected option, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
+  - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
 
 ### `ColorPickerSlider`
+
+`ColorPickerSlider` allows users to select a color by dragging the slider across a spectrum, with custom tooltip info display and read-only support.
 
 ```tsx
 import { useState } from 'react';
@@ -219,16 +295,27 @@ export default function Example() {
     <ColorPickerSlider
       value={value}
       onChange={setValue}
-      width="240"
+      isReadOnly={false}
+      description="Pick your favorite color"
+      options={{
+        width: '240',
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+      }}
     />
   );
 }
 ```
 
 Props:
-- `value: string`
-- `onChange: (value: string) => void`
-- `width?: string`
+- `value: string` - The current color value.
+- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
+- `isReadOnly?: boolean` - If set to `true`, disables changing the color slider and shows "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `options?: object` - Optional custom styling configurations:
+  - `width?: string` - The width of the slider track in pixels (defaults to `'200'`).
+  - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#000'`).
+  - `textColor?: string` - Text color of the tooltip (defaults to `'#fff'`).
 
 ### `Button`
 
@@ -286,7 +373,7 @@ Props:
 
 ### `DynamicList`
 
-`DynamicList` is an interactive list component that allows users to add, remove, edit, and reorder (via drag-and-drop) a list of text inputs.
+`DynamicList` is an interactive list component that allows users to add, remove, edit, and reorder (via drag-and-drop) a list of text inputs. It supports read-only mode, custom labelling, and hover descriptions.
 
 ```tsx
 import { useState } from 'react';
@@ -297,8 +384,10 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 <DynamicList
   values={values}
   onChange={setValues}
+  isReadOnly={false}
+  label="option"
+  description="List of options"
   options={{
-    label: 'option',
     backgroundColor: '#ffffff',
     borderColor: '#e2e8f0',
     textColor: '#1a202c'
@@ -309,8 +398,10 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 Props:
 - `values: string[]` - An array of strings representing the current values in the list.
 - `onChange: (values: React.SetStateAction<string[]>) => void` - Callback triggered when the list values change.
+- `isReadOnly?: boolean` - If set to `true`, disables adding, deleting, editing, and dragging items (defaults to `false`).
+- `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
 - `options?: object` - Optional configurations:
-  - `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
   - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
   - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
   - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
@@ -400,6 +491,88 @@ Props:
 - `options?: object` - Optional custom configurations:
   - `backgroundColor?: string` - Custom background color of the overlay (defaults to `'#fff'`).
 - `children?: React.ReactNode` - Content inside the center container.
+
+### `InputGoogle`
+
+`InputGoogle` is a floating label input component designed to mimic Google's sign-in input fields, with built-in tooltip info display and read-only support.
+
+```tsx
+import { useState } from 'react';
+import { InputGoogle } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <InputGoogle
+      value={value}
+      setValue={setValue}
+      label="Email or phone"
+      description="Enter your registered email address"
+      isReadOnly={false}
+      options={{
+        focusColor: '#1a73e8',
+        backgroundColor: '#ffffff',
+        textColor: '#202124',
+        borderColor: '#dadce0',
+      }}
+    />
+  );
+}
+```
+
+Props:
+- `value?: string` - The current value of the input field.
+- `setValue?: (value?: string) => void` - Callback function triggered on input change.
+- `label?: string` - The text for the floating label (defaults to `'Input Google Component Label'`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Input Google Description'`). Displays when the input is not read-only.
+- `isReadOnly?: boolean` - If set to `true`, the input becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `options?: object` - Optional configuration for custom styling:
+  - `focusColor?: string` - Border and label color when the input is focused.
+  - `backgroundColor?: string` - Background color of the input container and label background.
+  - `textColor?: string` - Color of the text input and default label state.
+  - `borderColor?: string` - Default border color when not focused.
+
+### `TextArea`
+
+`TextArea` is a floating label multi-line text input component with built-in tooltip info display and read-only support.
+
+```tsx
+import { useState } from 'react';
+import { TextArea } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <TextArea
+      value={value}
+      setValue={setValue}
+      label="Bio"
+      description="Tell us about yourself"
+      isReadOnly={false}
+      options={{
+        focusColor: '#1a73e8',
+        backgroundColor: '#ffffff',
+        textColor: '#202124',
+        borderColor: '#dadce0',
+      }}
+    />
+  );
+}
+```
+
+Props:
+- `value?: string` - The current value of the textarea.
+- `setValue?: (value?: string) => void` - Callback function triggered on value change.
+- `label?: string` - The text for the floating label (defaults to `'Text Area Component Label'`).
+- `isReadOnly?: boolean` - If set to `true`, the textarea becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Text Area Description'`). Displays when the textarea is not read-only.
+- `options?: object` - Optional configuration for custom styling:
+  - `focusColor?: string` - Border and label color when the textarea is focused.
+  - `backgroundColor?: string` - Background color of the textarea container and label background.
+  - `textColor?: string` - Color of the text and default label state.
+  - `borderColor?: string` - Default border color when not focused.
 
 ## Auth usage
 

@@ -1,4 +1,4 @@
-type Name = 'input' | 'container' | 'label';
+type Name = 'input' | 'container' | 'label' | 'info';
 
 type Styles = {
     [K in Name]: React.CSSProperties;
@@ -38,6 +38,11 @@ const styles: Styles = {
         position: 'relative',
     },
     label: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '5px',
         position: 'absolute',
         top: '50%',
         left: '10px',
@@ -47,6 +52,10 @@ const styles: Styles = {
         padding: '0px 5px',
         backgroundColor: others.backgroundColor,
         color: others.textRelease,
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
 

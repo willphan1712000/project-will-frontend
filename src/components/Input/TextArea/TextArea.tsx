@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import styles, { others } from './TextArea.styles';
+import Info from '@/src/components/Info/Info';
 
 interface Props {
     value?: string;
     setValue?: (value?: string) => void;
     label?: string;
+    isReadOnly?: boolean;
+    description?: string;
     options?: {
         focusColor?: string;
         backgroundColor?: string;
@@ -19,6 +22,8 @@ interface Props {
  * @param value value of input
  * @param setValue set value function
  * @param label set label
+ * @param isReadOnly whether the textarea is read-only
+ * @param description description tooltip text shown on hover
  * @param options options object containing styling properties (focusColor, backgroundColor, textColor, borderColor)
  *
  * @example
@@ -30,6 +35,8 @@ interface Props {
  *          value={value}
  *          setValue={setValue}
  *          label="Text Component Label"
+ *          description="Text Area Description"
+ *          isReadOnly={false}
  *          options={{
  *              focusColor: "yellow",
  *              backgroundColor: "white",
@@ -42,7 +49,9 @@ interface Props {
 const TextArea = ({
     value = '',
     setValue = () => {},
-    label = 'Text Component Label',
+    label = 'Text Area Component Label',
+    isReadOnly = false,
+    description = 'Text Area Description',
     options,
     ...props
 }: Props & React.ComponentProps<'textarea'>) => {
@@ -106,6 +115,7 @@ const TextArea = ({
                 id={crypto.randomUUID()}
                 name="will-textarea"
                 ref={inputRef}
+                readOnly={isReadOnly}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 style={{
@@ -128,6 +138,17 @@ const TextArea = ({
                 onClick={focus}
             >
                 {label}
+                <div style={styles.info}>
+                    <Info
+                        message={
+                            isReadOnly ? 'Locked - Read Only' : description
+                        }
+                        options={{
+                            backgroundColor: textColor,
+                            color: backgroundColor,
+                        }}
+                    />
+                </div>
             </span>
         </div>
     );

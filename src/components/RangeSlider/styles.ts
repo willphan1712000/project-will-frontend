@@ -1,16 +1,25 @@
 type Props =
+    | 'container'
     | 'slider_border'
     | 'thumb'
     | 'thumb_shadow'
     | 'fill'
     | 'rest'
-    | 'value';
+    | 'value'
+    | 'info';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
 };
 
 const styles: Styles = {
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: '5px',
+    },
     slider_border: {
         position: 'relative',
         display: 'flex',
@@ -70,6 +79,10 @@ const styles: Styles = {
         padding: '5px',
         scale: '0',
         transition: 'scale .1s linear',
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
 

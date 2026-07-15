@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { styles } from './styles';
 import { GripVertical, TrashCan } from '../Icons';
+import Info from '@/src/components/Info/Info';
 
 interface Props {
     values: string[];
     onChange: React.Dispatch<React.SetStateAction<string[]>>;
+    isReadOnly?: boolean;
+    label?: string;
+    description?: string;
     options?: {
-        label?: string;
         backgroundColor?: string;
         borderColor?: string;
         textColor?: string;
@@ -16,6 +19,14 @@ interface Props {
 /**
  * A dynamic, interactive list component that allows users to add, remove,
  * edit, and reorder (via drag-and-drop) a list of text inputs.
+ * Supports read-only mode, custom labelling, and hover descriptions.
+ *
+ * @param values array of values in the list
+ * @param onChange callback to update values
+ * @param isReadOnly if true, disables adding, deleting, and dragging items
+ * @param label label used for the button and placeholders (defaults to 'value')
+ * @param description description text for the info tooltip
+ * @param options configuration for background, border and text colors
  *
  * @example
  * ```tsx
@@ -23,8 +34,10 @@ interface Props {
  * <DynamicList
  *   values={values}
  *   onChange={setValues}
+ *   isReadOnly={false}
+ *   label="option"
+ *   description="List of options"
  *   options={{
- *     label: 'option',
  *     backgroundColor: '#ffffff',
  *     borderColor: '#e2e8f0',
  *     textColor: '#1a202c'
@@ -35,14 +48,16 @@ interface Props {
 const DynamicList = ({
     values,
     onChange,
+    isReadOnly = false,
+    label = 'value',
+    description = '',
     options = {
-        label: 'value',
         backgroundColor: '#fff',
         borderColor: '#f0f0f0',
         textColor: '#000',
     },
 }: Props) => {
-    const { backgroundColor, borderColor, textColor: color, label } = options;
+    const { backgroundColor, borderColor, textColor: color } = options;
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
     const handleDragStart = (i: number) => setDraggedIndex(i);
@@ -77,7 +92,7 @@ const DynamicList = ({
                 {values.map((q, index) => (
                     <div
                         key={index}
-                        draggable
+                        draggable={!isReadOnly}
                         onDragStart={() => handleDragStart(index)}
                         onDragOver={(e) => handleDragOver(e, index)}
                         onDragEnd={handleDragEnd}
@@ -100,6 +115,7 @@ const DynamicList = ({
                         <input
                             type="text"
                             value={q}
+                            readOnly={isReadOnly}
                             onChange={(e) =>
                                 updateValues(index, e.target.value)
                             }
@@ -107,30 +123,47 @@ const DynamicList = ({
                             style={{ ...styles.input, color }}
                         />
 
-                        <button
-                            onClick={() => removeValue(index)}
-                            style={{
-                                ...styles.deleteButton,
-                            }}
-                            title="remove this option"
-                        >
-                            <TrashCan size="15" />
-                        </button>
+                        {!isReadOnly && (
+                            <button
+                                onClick={() => removeValue(index)}
+                                style={{
+                                    ...styles.deleteButton,
+                                }}
+                                title="remove this option"
+                            >
+                                <TrashCan size="15" />
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
 
-            <button
-                onClick={addValue}
-                style={{
-                    ...styles.addButton,
-                    backgroundColor,
-                    borderColor,
-                    color,
-                }}
-            >
-                Add {options.label}
-            </button>
+            <div style={styles.buttonGroup}>
+                {!isReadOnly && (
+                    <button
+                        onClick={addValue}
+                        style={{
+                            ...styles.addButton,
+                            backgroundColor,
+                            borderColor,
+                            color,
+                        }}
+                    >
+                        Add {label}
+                    </button>
+                )}
+                <div style={styles.info}>
+                    <Info
+                        message={
+                            isReadOnly ? 'Locked - Read only' : description
+                        }
+                        options={{
+                            backgroundColor: color,
+                            color: backgroundColor,
+                        }}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

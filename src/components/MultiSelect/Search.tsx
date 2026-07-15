@@ -1,3 +1,4 @@
+import useMyContext from './context';
 import { Options } from './MultiSelect';
 import styles from './styles';
 
@@ -7,11 +8,18 @@ interface Props {
 }
 
 const Search = ({ options, onSearch }: Props) => {
+    const { config } = useMyContext();
+    const { backgroundColor, textColor: color } = config!;
+
     return (
         <div style={styles.search_border}>
             <input
                 placeholder="Search..."
-                style={styles.search}
+                style={{
+                    ...styles.search,
+                    backgroundColor,
+                    color,
+                }}
                 id="search"
                 name="search"
                 onChange={(e) =>

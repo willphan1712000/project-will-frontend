@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { X } from '../Icons';
 import { MyContext } from './context';
+import Info from '@/src/components/Info/Info';
 import Dropdown from './Dropdown';
 import styles from './styles';
 
@@ -20,6 +21,13 @@ interface Props {
     options: Options;
     value: string;
     onChange: (value: string) => void;
+    isReadOnly?: boolean;
+    description?: string;
+    config?: {
+        backgroundColor?: string;
+        textColor?: string;
+        hoverBackgroundColor?: string;
+    };
 }
 
 /**
@@ -28,11 +36,26 @@ interface Props {
  * @param options - List of select options of type {@link Options}
  * @param value - The currently selected value
  * @param onChange - Callback function triggered when a new value is selected
+ * @param isReadOnly - If true, disables opening or changing the dropdown select (defaults to false)
+ * @param description - Description tooltip text shown on hover of the info icon
+ * @param config - Optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
  * @returns React Element rendering the dropdown select input
  */
-const DropdownSelect = ({ options, value, onChange }: Props) => {
+const DropdownSelect = ({
+    options,
+    value,
+    onChange,
+    isReadOnly = false,
+    description = '',
+    config = {
+        backgroundColor: '#fff',
+        textColor: '#000',
+        hoverBackgroundColor: '#f0f0f0',
+    },
+}: Props) => {
+    const { backgroundColor, textColor: color } = config;
+
     const [open, setOpen] = useState<boolean>(false);
-    const [isHoverClose, setHoverClose] = useState<boolean>(false);
 
     const selectRef = useRef<HTMLDivElement>(null);
 
@@ -56,29 +79,34 @@ const DropdownSelect = ({ options, value, onChange }: Props) => {
                 value,
                 onChange,
                 setOpen,
+                config,
             }}
         >
             <div style={styles.container} ref={selectRef}>
                 {/* select box */}
                 <div
-                    style={styles.select_box}
-                    onClick={() => setOpen((prev) => !prev)}
+                    style={{
+                        ...styles.select_box,
+                        backgroundColor,
+                        color,
+                    }}
+                    onClick={() => {
+                        if (isReadOnly) return;
+                        setOpen((prev) => !prev);
+                    }}
                 >
-                    {/* value */}
                     <div style={styles.value}>{value}</div>
-                    {/* Clear value */}
                     <div
                         style={{
                             ...styles.close,
-                            backgroundColor: isHoverClose ? '#f0f0f0' : '#fff',
+                            color,
                         }}
                         title="clear"
                         onClick={() => {
+                            if (isReadOnly) return;
                             onChange('');
                             setOpen((prev) => !prev);
                         }}
-                        onMouseEnter={() => setHoverClose(true)}
-                        onMouseLeave={() => setHoverClose(false)}
                     >
                         <X />
                     </div>
@@ -86,6 +114,17 @@ const DropdownSelect = ({ options, value, onChange }: Props) => {
 
                 {/* drop down */}
                 {open && <Dropdown />}
+                <div style={styles.info}>
+                    <Info
+                        message={
+                            isReadOnly ? 'Locked - Read Only' : description
+                        }
+                        options={{
+                            backgroundColor: color,
+                            color: backgroundColor,
+                        }}
+                    />
+                </div>
             </div>
         </MyContext.Provider>
     );

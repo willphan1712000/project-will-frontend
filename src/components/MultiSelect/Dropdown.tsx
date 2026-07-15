@@ -5,7 +5,8 @@ import Search from './Search';
 import styles from './styles';
 
 const Dropdown = () => {
-    const { options, onChange, setOpen } = useMyContext();
+    const { options, onChange, setOpen, config } = useMyContext();
+    const { backgroundColor, textColor: color, hoverBackgroundColor } = config!;
     const [isVisible, setVisible] = useState<boolean>(true);
     const [keyOnHover, setKeyOnHover] = useState<number>(-1);
     const [optionsCopy, setOption] = useState(options);
@@ -44,10 +45,14 @@ const Dropdown = () => {
                     ? {
                           ...styles.dropdown,
                           top: 'calc(100% + 5px)',
+                          backgroundColor,
+                          color,
                       }
                     : {
                           ...styles.dropdown,
                           bottom: 'calc(100% + 5px)',
+                          backgroundColor,
+                          color,
                       }
             }
         >
@@ -60,7 +65,10 @@ const Dropdown = () => {
                         style={{
                             ...styles.element,
                             backgroundColor:
-                                keyOnHover === key ? '#f0f0f0' : '#fff',
+                                keyOnHover === key
+                                    ? hoverBackgroundColor
+                                    : backgroundColor,
+                            color,
                         }}
                         onClick={() => {
                             onChange((prev) => {

@@ -8,7 +8,9 @@ type Element =
     | 'dragHandle'
     | 'input'
     | 'deleteButton'
-    | 'addButton';
+    | 'addButton'
+    | 'buttonGroup'
+    | 'info';
 
 type DragStyles = {
     [K in Element]: React.CSSProperties;
@@ -21,6 +23,8 @@ export const styles: DragStyles = {
         padding: '1.5rem',
         borderRadius: '0.75rem',
         boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
     },
     listWrapper: {
         display: 'flex',
@@ -90,5 +94,17 @@ export const styles: DragStyles = {
         color: '#374151',
         cursor: 'pointer',
         transition: 'all 0.15s ease',
+    },
+    buttonGroup: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: '5px',
+        alignSelf: 'flex-start',
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
