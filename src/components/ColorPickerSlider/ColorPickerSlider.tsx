@@ -138,7 +138,7 @@ const ColorPickerSlider = ({
             <div style={styles.info}>
                 <Info
                     message={isReadOnly ? 'Locked - Read Only' : description}
-                    options={{ backgroundColor, color }}
+                    options={{ backgroundColor: color, color: backgroundColor }}
                 />
             </div>
         </div>
