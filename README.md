@@ -286,7 +286,7 @@ Props:
 
 ### `DynamicList`
 
-`DynamicList` is an interactive list component that allows users to add, remove, edit, and reorder (via drag-and-drop) a list of text inputs.
+`DynamicList` is an interactive list component that allows users to add, remove, edit, and reorder (via drag-and-drop) a list of text inputs. It supports read-only mode, custom labelling, and hover descriptions.
 
 ```tsx
 import { useState } from 'react';
@@ -297,8 +297,10 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 <DynamicList
   values={values}
   onChange={setValues}
+  isReadOnly={false}
+  label="option"
+  description="List of options"
   options={{
-    label: 'option',
     backgroundColor: '#ffffff',
     borderColor: '#e2e8f0',
     textColor: '#1a202c'
@@ -309,8 +311,10 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 Props:
 - `values: string[]` - An array of strings representing the current values in the list.
 - `onChange: (values: React.SetStateAction<string[]>) => void` - Callback triggered when the list values change.
+- `isReadOnly?: boolean` - If set to `true`, disables adding, deleting, editing, and dragging items (defaults to `false`).
+- `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
 - `options?: object` - Optional configurations:
-  - `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
   - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
   - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
   - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
@@ -400,6 +404,88 @@ Props:
 - `options?: object` - Optional custom configurations:
   - `backgroundColor?: string` - Custom background color of the overlay (defaults to `'#fff'`).
 - `children?: React.ReactNode` - Content inside the center container.
+
+### `InputGoogle`
+
+`InputGoogle` is a floating label input component designed to mimic Google's sign-in input fields, with built-in tooltip info display and read-only support.
+
+```tsx
+import { useState } from 'react';
+import { InputGoogle } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <InputGoogle
+      value={value}
+      setValue={setValue}
+      label="Email or phone"
+      description="Enter your registered email address"
+      isReadOnly={false}
+      options={{
+        focusColor: '#1a73e8',
+        backgroundColor: '#ffffff',
+        textColor: '#202124',
+        borderColor: '#dadce0',
+      }}
+    />
+  );
+}
+```
+
+Props:
+- `value?: string` - The current value of the input field.
+- `setValue?: (value?: string) => void` - Callback function triggered on input change.
+- `label?: string` - The text for the floating label (defaults to `'Input Google Component Label'`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Input Google Description'`). Displays when the input is not read-only.
+- `isReadOnly?: boolean` - If set to `true`, the input becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `options?: object` - Optional configuration for custom styling:
+  - `focusColor?: string` - Border and label color when the input is focused.
+  - `backgroundColor?: string` - Background color of the input container and label background.
+  - `textColor?: string` - Color of the text input and default label state.
+  - `borderColor?: string` - Default border color when not focused.
+
+### `TextArea`
+
+`TextArea` is a floating label multi-line text input component with built-in tooltip info display and read-only support.
+
+```tsx
+import { useState } from 'react';
+import { TextArea } from '@willphan1712000/frontend';
+
+export default function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <TextArea
+      value={value}
+      setValue={setValue}
+      label="Bio"
+      description="Tell us about yourself"
+      isReadOnly={false}
+      options={{
+        focusColor: '#1a73e8',
+        backgroundColor: '#ffffff',
+        textColor: '#202124',
+        borderColor: '#dadce0',
+      }}
+    />
+  );
+}
+```
+
+Props:
+- `value?: string` - The current value of the textarea.
+- `setValue?: (value?: string) => void` - Callback function triggered on value change.
+- `label?: string` - The text for the floating label (defaults to `'Text Area Component Label'`).
+- `isReadOnly?: boolean` - If set to `true`, the textarea becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Text Area Description'`). Displays when the textarea is not read-only.
+- `options?: object` - Optional configuration for custom styling:
+  - `focusColor?: string` - Border and label color when the textarea is focused.
+  - `backgroundColor?: string` - Background color of the textarea container and label background.
+  - `textColor?: string` - Color of the text and default label state.
+  - `borderColor?: string` - Default border color when not focused.
 
 ## Auth usage
 
