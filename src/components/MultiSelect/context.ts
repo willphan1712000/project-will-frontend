@@ -7,6 +7,11 @@ export type Data = {
     value: string[];
     onChange: React.Dispatch<React.SetStateAction<string[]>>;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    config?: {
+        backgroundColor?: string;
+        textColor?: string;
+        hoverBackgroundColor?: string;
+    };
 };
 
 export type ContextDataType = Data | undefined;

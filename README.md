@@ -150,6 +150,8 @@ Props:
 
 ### `MultiSelect`
 
+`MultiSelect` is a custom selection input component allowing users to choose multiple options from a search-enabled dropdown list, featuring tag-style selected values, hover help tooltips, and read-only support.
+
 ```tsx
 import { useState } from 'react';
 import { MultiSelect } from '@willphan1712000/frontend';
@@ -159,14 +161,36 @@ const options = [
   { label: 'TypeScript', value: 'typescript' },
 ];
 
-const [values, setValues] = useState<string[]>([]);
+export default function Example() {
+  const [values, setValues] = useState<string[]>([]);
+
+  return (
+    <MultiSelect
+      options={options}
+      value={values}
+      onChange={setValues}
+      isReadOnly={false}
+      description="Select your tech stack"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+        hoverBackgroundColor: '#f0f0f0',
+      }}
+    />
+  );
+}
 ```
 
 Props:
-- `options: { label: string; value: string }[]`
-- `value: string[]`
-- `onChange: React.Dispatch<React.SetStateAction<string[]>>`
-- `width?: string`
+- `options: { label: string; value: string }[]` - List of select options.
+- `value: string[]` - An array of currently selected values.
+- `onChange: React.Dispatch<React.SetStateAction<string[]>>` - State setter function to update selected values.
+- `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list, clearing all items, or removing individual options, and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
+  - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
+  - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
 
 ### `RangeSlider`
 
