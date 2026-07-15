@@ -1,10 +1,25 @@
-type Props = 'border' | 'background' | 'options' | 'element';
+type Props =
+    | 'container'
+    | 'border'
+    | 'background'
+    | 'options'
+    | 'element'
+    | 'info';
 
 type Styles = {
     [K in Props]: React.CSSProperties;
 };
 
 const styles: Styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '5px',
+        width: '100%',
+        height: '100%',
+    },
     border: {
         borderRadius: '10px',
         overflow: 'auto',
@@ -59,6 +74,10 @@ const styles: Styles = {
         boxSizing: 'border-box',
         margin: 0,
         padding: 0,
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
 

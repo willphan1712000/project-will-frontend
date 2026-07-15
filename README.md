@@ -213,7 +213,7 @@ Props:
 
 ### `OptionSlider`
 
-The package exports `SliderOptions` for this component.
+`OptionSlider` allows users to select a value by choosing from a set of options represented visually as blocks, with custom tooltip info display and read-only support.
 
 ```tsx
 import { useState } from 'react';
@@ -233,19 +233,28 @@ export default function Example() {
       value={value}
       onChange={setValue}
       options={options}
-      width="260"
       color="#2563eb"
+      isReadOnly={false}
+      description="Choose intensity level"
+      config={{
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
+      }}
     />
   );
 }
 ```
 
 Props:
-- `value: string`
-- `onChange: (value: string) => void`
-- `options: { label: ReactNode; value: string }[]`
-- `width?: string`
-- `color?: string`
+- `value: string` - The current value.
+- `onChange: (value: string) => void` - Callback function triggered when a new option is selected.
+- `options: { label: ReactNode; value: string }[]` - List of options. `label` can be a React Node representing the option.
+- `color?: string` - Background color of the slider track (defaults to `'#f0f0f7'`).
+- `isReadOnly?: boolean` - If set to `true`, disables changing the selected option, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `config?: object` - Optional custom styling configurations:
+  - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
+  - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
 
 ### `ColorPickerSlider`
 
