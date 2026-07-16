@@ -16,9 +16,9 @@ import WUII from '..';
  * @param styling - optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
  */
 const MultiSelect = ({
+    value = [],
+    setValue = () => {},
     options,
-    value,
-    setValue,
     isReadOnly = false,
     description = '',
     styling = {},
@@ -80,40 +80,37 @@ const MultiSelect = ({
                 >
                     {/* value */}
                     <div style={styles.value}>
-                        {value &&
-                            value.map((eachValue, key) => (
-                                <div
-                                    style={{
-                                        ...styles.eachValue,
-                                        backgroundColor: hoverBackgroundColor,
-                                        color,
-                                    }}
-                                    key={key}
-                                >
-                                    {eachValue}
-                                    {!isReadOnly && (
-                                        <span
-                                            title="Remove this option"
-                                            style={{
-                                                ...styles.closeEach,
-                                                color,
-                                            }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                if (setValue)
-                                                    setValue(
-                                                        value.filter(
-                                                            (e) =>
-                                                                e !== eachValue
-                                                        )
-                                                    );
-                                            }}
-                                        >
-                                            <X size="20" />
-                                        </span>
-                                    )}
-                                </div>
-                            ))}
+                        {value.map((eachValue, key) => (
+                            <div
+                                style={{
+                                    ...styles.eachValue,
+                                    backgroundColor: hoverBackgroundColor,
+                                    color,
+                                }}
+                                key={key}
+                            >
+                                {eachValue}
+                                {!isReadOnly && (
+                                    <span
+                                        title="Remove this option"
+                                        style={{
+                                            ...styles.closeEach,
+                                            color,
+                                        }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setValue(
+                                                value.filter(
+                                                    (e) => e !== eachValue
+                                                )
+                                            );
+                                        }}
+                                    >
+                                        <X size="20" />
+                                    </span>
+                                )}
+                            </div>
+                        ))}
                     </div>
                     {/* Clear value */}
                     {!isReadOnly && (
@@ -126,7 +123,7 @@ const MultiSelect = ({
                             title="Clear all"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                if (setValue) setValue([]);
+                                setValue([]);
                             }}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}

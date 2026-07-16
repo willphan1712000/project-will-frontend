@@ -34,15 +34,13 @@ import WUII from '..';
  * ```
  */
 const DynamicList = ({
-    value,
-    setValue,
+    value = [],
+    setValue = () => {},
     isReadOnly = false,
     label = 'value',
     description = '',
     styling = {},
 }: WUII<string[]>) => {
-    if (!value || !setValue) return;
-
     const {
         backgroundColor = '#fff',
         borderColor = '#f0f0f0',

@@ -12,8 +12,8 @@ import WUII from '..';
  * @param styling - optional styling configuration containing backgroundColor (defaults to '#fff'), textColor (defaults to '#000'), and borderColor (defaults to '#000')
  */
 const OptionSlider = ({
-    value,
-    setValue,
+    value = '',
+    setValue = () => {},
     options,
     isReadOnly = false,
     description = '',
@@ -53,7 +53,7 @@ const OptionSlider = ({
                                 key={key}
                                 onClick={() => {
                                     if (isReadOnly) return;
-                                    if (setValue) setValue(option.value);
+                                    setValue(option.value);
                                 }}
                                 title={option.value}
                             >

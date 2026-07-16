@@ -20,8 +20,8 @@ import WUII from '..';
  * @param styling.width - width of the component in pixels (defaults to '200')
  */
 const RangeSlider = ({
-    value,
-    setValue,
+    value = '',
+    setValue = () => {},
     isReadOnly = false,
     description = '',
     range = {
@@ -38,7 +38,7 @@ const RangeSlider = ({
     } = styling;
     const { min = '0', max = '100' } = range;
 
-    let percentage = encode(value!, min, max);
+    let percentage = encode(value, min, max);
     const sliderBorderRef = useRef<HTMLDivElement>(null);
     const [isMouseDown, setMouseDown] = useState<boolean>(false);
     const [isHover, setHover] = useState<boolean>(false);
@@ -68,7 +68,7 @@ const RangeSlider = ({
             currentValue = parseInt(min);
         }
 
-        if (setValue) setValue(currentValue.toString());
+        setValue(currentValue.toString());
     };
 
     useEffect(() => {

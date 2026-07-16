@@ -15,8 +15,8 @@ import WUII from '..';
  * @returns React Component
  */
 const ColorPickerSlider = ({
-    value,
-    setValue,
+    value = '',
+    setValue = () => {},
     isReadOnly = false,
     description = '',
     styling = {},
@@ -49,7 +49,7 @@ const ColorPickerSlider = ({
 
         if (percentage > 1) percentage = 0.99;
 
-        if (setValue) setValue(decode(percentage));
+        setValue(decode(percentage));
     };
 
     useEffect(() => {

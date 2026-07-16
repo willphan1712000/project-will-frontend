@@ -1,20 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles, { others } from './InputGoogle.styles';
 import Info from '@/src/components/Info/Info';
-
-interface Props {
-    value?: string;
-    setValue?: (value?: string) => void;
-    label?: string;
-    description?: string;
-    isReadOnly?: boolean;
-    options?: {
-        focusColor?: string;
-        backgroundColor?: string;
-        textColor?: string;
-        borderColor?: string;
-    };
-}
+import WUII from '../..';
 
 /**
  * Input component shadows input box implemented by Google
@@ -22,15 +9,15 @@ interface Props {
  * @link
  * https://accounts.google.com
  *
- * @param value value of input
- * @param setValue set value function
- * @param label set label
- * @param description description tooltip text shown on hover
- * @param isReadOnly whether the input is read-only
- * @param options options object containing styling properties (focusColor, backgroundColor, textColor, borderColor)
+ * @param value - value of input
+ * @param setValue - set value function
+ * @param label - set label
+ * @param description - description tooltip text shown on hover
+ * @param isReadOnly - whether the input is read-only
+ * @param styling - styling configurations (focusColor, backgroundColor, textColor, borderColor)
  *
  * @example
- * ... component declaration
+ * ```tsx
  * const [value, setValue] = useState<string|undefined>('')
  *
  * return (
@@ -40,7 +27,7 @@ interface Props {
  *          label="Input Google Component Label"
  *          description="Input Google Description"
  *          isReadOnly={false}
- *          options={{
+ *          styling={{
  *              focusColor: "yellow",
  *              backgroundColor: "white",
  *              textColor: "black",
@@ -48,6 +35,7 @@ interface Props {
  *          }}
  *      />
  * )
+ * ```
  */
 const InputGoogle = ({
     value = '',
@@ -55,28 +43,28 @@ const InputGoogle = ({
     label = 'Input Google Component Label',
     description = 'Input Google Description',
     isReadOnly = false,
-    options,
+    styling,
     ...props
-}: Props & React.ComponentProps<'input'>) => {
+}: WUII<string> & React.ComponentProps<'input'>) => {
     const [isFocus, setFocus] = useState<boolean>(false);
 
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const backgroundColor = options?.backgroundColor
-        ? options.backgroundColor
+    const backgroundColor = styling?.backgroundColor
+        ? styling.backgroundColor
         : others.backgroundColor;
-    const textColor = options?.textColor
-        ? options.textColor
+    const textColor = styling?.textColor
+        ? styling.textColor
         : others.textRelease;
-    const borderColor = options?.borderColor
-        ? options.borderColor
+    const borderColor = styling?.borderColor
+        ? styling.borderColor
         : others.borderRelease;
     const borderWhenFocused = isFocus
-        ? `${others.border} ${options?.focusColor ? options.focusColor : others.borderFocus}`
+        ? `${others.border} ${styling?.focusColor ? styling.focusColor : others.borderFocus}`
         : `${others.border} ${borderColor}`;
     const labelColorWhenFocused = isFocus
-        ? `${options?.focusColor ? options.focusColor : others.textFocus}`
+        ? `${styling?.focusColor ? styling.focusColor : others.textFocus}`
         : `${textColor}`;
 
     function spanPositionWhenFocused() {

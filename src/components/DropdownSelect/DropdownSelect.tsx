@@ -18,9 +18,9 @@ import WUII from '@/src/components/index';
  * @returns React Element rendering the dropdown select input
  */
 const DropdownSelect = ({
+    value = '',
+    setValue: onChange = () => {},
     options,
-    value,
-    setValue: onChange,
     isReadOnly = false,
     description = '',
     styling: config = {
@@ -80,7 +80,7 @@ const DropdownSelect = ({
                         title="clear"
                         onClick={() => {
                             if (isReadOnly) return;
-                            if (onChange) onChange('');
+                            onChange('');
                             setOpen((prev) => !prev);
                         }}
                     >

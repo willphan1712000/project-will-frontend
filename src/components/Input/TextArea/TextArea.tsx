@@ -1,33 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import styles, { others } from './TextArea.styles';
 import Info from '@/src/components/Info/Info';
-
-interface Props {
-    value?: string;
-    setValue?: (value?: string) => void;
-    label?: string;
-    isReadOnly?: boolean;
-    description?: string;
-    options?: {
-        focusColor?: string;
-        backgroundColor?: string;
-        textColor?: string;
-        borderColor?: string;
-    };
-}
+import { useEffect, useRef, useState } from 'react';
+import WUII from '../..';
+import styles, { others } from './TextArea.styles';
 
 /**
  * Textarea component
  *
- * @param value value of input
- * @param setValue set value function
- * @param label set label
- * @param isReadOnly whether the textarea is read-only
- * @param description description tooltip text shown on hover
- * @param options options object containing styling properties (focusColor, backgroundColor, textColor, borderColor)
+ * @param value - value of input
+ * @param setValue - set value function
+ * @param label - set label
+ * @param isReadOnly - whether the textarea is read-only
+ * @param description - description tooltip text shown on hover
+ * @param styling - styling configurations (focusColor, backgroundColor, textColor, borderColor)
  *
  * @example
- * ... component declaration
+ * ```tsx
  * const [value, setValue] = useState<string|undefined>('')
  *
  * return (
@@ -37,7 +24,7 @@ interface Props {
  *          label="Text Component Label"
  *          description="Text Area Description"
  *          isReadOnly={false}
- *          options={{
+ *          styling={{
  *              focusColor: "yellow",
  *              backgroundColor: "white",
  *              textColor: "black",
@@ -45,6 +32,7 @@ interface Props {
  *          }}
  *      />
  * )
+ * ```
  */
 const TextArea = ({
     value = '',
@@ -52,28 +40,28 @@ const TextArea = ({
     label = 'Text Area Component Label',
     isReadOnly = false,
     description = 'Text Area Description',
-    options,
+    styling,
     ...props
-}: Props & React.ComponentProps<'textarea'>) => {
+}: WUII<string> & React.ComponentProps<'textarea'>) => {
     const [isFocus, setFocus] = useState<boolean>(false);
 
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const backgroundColor = options?.backgroundColor
-        ? options.backgroundColor
+    const backgroundColor = styling?.backgroundColor
+        ? styling.backgroundColor
         : others.backgroundColor;
-    const textColor = options?.textColor
-        ? options.textColor
+    const textColor = styling?.textColor
+        ? styling.textColor
         : others.textRelease;
-    const borderColor = options?.borderColor
-        ? options.borderColor
+    const borderColor = styling?.borderColor
+        ? styling.borderColor
         : others.borderRelease;
     const borderWhenFocused = isFocus
-        ? `${others.border} ${options?.focusColor ? options.focusColor : others.borderFocus}`
+        ? `${others.border} ${styling?.focusColor ? styling.focusColor : others.borderFocus}`
         : `${others.border} ${borderColor}`;
     const labelColorWhenFocused = isFocus
-        ? `${options?.focusColor ? options.focusColor : others.textFocus}`
+        ? `${styling?.focusColor ? styling.focusColor : others.textFocus}`
         : `${textColor}`;
 
     function spanPositionWhenFocused() {

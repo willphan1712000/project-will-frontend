@@ -510,7 +510,7 @@ export default function Example() {
       label="Email or phone"
       description="Enter your registered email address"
       isReadOnly={false}
-      options={{
+      styling={{
         focusColor: '#1a73e8',
         backgroundColor: '#ffffff',
         textColor: '#202124',
@@ -527,7 +527,7 @@ Props:
 - `label?: string` - The text for the floating label (defaults to `'Input Google Component Label'`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Input Google Description'`). Displays when the input is not read-only.
 - `isReadOnly?: boolean` - If set to `true`, the input becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
-- `options?: object` - Optional configuration for custom styling:
+- `styling?: object` - Optional configuration for custom styling:
   - `focusColor?: string` - Border and label color when the input is focused.
   - `backgroundColor?: string` - Background color of the input container and label background.
   - `textColor?: string` - Color of the text input and default label state.
@@ -551,7 +551,7 @@ export default function Example() {
       label="Bio"
       description="Tell us about yourself"
       isReadOnly={false}
-      options={{
+      styling={{
         focusColor: '#1a73e8',
         backgroundColor: '#ffffff',
         textColor: '#202124',
@@ -568,7 +568,7 @@ Props:
 - `label?: string` - The text for the floating label (defaults to `'Text Area Component Label'`).
 - `isReadOnly?: boolean` - If set to `true`, the textarea becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Text Area Description'`). Displays when the textarea is not read-only.
-- `options?: object` - Optional configuration for custom styling:
+- `styling?: object` - Optional configuration for custom styling:
   - `focusColor?: string` - Border and label color when the textarea is focused.
   - `backgroundColor?: string` - Background color of the textarea container and label background.
   - `textColor?: string` - Color of the text and default label state.
