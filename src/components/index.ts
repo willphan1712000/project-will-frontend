@@ -20,6 +20,7 @@ export default interface WUII<T = any> {
     setValue?: (value: T) => void;
     options?: Options;
     range?: Range;
+    label?: string;
     isReadOnly?: boolean;
     description?: string;
     styling?: {

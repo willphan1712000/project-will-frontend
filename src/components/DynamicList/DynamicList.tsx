@@ -2,42 +2,30 @@ import React, { useState } from 'react';
 import { styles } from './styles';
 import { GripVertical, TrashCan } from '../Icons';
 import Info from '@/src/components/Info/Info';
-
-interface Props {
-    values: string[];
-    onChange: React.Dispatch<React.SetStateAction<string[]>>;
-    isReadOnly?: boolean;
-    label?: string;
-    description?: string;
-    options?: {
-        backgroundColor?: string;
-        borderColor?: string;
-        textColor?: string;
-    };
-}
+import WUII from '..';
 
 /**
  * A dynamic, interactive list component that allows users to add, remove,
  * edit, and reorder (via drag-and-drop) a list of text inputs.
  * Supports read-only mode, custom labelling, and hover descriptions.
  *
- * @param values array of values in the list
- * @param onChange callback to update values
- * @param isReadOnly if true, disables adding, deleting, and dragging items
- * @param label label used for the button and placeholders (defaults to 'value')
- * @param description description text for the info tooltip
- * @param options configuration for background, border and text colors
+ * @param value - array of values in the list
+ * @param setValue - callback to update values
+ * @param isReadOnly - if true, disables adding, deleting, and dragging items
+ * @param label - label used for the button and placeholders (defaults to 'value')
+ * @param description - description text for the info tooltip
+ * @param styling - configuration for background, border and text colors
  *
  * @example
  * ```tsx
  * const [values, setValues] = useState(['Option 1', 'Option 2']);
  * <DynamicList
- *   values={values}
- *   onChange={setValues}
+ *   value={values}
+ *   setValue={setValues}
  *   isReadOnly={false}
  *   label="option"
  *   description="List of options"
- *   options={{
+ *   styling={{
  *     backgroundColor: '#ffffff',
  *     borderColor: '#e2e8f0',
  *     textColor: '#1a202c'
@@ -46,18 +34,20 @@ interface Props {
  * ```
  */
 const DynamicList = ({
-    values,
-    onChange,
+    value,
+    setValue,
     isReadOnly = false,
     label = 'value',
     description = '',
-    options = {
-        backgroundColor: '#fff',
-        borderColor: '#f0f0f0',
-        textColor: '#000',
-    },
-}: Props) => {
-    const { backgroundColor, borderColor, textColor: color } = options;
+    styling = {},
+}: WUII<string[]>) => {
+    if (!value || !setValue) return;
+
+    const {
+        backgroundColor = '#fff',
+        borderColor = '#f0f0f0',
+        textColor: color = '#000',
+    } = styling;
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
     const handleDragStart = (i: number) => setDraggedIndex(i);
@@ -65,31 +55,30 @@ const DynamicList = ({
         e.preventDefault();
         if (draggedIndex === null || draggedIndex === i) return;
 
-        const updatedValues = [...values];
-        const draggedItem = values[draggedIndex];
+        const updatedValues = [...value];
+        const draggedItem = value[draggedIndex];
 
         updatedValues.splice(draggedIndex, 1);
         updatedValues.splice(i, 0, draggedItem);
 
         setDraggedIndex(i);
-        onChange(updatedValues);
+        setValue(updatedValues);
     };
     const handleDragEnd = () => setDraggedIndex(null);
 
-    const addValue = () => onChange((prev) => [...prev, '']);
+    const addValue = () => setValue([...value, '']);
     const removeValue = (index: number) =>
-        onChange((prev) => prev.filter((_, i) => i !== index));
-    const updateValues = (index: number, value: string) =>
-        onChange((prev) => {
-            const updatedValues = [...prev];
-            updatedValues[index] = value;
-            return updatedValues;
-        });
+        setValue(value.filter((_, i) => i !== index));
+    const updateValues = (index: number, newValue: string) => {
+        const updatedValues = [...value];
+        updatedValues[index] = newValue;
+        setValue(updatedValues);
+    };
 
     return (
         <div style={{ ...styles.container, backgroundColor, borderColor }}>
             <div style={styles.listWrapper}>
-                {values.map((q, index) => (
+                {value.map((q, index) => (
                     <div
                         key={index}
                         draggable={!isReadOnly}

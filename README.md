@@ -382,12 +382,12 @@ import { DynamicList } from '@willphan1712000/frontend';
 const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 
 <DynamicList
-  values={values}
-  onChange={setValues}
+  value={values}
+  setValue={setValues}
   isReadOnly={false}
   label="option"
   description="List of options"
-  options={{
+  styling={{
     backgroundColor: '#ffffff',
     borderColor: '#e2e8f0',
     textColor: '#1a202c'
@@ -396,12 +396,12 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 ```
 
 Props:
-- `values: string[]` - An array of strings representing the current values in the list.
-- `onChange: (values: React.SetStateAction<string[]>) => void` - Callback triggered when the list values change.
+- `value: string[]` - An array of strings representing the current values in the list.
+- `setValue: (value: string[]) => void` - Callback triggered when the list values change.
 - `isReadOnly?: boolean` - If set to `true`, disables adding, deleting, editing, and dragging items (defaults to `false`).
 - `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `options?: object` - Optional configurations:
+- `styling?: object` - Optional configurations:
   - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
   - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
   - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
