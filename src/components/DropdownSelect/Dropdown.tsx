@@ -60,27 +60,28 @@ const Dropdown = () => {
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
-            {optionsCopy!.map((option, key) => (
-                <div
-                    key={key}
-                    style={{
-                        ...styles.element,
-                        backgroundColor:
-                            keyOnHover === key
-                                ? hoverBackgroundColor
-                                : backgroundColor,
-                        color,
-                    }}
-                    onClick={() => {
-                        onChange!(option.value);
-                        setOpen((prev) => !prev);
-                    }}
-                    onMouseEnter={() => setKeyOnHover(key)}
-                    onMouseLeave={() => setKeyOnHover(-1)}
-                >
-                    {option.label}
-                </div>
-            ))}
+            {optionsCopy &&
+                optionsCopy.map((option, key) => (
+                    <div
+                        key={key}
+                        style={{
+                            ...styles.element,
+                            backgroundColor:
+                                keyOnHover === key
+                                    ? hoverBackgroundColor
+                                    : backgroundColor,
+                            color,
+                        }}
+                        onClick={() => {
+                            if (onChange) onChange(option.value);
+                            setOpen((prev) => !prev);
+                        }}
+                        onMouseEnter={() => setKeyOnHover(key)}
+                        onMouseLeave={() => setKeyOnHover(-1)}
+                    >
+                        {option.label}
+                    </div>
+                ))}
         </div>
     );
 };

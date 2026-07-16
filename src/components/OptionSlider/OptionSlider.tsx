@@ -1,84 +1,65 @@
-import { ReactNode } from 'react';
 import Info from '@/src/components/Info/Info';
 import styles from './styles';
-
-export type Options = {
-    label: ReactNode;
-    value: string;
-}[];
-
-interface Props {
-    value: string;
-    onChange: (value: string) => void;
-    options: Options;
-    color?: string;
-    isReadOnly?: boolean;
-    description?: string;
-    config?: {
-        backgroundColor?: string;
-        textColor?: string;
-    };
-}
+import WUII from '..';
 
 /**
- * Option Slider component, allowing users to select a value they want with the help of element representaion. Label is a React Node jsx that represents the option. For example, if a value was a font, the label would be a React Node jsx that represents a character using the font
- * @param value - a chosen value
- * @param onChange - to set a value
+ * Option Slider component, allowing users to select a value they want with the help of element representation. Label is a React Node JSX that represents the option. For example, if a value was a font, the label would be a React Node JSX that represents a character using the font.
+ * @param value - a chosen value of type string
+ * @param setValue - callback function to update the selected value
  * @param options - list of options, format Options {@link Options}
- * @param color - background color of the slider track (defaults to '#f0f0f7')
  * @param isReadOnly - if true, disables changing the selected option (defaults to false)
- * @param description - description tooltip text shown on hover of the info icon
- * @param config - optional configuration for custom styling (backgroundColor, textColor)
+ * @param description - description tooltip text shown on hover of the info icon (defaults to '')
+ * @param styling - optional styling configuration containing backgroundColor (defaults to '#fff'), textColor (defaults to '#000'), and borderColor (defaults to '#000')
  */
 const OptionSlider = ({
     value,
-    onChange,
+    setValue,
     options,
-    color = '#f0f0f7',
     isReadOnly = false,
     description = '',
-    config = {
-        backgroundColor: '#fff',
-        textColor: '#000',
-    },
-}: Props) => {
-    const { backgroundColor, textColor } = config;
+    styling = {},
+}: WUII<string>) => {
+    const {
+        backgroundColor = '#fff',
+        textColor = '#000',
+        borderColor = '#000',
+    } = styling;
     return (
         <div style={styles.container}>
             <div
                 style={{
                     ...styles.border,
-                    width: `100%`,
-                    height: `100%`,
+                    border: 'solid 1px ' + borderColor,
                 }}
             >
                 <div
                     style={{
                         ...styles.background,
-                        background: color,
+                        backgroundColor,
                     }}
                 ></div>
                 <div style={styles.options}>
-                    {options.map((option, key) => (
-                        <div
-                            style={{
-                                ...styles.element,
-                                background: color,
-                                border:
-                                    value === option.value
-                                        ? 'solid 2px #000'
-                                        : 'solid 1px #000',
-                            }}
-                            key={key}
-                            onClick={() => {
-                                if (isReadOnly) return;
-                                onChange(option.value);
-                            }}
-                            title={option.value}
-                        >
-                            {option.label}
-                        </div>
-                    ))}
+                    {options &&
+                        options.map((option, key) => (
+                            <div
+                                style={{
+                                    ...styles.element,
+                                    backgroundColor,
+                                    border:
+                                        value === option.value
+                                            ? 'solid 2px ' + borderColor
+                                            : 'none',
+                                }}
+                                key={key}
+                                onClick={() => {
+                                    if (isReadOnly) return;
+                                    if (setValue) setValue(option.value);
+                                }}
+                                title={option.value}
+                            >
+                                {option.label}
+                            </div>
+                        ))}
                 </div>
             </div>
             <div style={styles.info}>

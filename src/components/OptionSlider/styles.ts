@@ -23,7 +23,6 @@ const styles: Styles = {
     border: {
         borderRadius: '10px',
         overflow: 'auto',
-        boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
         aspectRatio: '4',
         display: 'flex',
         flexDirection: 'row',
@@ -70,7 +69,6 @@ const styles: Styles = {
         aspectRatio: '1 / 1',
         borderRadius: '50%',
         overflow: 'hidden',
-        border: 'solid 1px #000',
         boxSizing: 'border-box',
         margin: 0,
         padding: 0,
