@@ -5,6 +5,11 @@ export type Options = {
     value: string;
 }[];
 
+export type Range = {
+    min: string;
+    max: string;
+};
+
 /**
  * Will UI Interface
  * - Dictate all UI component to be implementing this interface for ultimate consistency
@@ -14,13 +19,16 @@ export default interface WUII<T = any> {
     value?: T;
     setValue?: (value: T) => void;
     options?: Options;
+    range?: Range;
     isReadOnly?: boolean;
     description?: string;
     styling?: {
+        primaryColor?: string;
         backgroundColor?: string;
         textColor?: string;
         hoverBackgroundColor?: string;
         focusColor?: string;
         borderColor?: string;
+        width?: string;
     };
 }

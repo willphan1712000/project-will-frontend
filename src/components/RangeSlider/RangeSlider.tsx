@@ -2,52 +2,43 @@ import { useEffect, useRef, useState } from 'react';
 import { decode, encode } from './functions';
 import Info from '@/src/components/Info/Info';
 import styles from './styles';
-
-interface Props {
-    value: string;
-    onChange: (value: string) => void;
-    min?: string;
-    max?: string;
-    color?: string;
-    width?: string;
-    isReadOnly?: boolean;
-    description?: string;
-    options?: {
-        backgroundColor?: string;
-        textColor?: string;
-    };
-}
+import WUII from '..';
 
 /**
- * Range Slider component, allowing users to drag the slider to choose value they want
- * @param min - minimum value (defaults to '0')
- * @param max - maximum value (defaults to '100')
- * @param color - color scheme of the range slider (defaults to '#f0f0f7')
- * @param width - specify the width of the component (defaults to '200')
+ * Range Slider component, allowing users to drag the slider to choose the value they want
  * @param value - a chosen value
- * @param onChange - to set a value
+ * @param setValue - callback function to set the value
  * @param isReadOnly - if true, disables sliding or dragging (defaults to false)
- * @param description - description tooltip text shown on hover of the info icon
- * @param options - configuration options for custom styling (backgroundColor, textColor)
- * @returns React Component
+ * @param description - description tooltip text shown on hover of the info icon (defaults to '')
+ * @param range - object containing range boundaries
+ * @param range.min - minimum value (defaults to '0')
+ * @param range.max - maximum value (defaults to '100')
+ * @param styling - optional configuration for custom styling
+ * @param styling.primaryColor - color scheme of the range slider (defaults to 'purple')
+ * @param styling.backgroundColor - background color of the value tooltip (defaults to '#fff')
+ * @param styling.textColor - text color of the value tooltip and info icon (defaults to '#000')
+ * @param styling.width - width of the component in pixels (defaults to '200')
  */
 const RangeSlider = ({
-    min = '0',
-    max = '100',
-    color = '#f0f0f7',
-    width = '200',
     value,
-    onChange,
+    setValue,
     isReadOnly = false,
     description = '',
-    options = {
-        backgroundColor: '#fff',
-        textColor: '#000',
+    range = {
+        min: '0',
+        max: '100',
     },
-}: Props) => {
-    const { backgroundColor, textColor } = options;
+    styling = {},
+}: WUII<string>) => {
+    const {
+        primaryColor = 'purple',
+        backgroundColor = '#fff',
+        textColor = '#000',
+        width = '200',
+    } = styling;
+    const { min = '0', max = '100' } = range;
 
-    let percentage = encode(value, min, max);
+    let percentage = encode(value!, min, max);
     const sliderBorderRef = useRef<HTMLDivElement>(null);
     const [isMouseDown, setMouseDown] = useState<boolean>(false);
     const [isHover, setHover] = useState<boolean>(false);
@@ -77,7 +68,7 @@ const RangeSlider = ({
             currentValue = parseInt(min);
         }
 
-        onChange(currentValue.toString());
+        if (setValue) setValue(currentValue.toString());
     };
 
     useEffect(() => {
@@ -138,14 +129,14 @@ const RangeSlider = ({
                 <span
                     style={{
                         ...styles.fill,
-                        background: color,
+                        background: primaryColor,
                         width: `${percentage}%`,
                     }}
                 ></span>
                 <span
                     style={{
                         ...styles.thumb,
-                        background: color,
+                        background: primaryColor,
                         left: `${percentage}%`,
                     }}
                     onMouseMove={() => setHover(true)}
@@ -164,7 +155,7 @@ const RangeSlider = ({
                     <span
                         style={{
                             ...styles.thumb_shadow,
-                            background: color,
+                            background: primaryColor,
                             scale: isMouseDown || isHover ? '1' : '0',
                         }}
                     ></span>
@@ -172,7 +163,7 @@ const RangeSlider = ({
                 <span
                     style={{
                         ...styles.rest,
-                        background: color,
+                        background: primaryColor,
                     }}
                 ></span>
             </div>

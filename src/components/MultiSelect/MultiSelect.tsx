@@ -8,12 +8,12 @@ import WUII from '..';
 
 /**
  * MultiSelect component, allowing users to select multiple options from dropdown menu with search
- * @param options - list of options, which is an array of object Options {@link Options}
+ * @param options - list of options, which is an array of Options {@link Options}
  * @param value - an array of chosen values
- * @param onChange - a function to set an array of values
+ * @param setValue - callback function to set an array of values
  * @param isReadOnly - if true, disables selecting or clearing options (defaults to false)
- * @param description - description tooltip text shown on hover of the info icon
- * @param config - optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
+ * @param description - description tooltip text shown on hover of the info icon (defaults to '')
+ * @param styling - optional configuration for custom styling (backgroundColor, textColor, hoverBackgroundColor)
  */
 const MultiSelect = ({
     options,
