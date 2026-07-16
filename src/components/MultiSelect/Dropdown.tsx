@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useMyContext from './context';
 import Search from './Search';
-// import styles from './dropdownSelect.module.css'
 import styles from './styles';
 
 const Dropdown = () => {
-    const { options, onChange, setOpen, config } = useMyContext();
-    const { backgroundColor, textColor: color, hoverBackgroundColor } = config!;
+    console.log('Dropdown render');
+    const { options, value, setValue, setOpen, styling } = useMyContext();
+    const {
+        backgroundColor,
+        textColor: color,
+        hoverBackgroundColor,
+    } = styling!;
     const [isVisible, setVisible] = useState<boolean>(true);
-    const [keyOnHover, setKeyOnHover] = useState<number>(-1);
     const [optionsCopy, setOption] = useState(options);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,13 +32,29 @@ const Dropdown = () => {
 
     useEffect(() => {
         handleResize();
-
         window.addEventListener('scroll', handleResize);
-
         return () => {
             window.removeEventListener('scroll', handleResize);
         };
     }, []);
+
+    const handleMouseOver = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        const targetNode = (e.target as HTMLElement).closest(
+            '[data-hover-target="true"]'
+        ) as HTMLDivElement;
+        if (targetNode)
+            targetNode.style.backgroundColor = hoverBackgroundColor || '';
+    };
+    const handleMouseOut = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        const targetNode = (e.target as HTMLElement).closest(
+            '[data-hover-target="true"]'
+        ) as HTMLDivElement;
+        if (targetNode) targetNode.style.backgroundColor = 'transparent';
+    };
 
     return (
         <div
@@ -58,34 +77,33 @@ const Dropdown = () => {
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
-            {optionsCopy.map(
-                (option: { label: string; value: string }, key: number) => (
-                    <div
-                        key={key}
-                        style={{
-                            ...styles.element,
-                            backgroundColor:
-                                keyOnHover === key
-                                    ? hoverBackgroundColor
-                                    : backgroundColor,
-                            color,
-                        }}
-                        onClick={() => {
-                            onChange((prev) => {
-                                if (prev.includes(option.value))
-                                    return [...prev];
-
-                                return [...prev, option.value];
-                            });
-                            setOpen((prev) => !prev);
-                        }}
-                        onMouseEnter={() => setKeyOnHover(key)}
-                        onMouseLeave={() => setKeyOnHover(-1)}
-                    >
-                        {option.label}
-                    </div>
-                )
-            )}
+            <div
+                style={styles.dropdown_border}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+            >
+                {optionsCopy &&
+                    optionsCopy.map((option, key: number) => (
+                        <div
+                            key={key}
+                            data-hover-target="true"
+                            style={{
+                                ...styles.element,
+                                color,
+                            }}
+                            onClick={() => {
+                                if (setValue && value) {
+                                    if (value.includes(option.value))
+                                        setValue(value);
+                                    else setValue([...value, option.value]);
+                                }
+                                setOpen((prev) => !prev);
+                            }}
+                        >
+                            {option.label}
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 };
