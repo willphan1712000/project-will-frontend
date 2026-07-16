@@ -23,7 +23,6 @@ const MultiSelect = ({
     description = '',
     styling = {},
 }: WUII<string[]>) => {
-    console.log('MultiSelect render');
     const {
         backgroundColor = '#fff',
         textColor: color = '#000',

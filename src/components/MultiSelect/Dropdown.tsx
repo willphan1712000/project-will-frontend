@@ -4,7 +4,6 @@ import Search from './Search';
 import styles from './styles';
 
 const Dropdown = () => {
-    console.log('Dropdown render');
     const { options, value, setValue, setOpen, styling } = useMyContext();
     const {
         backgroundColor,

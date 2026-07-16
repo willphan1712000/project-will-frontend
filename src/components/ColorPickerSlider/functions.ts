@@ -3,7 +3,8 @@
  * @param color
  * @returns percentage of a given hex color
  */
-export function encode(color: string) {
+export function encode(color?: string) {
+    if (!color) return 0;
     const { h } = hexToHsl(color);
     return (h * 100) / 360;
 }
@@ -13,7 +14,8 @@ export function encode(color: string) {
  * @param percent
  * @returns hex color scheme based on a given percentage
  */
-export function decode(percent: number) {
+export function decode(percent?: number) {
+    if (!percent) return '';
     return hslToHex(percent * 360, 100, 50);
 }
 

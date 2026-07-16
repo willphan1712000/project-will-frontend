@@ -294,10 +294,10 @@ export default function Example() {
   return (
     <ColorPickerSlider
       value={value}
-      onChange={setValue}
+      setValue={setValue}
       isReadOnly={false}
       description="Pick your favorite color"
-      options={{
+      styling={{
         width: '240',
         backgroundColor: '#ffffff',
         textColor: '#000000',
@@ -309,10 +309,10 @@ export default function Example() {
 
 Props:
 - `value: string` - The current color value.
-- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
+- `setValue: (value: string) => void` - Callback function triggered when the slider value changes.
 - `isReadOnly?: boolean` - If set to `true`, disables changing the color slider and shows "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `options?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
   - `width?: string` - The width of the slider track in pixels (defaults to `'200'`).
   - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#000'`).
   - `textColor?: string` - Text color of the tooltip (defaults to `'#fff'`).

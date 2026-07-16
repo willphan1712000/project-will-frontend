@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Search = ({ options, onSearch }: Props) => {
-    console.log('Search render');
     const { styling, open } = useMyContext();
     const { backgroundColor, textColor: color } = styling!;
     const inputRef = useRef<HTMLInputElement>(null);
