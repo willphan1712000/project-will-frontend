@@ -673,7 +673,9 @@ import {
 
 Included helpers:
 - `tools.handleAsync(...)`
-- `tools.textPreprocessing(...)`
+- `tools.textProcessing(...)`
+- `tools.getOrCreateUUID(...)`
+- `tools.copyToClipboard(...)`
 
 ## Development
 

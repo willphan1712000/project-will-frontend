@@ -1,11 +1,3 @@
-/**
- * Function creates and returns a unique UUID and store it in local storage
- * @params key name
- * @returns UUID
- *
- * @example
- * const deviceId = getOrCreateUUID("deviceId")
- */
 export default function getOrCreateUUID(key: string) {
     const STORAGE_KEY = key;
     let deviceId = localStorage.getItem(STORAGE_KEY);
