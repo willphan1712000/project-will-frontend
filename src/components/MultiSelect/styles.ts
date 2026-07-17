@@ -6,6 +6,7 @@ type Props =
     | 'close'
     | 'element'
     | 'dropdown'
+    | 'dropdown_border'
     | 'search_border'
     | 'search'
     | 'container'
@@ -45,8 +46,6 @@ const styles: Styles = {
     eachValue: {
         height: '100%',
         borderRadius: '5px',
-        backgroundColor: '#f0f0f7',
-        color: '#000',
         padding: '5px',
         position: 'relative',
         display: 'flex',
@@ -91,10 +90,15 @@ const styles: Styles = {
         flexDirection: 'column',
         border: 'solid 1px #dadada',
         borderRadius: '10px',
-        padding: '5px',
         maxHeight: '300px',
         overflowY: 'auto',
         backgroundColor: 'white',
+    },
+    dropdown_border: {
+        padding: '5px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '5px',
     },
     search_border: {
         position: 'sticky',
@@ -103,12 +107,11 @@ const styles: Styles = {
         boxSizing: 'border-box',
         width: '100%',
         backgroundColor: 'white',
-        marginBottom: '5px',
     },
     search: {
         width: '100%',
         borderRadius: '0',
-        padding: '5px',
+        padding: '10px',
         border: 'none',
         display: 'flex',
         justifyContent: 'flex-start',

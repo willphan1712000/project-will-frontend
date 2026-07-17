@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './styles';
+import WUII from '..';
+import Info from '../Info/Info';
 
 interface FileDropZoneProps {
     label: string;
@@ -46,26 +48,26 @@ interface FileDropZoneProps {
  */
 const FileDropZone = ({
     label,
-    accept,
-    file,
-    onFileSelect,
-    options = {
-        backgroundColor: '#fff',
-        borderColor: '#fff',
-        textColor: '#000',
-        destructive: '#df0408',
-    },
-}: FileDropZoneProps) => {
+    value,
+    setValue,
+    styling = {},
+    config = {},
+    isReadOnly = false,
+    description = '',
+}: WUII<File>) => {
     const {
-        backgroundColor,
-        borderColor,
-        textColor: color,
-        destructive,
-    } = options;
+        backgroundColor = '#fff',
+        borderColor = '#fff',
+        textColor: color = '#000',
+        destructive = '#df0408',
+    } = styling;
+    const { accept } = config;
+
+    if (!setValue) return;
 
     const [isDragOver, setIsDragOver] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [selectedFile, setSelectedFile] = useState<File | undefined>(file);
+    const [selectedFile, setSelectedFile] = useState<File | undefined>(value);
     const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -80,7 +82,7 @@ const FileDropZone = ({
 
     const validateFile = (file: File) => {
         const extension = file.name.split('.').pop()?.toLowerCase();
-        const expected = accept.replace('.', '').toLowerCase();
+        const expected = accept ? accept.replace('.', '').toLowerCase() : '';
 
         if (extension !== expected) {
             setError(`Please upload a ${expected.toUpperCase()} file.`);
@@ -91,6 +93,7 @@ const FileDropZone = ({
     };
 
     const handleDrop = (e: React.DragEvent) => {
+        if (isReadOnly) return;
         e.preventDefault();
         setIsDragOver(false);
         const files = e.dataTransfer.files;
@@ -98,7 +101,7 @@ const FileDropZone = ({
             const file = files[0]!;
             if (validateFile(file)) {
                 setSelectedFile(file);
-                onFileSelect(file);
+                setValue(file);
             }
         }
     };
@@ -109,12 +112,13 @@ const FileDropZone = ({
             const file = files[0]!;
             if (validateFile(file)) {
                 setSelectedFile(file);
-                onFileSelect(file);
+                setValue(file);
             }
         }
     };
 
     const handleClick = () => {
+        if (isReadOnly) return;
         fileInputRef.current?.click();
     };
 
@@ -160,6 +164,17 @@ const FileDropZone = ({
             <div style={{ ...styles.label, color }}>{label}</div>
             <div style={{ ...styles.hint, color }}>
                 Drag & drop or click to upload
+                <div style={styles.info}>
+                    <Info
+                        message={
+                            isReadOnly ? 'Locked - Read Only' : description
+                        }
+                        options={{
+                            backgroundColor: color,
+                            color: backgroundColor,
+                        }}
+                    />
+                </div>
             </div>
 
             {selectedFile && (

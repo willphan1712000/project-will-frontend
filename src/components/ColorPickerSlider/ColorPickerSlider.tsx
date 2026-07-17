@@ -2,41 +2,30 @@ import { useEffect, useRef, useState } from 'react';
 import { decode, encode } from './functions';
 import styles from './styles';
 import Info from '@/src/components/Info/Info';
-
-interface Props {
-    value: string;
-    onChange: (value: string) => void;
-    isReadOnly?: boolean;
-    description?: string;
-    options?: {
-        width?: string;
-        backgroundColor?: string;
-        textColor?: string;
-    };
-}
+import WUII from '..';
 
 /**
  * ColorPickerSlider component, allowing users to select a color by dragging the slider
  *
- * @param value current hex color value
- * @param onChange callback to update the color value
- * @param isReadOnly if true, disables color selection/dragging (defaults to false)
- * @param description description tooltip text shown on hover of the info icon
- * @param options configuration options for styling (width, backgroundColor, textColor)
+ * @param value - current hex color value
+ * @param setValue - callback to update the color value
+ * @param isReadOnly - if true, disables color selection/dragging (defaults to false)
+ * @param description - description tooltip text shown on hover of the info icon
+ * @param styling - configuration options for styling (width, backgroundColor, textColor)
  * @returns React Component
  */
 const ColorPickerSlider = ({
-    value,
-    onChange,
+    value = '',
+    setValue = () => {},
     isReadOnly = false,
     description = '',
-    options = {
-        width: '200',
-        backgroundColor: '#000',
-        textColor: '#fff',
-    },
-}: Props) => {
-    const { width = '200', backgroundColor, textColor: color } = options;
+    styling = {},
+}: WUII<string>) => {
+    const {
+        width = '200',
+        backgroundColor = '#000',
+        textColor: color = '#fff',
+    } = styling;
 
     let percentage = encode(value);
     const sliderBorderRef = useRef<HTMLDivElement>(null);
@@ -59,9 +48,8 @@ const ColorPickerSlider = ({
         if (percentage < 0) percentage = 0;
 
         if (percentage > 1) percentage = 0.99;
-        // console.log(decode(1))
 
-        onChange(decode(percentage));
+        setValue(decode(percentage));
     };
 
     useEffect(() => {
@@ -126,8 +114,8 @@ const ColorPickerSlider = ({
                 <div
                     style={{
                         ...styles.label,
-                        backgroundColor,
-                        color,
+                        backgroundColor: color,
+                        color: backgroundColor,
                         left: `${percentage}%`,
                         scale: isHover || isMouseDown ? '1' : '0',
                     }}

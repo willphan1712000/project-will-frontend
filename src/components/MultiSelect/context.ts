@@ -1,20 +1,12 @@
 import { createContext, useContext } from 'react';
-import { Options } from './MultiSelect';
+import WUII from '..';
 
 export type Data = {
-    // some data type does here
-    options: Options;
-    value: string[];
-    onChange: React.Dispatch<React.SetStateAction<string[]>>;
+    open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    config?: {
-        backgroundColor?: string;
-        textColor?: string;
-        hoverBackgroundColor?: string;
-    };
 };
 
-export type ContextDataType = Data | undefined;
+export type ContextDataType = (WUII<string[]> & Data) | undefined;
 
 export const MyContext = createContext<ContextDataType>(undefined);
 

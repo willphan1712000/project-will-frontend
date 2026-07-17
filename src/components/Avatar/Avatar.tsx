@@ -2,6 +2,7 @@ import { ImageEditor, Image, UploadImage, Button, ImageUtilities } from '@';
 import styles, { others } from './styles';
 import { useEffect, useRef, useState } from 'react';
 import { CloudUpload, Edit, TrashCan } from '@/src/components/Icons';
+import WUII from '..';
 
 interface Props {
     src?: string;
@@ -20,7 +21,7 @@ interface Props {
  *
  * These components work together to provide smooth image editing process
  *
- * @param src source of an image which will be converted to base64 format automatically
+ * @param value source of an image which will be converted to base64 format automatically
  * @param setValue set state function for src
  *
  * @dataflow
@@ -31,13 +32,15 @@ interface Props {
  *
  * @example
  * ... component declaration
- * const [src, setValue] = useState<string|undefined>(initialImageStringUrl)
+ * const [value, setValue] = useState<string|undefined>(initialImageStringUrl)
  *
  * return (
- *  <Avatar src={src} setValue={setValue} options={{defaultImage: unknown}}/>
+ *  <Avatar value={value} setValue={setValue} options={{defaultImage: unknown}}/>
  * )
  */
-const Avatar = ({ src, setValue, options }: Props) => {
+const Avatar = ({ value, setValue, config }: WUII<string>) => {
+    if (!value || !setValue) return;
+
     const [isOpen, setOpen] = useState<boolean>(false);
     const [isNew, setNew] = useState<boolean>(false);
 
@@ -47,36 +50,37 @@ const Avatar = ({ src, setValue, options }: Props) => {
     const uploadImageRef = useRef<HTMLInputElement>(null);
 
     const isAbleToEdit = initialImage.current
-        ? src !== defaultImage.current && src !== initialImage.current
-        : false; // derived state from src
+        ? value !== defaultImage.current && value !== initialImage.current
+        : false; // derived state from value
     const isAbleToRemove = initialImage.current
-        ? src !== defaultImage.current
-        : false; // derived state from src
+        ? value !== defaultImage.current
+        : false; // derived state from value
 
     useEffect(() => {
         (async function setSrc() {
             defaultImage.current =
-                (await ImageUtilities.FromStringToImageSrc(
-                    options?.defaultImage
-                )) ?? options?.defaultImage;
+                (await ImageUtilities.FromStringToImageSrc(config?.default)) ??
+                config?.default;
             initialImage.current =
-                (await ImageUtilities.FromStringToImageSrc(src)) ?? src;
+                (await ImageUtilities.FromStringToImageSrc(value)) ?? value;
 
-            src === initialImage.current ? setNew((prev) => !prev) : undefined; // this is important because in case src is equal to initial image, setValue below is not going to give another re-render
-            setValue(src ? initialImage.current : defaultImage.current); // another re-render here is important
+            value === initialImage.current
+                ? setNew((prev) => !prev)
+                : undefined; // this is important because in case value is equal to initial image, setValue below is not going to give another re-render
+            setValue(value ? initialImage.current : defaultImage.current); // another re-render here is important
         })();
     }, []);
 
     return (
         <div style={styles.container}>
             <ImageEditor
-                src={src}
+                src={value}
                 setSrc={setValue}
                 isOpen={isOpen}
                 setOpen={setOpen}
                 isNew={isNew}
             />
-            <Image src={src} style={styles.image} />
+            <Image src={value} style={styles.image} />
 
             <Button
                 style={styles.upload}

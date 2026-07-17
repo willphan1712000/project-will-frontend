@@ -2,7 +2,7 @@
 
 # `@willphan1712000/frontend`
 
-Reusable React UI components and frontend utilities packaged for application development.
+Reusable React UI components and frontend utilities packaged for application development following Will component interface called WUII which stands for Will UI Interface
 
 ## What this package includes
 
@@ -294,10 +294,10 @@ export default function Example() {
   return (
     <ColorPickerSlider
       value={value}
-      onChange={setValue}
+      setValue={setValue}
       isReadOnly={false}
       description="Pick your favorite color"
-      options={{
+      styling={{
         width: '240',
         backgroundColor: '#ffffff',
         textColor: '#000000',
@@ -309,10 +309,10 @@ export default function Example() {
 
 Props:
 - `value: string` - The current color value.
-- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
+- `setValue: (value: string) => void` - Callback function triggered when the slider value changes.
 - `isReadOnly?: boolean` - If set to `true`, disables changing the color slider and shows "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `options?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
   - `width?: string` - The width of the slider track in pixels (defaults to `'200'`).
   - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#000'`).
   - `textColor?: string` - Text color of the tooltip (defaults to `'#fff'`).
@@ -382,12 +382,12 @@ import { DynamicList } from '@willphan1712000/frontend';
 const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 
 <DynamicList
-  values={values}
-  onChange={setValues}
+  value={values}
+  setValue={setValues}
   isReadOnly={false}
   label="option"
   description="List of options"
-  options={{
+  styling={{
     backgroundColor: '#ffffff',
     borderColor: '#e2e8f0',
     textColor: '#1a202c'
@@ -396,12 +396,12 @@ const [values, setValues] = useState<string[]>(['Option 1', 'Option 2']);
 ```
 
 Props:
-- `values: string[]` - An array of strings representing the current values in the list.
-- `onChange: (values: React.SetStateAction<string[]>) => void` - Callback triggered when the list values change.
+- `value: string[]` - An array of strings representing the current values in the list.
+- `setValue: (value: string[]) => void` - Callback triggered when the list values change.
 - `isReadOnly?: boolean` - If set to `true`, disables adding, deleting, editing, and dragging items (defaults to `false`).
 - `label?: string` - Label used for input placeholders and the "Add" button (defaults to `'value'`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `options?: object` - Optional configurations:
+- `styling?: object` - Optional configurations:
   - `backgroundColor?: string` - Background color for the list container and items (defaults to `'#fff'`).
   - `borderColor?: string` - Border color for the list container and items (defaults to `'#f0f0f0'`).
   - `textColor?: string` - Text color for input values and buttons (defaults to `'#000'`).
@@ -510,7 +510,7 @@ export default function Example() {
       label="Email or phone"
       description="Enter your registered email address"
       isReadOnly={false}
-      options={{
+      styling={{
         focusColor: '#1a73e8',
         backgroundColor: '#ffffff',
         textColor: '#202124',
@@ -527,7 +527,7 @@ Props:
 - `label?: string` - The text for the floating label (defaults to `'Input Google Component Label'`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Input Google Description'`). Displays when the input is not read-only.
 - `isReadOnly?: boolean` - If set to `true`, the input becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
-- `options?: object` - Optional configuration for custom styling:
+- `styling?: object` - Optional configuration for custom styling:
   - `focusColor?: string` - Border and label color when the input is focused.
   - `backgroundColor?: string` - Background color of the input container and label background.
   - `textColor?: string` - Color of the text input and default label state.
@@ -551,7 +551,7 @@ export default function Example() {
       label="Bio"
       description="Tell us about yourself"
       isReadOnly={false}
-      options={{
+      styling={{
         focusColor: '#1a73e8',
         backgroundColor: '#ffffff',
         textColor: '#202124',
@@ -568,7 +568,7 @@ Props:
 - `label?: string` - The text for the floating label (defaults to `'Text Area Component Label'`).
 - `isReadOnly?: boolean` - If set to `true`, the textarea becomes read-only and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `'Text Area Description'`). Displays when the textarea is not read-only.
-- `options?: object` - Optional configuration for custom styling:
+- `styling?: object` - Optional configuration for custom styling:
   - `focusColor?: string` - Border and label color when the textarea is focused.
   - `backgroundColor?: string` - Background color of the textarea container and label background.
   - `textColor?: string` - Color of the text and default label state.
@@ -673,7 +673,9 @@ import {
 
 Included helpers:
 - `tools.handleAsync(...)`
-- `tools.textPreprocessing(...)`
+- `tools.textProcessing(...)`
+- `tools.getOrCreateUUID(...)`
+- `tools.copyToClipboard(...)`
 
 ## Development
 
@@ -716,13 +718,11 @@ npm link <path_to_your_testing_project>/node_modules/react
 ```
 
 ## Notes
-
 - The package is built with `tsup`.
 - It ships CommonJS, ESM, and TypeScript declaration files.
 - Source code is written in TypeScript and React.
 
 ## Contributing
-
 If you find a bug or want to improve the package, open an issue or submit a pull request.
 
 Portfolio:

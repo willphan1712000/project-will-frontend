@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useMyContext from './context';
 import Search from './Search';
 import styles from './styles';
@@ -7,10 +7,14 @@ import styles from './styles';
  * Private Dropdown component -> handle dropdown list including search bar
  */
 const Dropdown = () => {
-    const { options, onChange, setOpen, config } = useMyContext();
-    const { backgroundColor, textColor: color, hoverBackgroundColor } = config!;
+    const { options, setValue, setOpen, styling } = useMyContext();
+    const {
+        backgroundColor,
+        textColor: color,
+        hoverBackgroundColor = '#f0f0f0',
+    } = styling!;
+
     const [isVisible, setVisible] = useState<boolean>(true);
-    const [keyOnHover, setKeyOnHover] = useState<number>(-1);
     const [optionsCopy, setOption] = useState(options);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -20,23 +24,34 @@ const Dropdown = () => {
         const dimension = dropdown.getBoundingClientRect();
         const distanceToBottom = window.innerHeight - dimension.bottom;
         const distanceToTop = dimension.top;
-        if (distanceToBottom < 0) {
-            setVisible(false);
-        }
+        if (distanceToBottom < 0) setVisible(false);
+        if (distanceToTop < 0) setVisible(true);
+    };
 
-        if (distanceToTop < 0) {
-            setVisible(true);
-        }
+    const handleMouseOver = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        const targetNode = (e.target as HTMLElement).closest(
+            '[data-hover-target="true"]'
+        ) as HTMLDivElement;
+        if (targetNode)
+            targetNode.style.backgroundColor = hoverBackgroundColor || '';
+    };
+
+    const handleMouseOut = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        const targetNode = (e.target as HTMLElement).closest(
+            '[data-hover-target="true"]'
+        ) as HTMLDivElement;
+        if (targetNode)
+            targetNode.style.backgroundColor = backgroundColor || 'transparent';
     };
 
     useEffect(() => {
         handleResize();
-
         window.addEventListener('scroll', handleResize);
-
-        return () => {
-            window.removeEventListener('scroll', handleResize);
-        };
+        return () => window.removeEventListener('scroll', handleResize);
     }, []);
 
     const isVisibleVar = isVisible
@@ -54,33 +69,37 @@ const Dropdown = () => {
             ref={dropdownRef}
             style={{
                 ...isVisibleVar,
-                backgroundColor,
-                color,
             }}
         >
             {/* Search */}
             <Search options={options} onSearch={setOption} />
-            {optionsCopy.map((option, key) => (
-                <div
-                    key={key}
-                    style={{
-                        ...styles.element,
-                        backgroundColor:
-                            keyOnHover === key
-                                ? hoverBackgroundColor
-                                : backgroundColor,
-                        color,
-                    }}
-                    onClick={() => {
-                        onChange(option.value);
-                        setOpen((prev) => !prev);
-                    }}
-                    onMouseEnter={() => setKeyOnHover(key)}
-                    onMouseLeave={() => setKeyOnHover(-1)}
-                >
-                    {option.label}
-                </div>
-            ))}
+            <div
+                style={{
+                    ...styles.elementList,
+                    backgroundColor,
+                    color,
+                }}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+            >
+                {optionsCopy &&
+                    optionsCopy.map((option, key) => (
+                        <div
+                            data-hover-target="true"
+                            key={key}
+                            style={{
+                                ...styles.element,
+                                color,
+                            }}
+                            onClick={() => {
+                                if (setValue) setValue(option.value);
+                                setOpen((prev) => !prev);
+                            }}
+                        >
+                            {option.label}
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 };

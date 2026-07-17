@@ -128,14 +128,6 @@ const stop_words = [
     'now',
 ];
 
-/**
- * Text Preprocessing
- * - Convert to lowercase
- * - Remove punctuation
- * - Remove stop words
- * @param text
- * @returns
- */
 export default function textProcessing(text: string): string {
     let words = text.split(' ');
 
