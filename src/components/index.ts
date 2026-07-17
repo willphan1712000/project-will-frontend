@@ -17,7 +17,7 @@ export type Range = {
  */
 export default interface WUII<T = any> {
     value?: T;
-    setValue?: (value: T) => void;
+    setValue?: (value?: T) => void;
     options?: Options;
     range?: Range;
     label?: string;
@@ -30,6 +30,11 @@ export default interface WUII<T = any> {
         hoverBackgroundColor?: string;
         focusColor?: string;
         borderColor?: string;
+        destructive?: string;
         width?: string;
+    };
+    config?: {
+        default?: string;
+        accept?: string;
     };
 }

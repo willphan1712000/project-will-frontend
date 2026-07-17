@@ -19,20 +19,15 @@ import WUII from '@/src/components/index';
  */
 const DropdownSelect = ({
     value = '',
-    setValue: onChange = () => {},
+    setValue = () => {},
     options,
     isReadOnly = false,
     description = '',
-    styling: config = {
-        backgroundColor: '#fff',
-        textColor: '#000',
-        hoverBackgroundColor: '#f0f0f0',
-    },
+    styling = {},
 }: WUII<string>) => {
-    const { backgroundColor, textColor: color } = config;
+    const { backgroundColor = '#fff', textColor: color = '#000' } = styling;
 
     const [open, setOpen] = useState<boolean>(false);
-
     const selectRef = useRef<HTMLDivElement>(null);
 
     const clickHandler = (e: PointerEvent) => {
@@ -44,7 +39,6 @@ const DropdownSelect = ({
 
     useEffect(() => {
         window.addEventListener('click', clickHandler);
-
         return () => window.removeEventListener('click', clickHandler);
     }, []);
 
@@ -53,9 +47,10 @@ const DropdownSelect = ({
             value={{
                 options,
                 value,
-                onChange,
+                setValue,
+                open,
                 setOpen,
-                config,
+                styling,
             }}
         >
             <div style={styles.container} ref={selectRef}>
@@ -80,7 +75,7 @@ const DropdownSelect = ({
                         title="clear"
                         onClick={() => {
                             if (isReadOnly) return;
-                            onChange('');
+                            setValue('');
                             setOpen((prev) => !prev);
                         }}
                     >

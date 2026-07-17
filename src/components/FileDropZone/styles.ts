@@ -7,7 +7,8 @@ type Name =
     | 'hint'
     | 'fileInfo'
     | 'icon'
-    | 'error';
+    | 'error'
+    | 'info';
 
 type Styles = {
     [K in Name]: React.CSSProperties;
@@ -29,7 +30,7 @@ const styles: Styles = {
         minHeight: '150px',
         justifyContent: 'center',
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'visible',
     },
     dragOver: {
         opacity: 0.9,
@@ -40,6 +41,9 @@ const styles: Styles = {
     },
     hint: {
         fontSize: '0.85rem',
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '5px',
     },
     fileInfo: {
         marginTop: '8px',
@@ -63,6 +67,10 @@ const styles: Styles = {
         color: 'var(--destructive, #d93025)',
         fontSize: '0.8rem',
         marginTop: '4px',
+    },
+    info: {
+        width: '20px',
+        aspectRatio: 1,
     },
 };
 

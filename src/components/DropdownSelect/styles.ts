@@ -3,6 +3,7 @@ type Props =
     | 'value'
     | 'close'
     | 'element'
+    | 'elementList'
     | 'dropdown'
     | 'search_border'
     | 'search'
@@ -54,6 +55,9 @@ const styles: Styles = {
         alignItems: 'center',
         cursor: 'pointer',
     },
+    elementList: {
+        padding: '5px',
+    },
     dropdown: {
         position: 'absolute',
         boxSizing: 'border-box',
@@ -63,7 +67,6 @@ const styles: Styles = {
         flexDirection: 'column',
         border: 'solid 1px #dadada',
         borderRadius: '10px',
-        padding: '5px',
         maxHeight: '300px',
         overflowY: 'auto',
         backgroundColor: 'white',
@@ -76,12 +79,11 @@ const styles: Styles = {
         boxSizing: 'border-box',
         width: '100%',
         backgroundColor: 'white',
-        marginBottom: '5px',
     },
     search: {
         width: '100%',
         borderRadius: '0',
-        padding: '5px',
+        padding: '10px',
         border: 'none',
         display: 'flex',
         justifyContent: 'flex-start',

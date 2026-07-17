@@ -2,13 +2,8 @@ import { createContext, useContext } from 'react';
 import WUII from '..';
 
 export type Data = {
-    onChange?: (value: string) => void;
+    open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    config?: {
-        backgroundColor?: string;
-        textColor?: string;
-        hoverBackgroundColor?: string;
-    };
 };
 
 export type ContextDataType = (WUII & Data) | undefined;
