@@ -1,0 +1,77 @@
+import { CSSProperties } from 'react';
+
+export const styles: { [key: string]: CSSProperties | any } = {
+    monthGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(7, 1fr)',
+        gap: '8px',
+    },
+    dayName: {
+        textAlign: 'center',
+        fontWeight: 600,
+        color: 'var(--text-muted)',
+        padding: '8px 0',
+        fontSize: '0.85rem',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+    },
+    monthCell: {
+        aspectRatio: '1',
+        background: 'var(--bg-color)',
+        borderRadius: '16px',
+        padding: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        overflow: 'hidden',
+        cursor: 'pointer',
+    },
+    monthCellInactive: {
+        opacity: 0.3,
+    },
+    monthCellToday: {
+        border: '2px solid var(--primary)',
+        background: 'rgba(99, 102, 241, 0.05)',
+    },
+    dateNum: {
+        fontWeight: 600,
+        fontSize: '0.95rem',
+        marginBottom: '4px',
+        alignSelf: 'flex-end',
+    },
+    dateNumToday: {
+        background: 'var(--primary)',
+        color: 'white',
+        width: '28px',
+        height: '28px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '50%',
+    },
+    eventsList: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
+        overflowY: 'auto',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+    },
+    eventBadge: {
+        fontSize: '0.75rem',
+        padding: '4px 6px',
+        borderRadius: '6px',
+        background: 'var(--event-bg)',
+        color: 'var(--event-text)',
+        fontWeight: 500,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
+    eventBadgeCancelled: {
+        background: 'var(--event-cancelled-bg)',
+        color: 'var(--event-cancelled-text)',
+        textDecoration: 'line-through',
+    },
+};
