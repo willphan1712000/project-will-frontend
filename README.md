@@ -55,52 +55,46 @@ Make sure your app already has React and React DOM installed:
 npm install react react-dom
 ```
 
-## Quick start
+## Will UI Interface (WUII)
 
-```tsx
-import { useState } from 'react';
-import {
-  DropdownSelect,
-  RangeSlider,
-  Button,
-  type Options,
-} from '@willphan1712000/frontend';
+To ensure ultimate consistency, all interactive UI components in this package implement the `WUII<T>` interface. The generic type `T` represents the data type the component operates on.
 
-const options: Options = [
-  { label: 'Low', value: 'low' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'High', value: 'high' },
-];
+### The `WUII<T>` Interface
 
-export default function Example() {
-  const [priority, setPriority] = useState('medium');
-  const [amount, setAmount] = useState('50');
-
-  return (
-    <div>
-      <DropdownSelect
-        options={options}
-        value={priority}
-        onChange={setPriority}
-      />
-
-      <RangeSlider
-        value={amount}
-        onChange={setAmount}
-        min="0"
-        max="100"
-        width="240"
-      />
-
-      <Button
-        buttonType="gradient"
-        content="Submit"
-        type="button"
-      />
-    </div>
-  );
+```typescript
+export default interface WUII<T = any> {
+    value?: T;
+    setValue?: (value?: T) => void;
+    options?: Options;
+    range?: Range;
+    label?: string;
+    isReadOnly?: boolean;
+    description?: string;
+    styling?: {
+        primaryColor?: string;
+        backgroundColor?: string;
+        textColor?: string;
+        hoverBackgroundColor?: string;
+        focusColor?: string;
+        borderColor?: string;
+        destructive?: string;
+        width?: string;
+    };
+    config?: {
+        default?: string;
+        accept?: string;
+    };
 }
 ```
+
+### Common Properties
+
+- `value?: T` - The current value of the component.
+- `setValue?: (value?: T) => void` - Callback to update the value.
+- `isReadOnly?: boolean` - If set to `true`, disables user interactions and shows a `"Locked - Read Only"` tooltip instead of the description.
+- `description?: string` - Custom tooltip text shown on hover of the info icon.
+- `styling?: object` - Custom styling overrides (e.g., colors, width).
+- `config?: object` - Component-specific behavior configuration (e.g., `accept` file extensions or `default` assets).
 
 ## Core component usage
 
@@ -124,10 +118,10 @@ export default function Example() {
     <DropdownSelect
       options={options}
       value={value}
-      onChange={setValue}
+      setValue={setValue}
       isReadOnly={false}
       description="Choose your preferred fruit"
-      config={{
+      styling={{
         backgroundColor: '#ffffff',
         textColor: '#000000',
         hoverBackgroundColor: '#f0f0f0',
@@ -140,10 +134,10 @@ export default function Example() {
 Props:
 - `options: { label: string; value: string }[]` - List of select options.
 - `value: string` - The currently selected value.
-- `onChange: (value: string) => void` - Callback function triggered when a new value is selected.
+- `setValue: (value?: string) => void` - Callback function triggered when a new value is selected.
 - `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `config?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
   - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
   - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
   - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
@@ -168,10 +162,10 @@ export default function Example() {
     <MultiSelect
       options={options}
       value={values}
-      onChange={setValues}
+      setValue={setValues}
       isReadOnly={false}
       description="Select your tech stack"
-      config={{
+      styling={{
         backgroundColor: '#ffffff',
         textColor: '#000000',
         hoverBackgroundColor: '#f0f0f0',
@@ -184,10 +178,10 @@ export default function Example() {
 Props:
 - `options: { label: string; value: string }[]` - List of select options.
 - `value: string[]` - An array of currently selected values.
-- `onChange: React.Dispatch<React.SetStateAction<string[]>>` - State setter function to update selected values.
+- `setValue: (value?: string[]) => void` - Callback to update selected values.
 - `isReadOnly?: boolean` - If set to `true`, disables opening the dropdown list, clearing all items, or removing individual options, and displays a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `config?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
   - `backgroundColor?: string` - Background color of the select box and list elements (defaults to `'#fff'`).
   - `textColor?: string` - Color of the text inside the input box and dropdown options (defaults to `'#000'`).
   - `hoverBackgroundColor?: string` - Background color of an option when hovered (defaults to `'#f0f0f0'`).
@@ -206,14 +200,16 @@ export default function Example() {
   return (
     <RangeSlider
       value={value}
-      onChange={setValue}
-      min="0"
-      max="100"
-      width="240"
-      color="#2563eb"
+      setValue={setValue}
+      range={{
+        min: '0',
+        max: '100',
+      }}
       isReadOnly={false}
       description="Select the volume percentage"
-      options={{
+      styling={{
+        primaryColor: '#2563eb',
+        width: '240',
         backgroundColor: '#ffffff',
         textColor: '#000000',
       }}
@@ -224,14 +220,15 @@ export default function Example() {
 
 Props:
 - `value: string` - The current value.
-- `onChange: (value: string) => void` - Callback function triggered when the slider value changes.
-- `min?: string` - Minimum value of the range (defaults to `'0'`).
-- `max?: string` - Maximum value of the range (defaults to `'100'`).
-- `color?: string` - Custom track/thumb color (defaults to `'#f0f0f7'`).
-- `width?: string` - The width of the slider component in pixels (defaults to `'200'`).
+- `setValue: (value?: string) => void` - Callback function triggered when the slider value changes.
+- `range?: object` - Object containing range boundaries:
+  - `min?: string` - Minimum value of the range (defaults to `'0'`).
+  - `max?: string` - Maximum value of the range (defaults to `'100'`).
 - `isReadOnly?: boolean` - If set to `true`, disables dragging or changing the slider, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `options?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
+  - `primaryColor?: string` - Custom track/thumb color (defaults to `'purple'`).
+  - `width?: string` - The width of the slider component in pixels (defaults to `'200'`).
   - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
   - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
 
@@ -255,14 +252,14 @@ export default function Example() {
   return (
     <OptionSlider
       value={value}
-      onChange={setValue}
+      setValue={setValue}
       options={options}
-      color="#2563eb"
       isReadOnly={false}
       description="Choose intensity level"
-      config={{
+      styling={{
         backgroundColor: '#ffffff',
         textColor: '#000000',
+        borderColor: '#2563eb',
       }}
     />
   );
@@ -271,14 +268,14 @@ export default function Example() {
 
 Props:
 - `value: string` - The current value.
-- `onChange: (value: string) => void` - Callback function triggered when a new option is selected.
+- `setValue: (value?: string) => void` - Callback function triggered when a new option is selected.
 - `options: { label: ReactNode; value: string }[]` - List of options. `label` can be a React Node representing the option.
-- `color?: string` - Background color of the slider track (defaults to `'#f0f0f7'`).
 - `isReadOnly?: boolean` - If set to `true`, disables changing the selected option, and shows a "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
 - `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
-- `config?: object` - Optional custom styling configurations:
+- `styling?: object` - Optional custom styling configurations:
   - `backgroundColor?: string` - Background color of the tooltip (defaults to `'#fff'`).
   - `textColor?: string` - Text color of the tooltip (defaults to `'#000'`).
+  - `borderColor?: string` - Border color of the options container and selected option (defaults to `'#000'`).
 
 ### `ColorPickerSlider`
 
@@ -360,16 +357,17 @@ import { Avatar } from '@willphan1712000/frontend';
 const [src, setSrc] = useState<string | undefined>(undefined);
 
 <Avatar
-  src={src}
+  value={src}
   setValue={setSrc}
-  options={{ defaultImage: '/images/default-avatar.png' }}
+  config={{ default: '/images/default-avatar.png' }}
 />;
 ```
 
 Props:
-- `src?: string`
-- `setValue: (src?: string) => void`
-- `options?: { defaultImage?: string }`
+- `value?: string` - Current base64 string or URL of the avatar image.
+- `setValue: (value?: string) => void` - Callback function to update the image string.
+- `config?: object` - Optional component configurations:
+  - `default?: string` - Default fallback image URL.
 
 ### `DynamicList`
 
@@ -418,10 +416,12 @@ const [file, setFile] = useState<File | undefined>(undefined);
 
 <FileDropZone
   label="Upload configuration"
-  accept=".json"
-  file={file}
-  onFileSelect={setFile}
-  options={{
+  value={file}
+  setValue={setFile}
+  config={{ accept: '.json' }}
+  isReadOnly={false}
+  description="Drag & drop your JSON configuration file"
+  styling={{
     backgroundColor: '#fafafa',
     borderColor: '#1a73e8',
     textColor: '#3c4043',
@@ -431,11 +431,14 @@ const [file, setFile] = useState<File | undefined>(undefined);
 ```
 
 Props:
-- `label: string` - The text prompt displayed inside the drop zone.
-- `accept: string` - Allowed file extension/type suffix (e.g. `".json"`).
-- `file?: File` - Optional initial file to display as selected.
-- `onFileSelect: (file: File) => void` - Callback function triggered when a valid file is dropped or selected.
-- `options?: object` - Optional configuration for custom styling:
+- `label?: string` - The text prompt displayed inside the drop zone.
+- `value?: File` - Optional initial file to display as selected.
+- `setValue?: (value?: File) => void` - Callback function triggered when a valid file is dropped or selected.
+- `config?: object` - Optional configuration for component options:
+  - `accept?: string` - Allowed file extension/type suffix (e.g. `".json"`).
+- `isReadOnly?: boolean` - If set to `true`, disables changing the file and shows "Locked - Read Only" tooltip message instead of the description (defaults to `false`).
+- `description?: string` - Description tooltip text shown on hover of the info icon (defaults to `''`).
+- `styling?: object` - Optional configuration for custom styling:
   - `backgroundColor?: string` - Custom background color of the drop zone (defaults to `'#fff'`).
   - `borderColor?: string` - Custom border color of the drop zone (defaults to `'#fff'`).
   - `textColor?: string` - Custom text and icon color inside the drop zone (defaults to `'#000'`).

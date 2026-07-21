@@ -24,6 +24,3 @@ yarn-debug.log*
 yarn-error.log*
 
 /dist
-
-# on Development
-/src/components/Calendar/*
