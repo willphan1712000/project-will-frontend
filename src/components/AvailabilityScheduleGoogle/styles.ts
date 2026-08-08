@@ -173,6 +173,9 @@ const styles: Styles = {
     },
     unavailableText: {
         color: '#6b7280',
+        position: 'absolute',
+        left: '50%',
+        transform: 'translateX(-100%)',
     },
     iconButton,
     iconButtonHover: {
@@ -184,6 +187,7 @@ const styles: Styles = {
         alignItems: 'center',
         flexGrow: 1,
         gap: '0.25rem',
+        position: 'relative',
     },
     timeInputHover: {
         ...timeInput,
