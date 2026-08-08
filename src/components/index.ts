@@ -2,6 +2,7 @@ import { JSX } from 'react';
 
 export type Options = {
     label: JSX.Element;
+    labelContent?: string;
     value: string;
 }[];
 

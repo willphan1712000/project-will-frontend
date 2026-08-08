@@ -8,7 +8,7 @@ import WUII from '..';
 
 /**
  * MultiSelect component, allowing users to select multiple options from dropdown menu with search
- * @param options - list of options, which is an array of Options {@link Options}
+ * @param options - list of options, which is an array of type {@link Options}
  * @param value - an array of chosen values
  * @param setValue - callback function to set an array of values
  * @param isReadOnly - if true, disables selecting or clearing options (defaults to false)

@@ -35,7 +35,9 @@ const Search = ({ options, onSearch }: Props) => {
                 onChange={(e) =>
                     onSearch(
                         options!.filter((ele) => {
-                            return ele.value
+                            return (
+                                ele.labelContent ? ele.labelContent : ele.value
+                            )
                                 .toLowerCase()
                                 .includes(e.target.value.toLowerCase());
                         })
