@@ -1,5 +1,5 @@
 import React from 'react';
-import * as styles from './styles';
+import styles from './styles';
 import DropdownSelect from '@/src/components/DropdownSelect/DropdownSelect';
 import WUII from '..';
 
@@ -21,7 +21,6 @@ export default function TimezoneFooter({
 
     return (
         <div style={styles.footer}>
-            <div style={styles.footerLabel}>Timezone</div>
             <div style={styles.timezoneSelectWrapper}>
                 <DropdownSelect
                     value={timezone}

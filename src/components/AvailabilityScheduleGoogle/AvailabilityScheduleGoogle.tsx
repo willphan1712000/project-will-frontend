@@ -1,6 +1,6 @@
 import React, { ChangeEvent, JSX, useState } from 'react';
 import DayRow from './DayRow';
-import * as styles from './styles';
+import styles from './styles';
 import TimezoneFooter from './TimezoneFooter';
 import { ScheduleData, TimeSlot, SpecificDate } from './types';
 import SpecificDatesSection from './SpecificDatesSection';
@@ -59,7 +59,9 @@ export default function AvailabilityScheduleGoogle({
     setValue,
     styling,
 }: WUII<ScheduleData>): JSX.Element | null {
-    const [activeTab, setActiveTab] = useState<'weekly' | 'specific'>('weekly');
+    const [activeTab, setActiveTab] = useState<'weekly' | 'specific'>(
+        'specific'
+    );
 
     if (!value || !setValue) {
         return null;
