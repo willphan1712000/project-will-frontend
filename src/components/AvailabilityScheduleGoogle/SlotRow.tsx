@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { Ban, PlusCircle, Copy } from '@/src/components/Icons';
 import { TimeSlot } from './types';
 import styles from './styles';
+import { isValidTime } from './utils';
 import InputGoogle from '@/src/components/Input/InputGoogle/InputGoogle';
 import WUII from '..';
 
@@ -33,6 +34,37 @@ export default function SlotRow({
     styling,
     isAvailable = true,
 }: SlotRowProps): React.JSX.Element {
+    const startIsValid = slot.startTime === '' || isValidTime(slot.startTime);
+    const endIsValid = slot.endTime === '' || isValidTime(slot.endTime);
+
+    const startStyling = slot.allDay
+        ? {
+              backgroundColor: '#f3f4f6',
+              textColor: '#9ca3af',
+              borderColor: '#e5e7eb',
+          }
+        : !startIsValid
+          ? {
+                borderColor: '#ef4444',
+                backgroundColor: '#fef2f2',
+                focusColor: '#ef4444',
+            }
+          : styling;
+
+    const endStyling = slot.allDay
+        ? {
+              backgroundColor: '#f3f4f6',
+              textColor: '#9ca3af',
+              borderColor: '#e5e7eb',
+          }
+        : !endIsValid
+          ? {
+                borderColor: '#ef4444',
+                backgroundColor: '#fef2f2',
+                focusColor: '#ef4444',
+            }
+          : styling;
+
     return (
         <div style={styles.slotRow}>
             {!isAvailable && (
@@ -79,7 +111,7 @@ export default function SlotRow({
                         label="Start"
                         description="Start time"
                         aria-label={`Start time for slot ${slotIndex + 1}`}
-                        styling={styling}
+                        styling={startStyling}
                     />
                 </div>
 
@@ -96,7 +128,7 @@ export default function SlotRow({
                         label="End"
                         description="End time"
                         aria-label={`End time for slot ${slotIndex + 1}`}
-                        styling={styling}
+                        styling={endStyling}
                     />
                 </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { SpecificDate } from './types';
 import styles from './styles';
 import { Ban } from '@/src/components/Icons';
+import { isValidTime } from './utils';
 import InputGoogle from '@/src/components/Input/InputGoogle/InputGoogle';
 import WUII from '..';
 
@@ -28,6 +29,39 @@ export default function SpecificDatesSection({
                 </div>
             ) : (
                 specificDates.map((item, index) => {
+                    const startIsValid =
+                        item.startTime === '' || isValidTime(item.startTime);
+                    const endIsValid =
+                        item.endTime === '' || isValidTime(item.endTime);
+
+                    const startStyling = item.allDay
+                        ? {
+                              backgroundColor: '#f3f4f6',
+                              textColor: '#9ca3af',
+                              borderColor: '#e5e7eb',
+                          }
+                        : !startIsValid
+                          ? {
+                                borderColor: '#ef4444',
+                                backgroundColor: '#fef2f2',
+                                focusColor: '#ef4444',
+                            }
+                          : styling;
+
+                    const endStyling = item.allDay
+                        ? {
+                              backgroundColor: '#f3f4f6',
+                              textColor: '#9ca3af',
+                              borderColor: '#e5e7eb',
+                          }
+                        : !endIsValid
+                          ? {
+                                borderColor: '#ef4444',
+                                backgroundColor: '#fef2f2',
+                                focusColor: '#ef4444',
+                            }
+                          : styling;
+
                     return (
                         <div key={index} style={styles.slotRow}>
                             {/* Date Input */}
@@ -79,7 +113,7 @@ export default function SpecificDatesSection({
                                     placeholder="9:00am"
                                     aria-label={`Specific date ${index + 1} start time`}
                                     disabled={item.allDay}
-                                    styling={styling}
+                                    styling={startStyling}
                                 />
                             </div>
 
@@ -101,7 +135,7 @@ export default function SpecificDatesSection({
                                     placeholder="5:00pm"
                                     aria-label={`Specific date ${index + 1} end time`}
                                     disabled={item.allDay}
-                                    styling={styling}
+                                    styling={endStyling}
                                 />
                             </div>
 
@@ -140,8 +174,8 @@ export default function SpecificDatesSection({
                     onClick={onAdd}
                     style={{
                         ...styles.addSpecificDateButton,
-                        borderColor: styling?.primaryColor,
-                        color: styling?.primaryColor,
+                        borderColor: styling?.textColor,
+                        color: styling?.textColor,
                     }}
                 >
                     Add specific date
