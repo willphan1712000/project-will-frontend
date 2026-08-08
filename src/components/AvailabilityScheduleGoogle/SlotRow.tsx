@@ -39,8 +39,6 @@ export default function SlotRow({
                 <span
                     style={{
                         ...styles.unavailableText,
-                        position: 'absolute',
-                        left: '50%',
                     }}
                 >
                     Unavailable
