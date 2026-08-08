@@ -42,6 +42,7 @@ const DropdownSelect = ({
         return () => window.removeEventListener('click', clickHandler);
     }, []);
 
+    const selectedOption = options?.filter((e) => e.value === value)[0];
     return (
         <MyContext.Provider
             value={{
@@ -66,7 +67,7 @@ const DropdownSelect = ({
                         setOpen((prev) => !prev);
                     }}
                 >
-                    <div style={styles.value}>{value}</div>
+                    <div style={styles.value}>{selectedOption?.label}</div>
                     <div
                         style={{
                             ...styles.close,

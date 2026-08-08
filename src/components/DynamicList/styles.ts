@@ -20,8 +20,6 @@ export const styles: DragStyles = {
     container: {
         width: '100%',
         height: '100%',
-        padding: '1.5rem',
-        borderRadius: '0.75rem',
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
