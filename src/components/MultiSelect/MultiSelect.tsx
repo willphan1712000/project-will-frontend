@@ -28,17 +28,16 @@ const MultiSelect = ({
         textColor: color = '#000',
         hoverBackgroundColor = '#f0f0f0',
     } = styling;
+
     const [open, setOpen] = useState<boolean>(false);
 
     const selectRef = useRef<HTMLDivElement>(null);
-
     const clickHandler = (e: MouseEvent) => {
         const select = selectRef.current as HTMLDivElement;
         if (!select.contains(e.target as HTMLElement)) setOpen(false);
     };
 
     const clearRef = useRef<HTMLDivElement>(null);
-
     const handleMouseEnter = () => {
         if (clearRef.current)
             clearRef.current.style.backgroundColor = hoverBackgroundColor;
@@ -54,6 +53,8 @@ const MultiSelect = ({
         return () => window.removeEventListener('click', clickHandler);
     }, []);
 
+    const selectedOptions =
+        options && options.filter((e) => value.includes(e.value));
     return (
         <MyContext.Provider
             value={{
@@ -80,37 +81,42 @@ const MultiSelect = ({
                 >
                     {/* value */}
                     <div style={styles.value}>
-                        {value.map((eachValue, key) => (
-                            <div
-                                style={{
-                                    ...styles.eachValue,
-                                    backgroundColor: hoverBackgroundColor,
-                                    color,
-                                }}
-                                key={key}
-                            >
-                                {eachValue}
-                                {!isReadOnly && (
-                                    <span
-                                        title="Remove this option"
-                                        style={{
-                                            ...styles.closeEach,
-                                            color,
-                                        }}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setValue(
-                                                value.filter(
-                                                    (e) => e !== eachValue
-                                                )
-                                            );
-                                        }}
-                                    >
-                                        <X size="20" />
-                                    </span>
-                                )}
-                            </div>
-                        ))}
+                        {selectedOptions &&
+                            selectedOptions.map((eachValue, key) => (
+                                <div
+                                    style={{
+                                        ...styles.eachValue,
+                                        backgroundColor: hoverBackgroundColor,
+                                        color,
+                                    }}
+                                    key={key}
+                                >
+                                    {eachValue.label}
+                                    {!isReadOnly && (
+                                        <span
+                                            title="Remove this option"
+                                            style={{
+                                                ...styles.closeEach,
+                                                color,
+                                            }}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setValue(
+                                                    selectedOptions
+                                                        .filter(
+                                                            (e) =>
+                                                                e.value !==
+                                                                eachValue.value
+                                                        )
+                                                        .map((e) => e.value)
+                                                );
+                                            }}
+                                        >
+                                            <X size="20" />
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
                     </div>
                     {/* Clear value */}
                     {!isReadOnly && (
