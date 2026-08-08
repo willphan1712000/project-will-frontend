@@ -52,7 +52,7 @@ export default function DayRow({
                     isAvailable={dayData.isAvailable}
                 />
             ) : (
-                <>
+                <div style={styles.slotList}>
                     {dayData.slots.map((slot, slotIndex) => (
                         <SlotRow
                             key={slotIndex}
@@ -67,7 +67,7 @@ export default function DayRow({
                             isAvailable={dayData.isAvailable}
                         />
                     ))}
-                </>
+                </div>
             )}
         </div>
     );

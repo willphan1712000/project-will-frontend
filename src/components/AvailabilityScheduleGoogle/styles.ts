@@ -16,6 +16,7 @@ type Name =
     | 'iconButton'
     | 'iconButtonHover'
     | 'slotRow'
+    | 'slotList'
     | 'timeInputHover'
     | 'timeInputFocus'
     | 'timeInputInvalid'
@@ -152,8 +153,8 @@ const styles: Styles = {
     },
     dayRow: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
         flexDirection: 'row',
     },
     dayLabel: {
@@ -340,6 +341,12 @@ const styles: Styles = {
     },
     repeatUntilWrapper: {
         width: '12rem',
+    },
+    slotList: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        flexGrow: 1,
     },
 };
 
