@@ -25,7 +25,11 @@ const DropdownSelect = ({
     description = '',
     styling = {},
 }: WUII<string>) => {
-    const { backgroundColor = '#fff', textColor: color = '#000' } = styling;
+    const {
+        backgroundColor = '#fff',
+        textColor: color = '#000',
+        hoverBackgroundColor = '#f0f0f0',
+    } = styling;
 
     const [open, setOpen] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement>(null);
@@ -35,6 +39,17 @@ const DropdownSelect = ({
         if (!select.contains(e.target as HTMLElement)) {
             setOpen(false);
         }
+    };
+
+    const clearRef = useRef<HTMLDivElement>(null);
+    const handleMouseEnter = () => {
+        if (clearRef.current)
+            clearRef.current.style.backgroundColor = hoverBackgroundColor;
+    };
+
+    const handleMouseLeave = () => {
+        if (clearRef.current)
+            clearRef.current.style.backgroundColor = backgroundColor;
     };
 
     useEffect(() => {
@@ -69,6 +84,7 @@ const DropdownSelect = ({
                 >
                     <div style={styles.value}>{selectedOption?.label}</div>
                     <div
+                        ref={clearRef}
                         style={{
                             ...styles.close,
                             color,
@@ -79,6 +95,8 @@ const DropdownSelect = ({
                             setValue('');
                             setOpen((prev) => !prev);
                         }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                     >
                         <X />
                     </div>
