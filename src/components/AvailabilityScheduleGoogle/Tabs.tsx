@@ -1,5 +1,5 @@
 import React from 'react';
-import * as styles from './styles';
+import styles from './styles';
 import WUII from '..';
 
 interface TabsProps {
