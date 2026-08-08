@@ -143,30 +143,32 @@ export default function SlotRow({
                 >
                     <Ban style={styles.iconStandard} />
                 </button>
-                {(!isAvailable || slotIndex === 0) && (
-                    <button
-                        onClick={() => onAddSlot(dayIndex)}
-                        style={styles.iconButton}
-                        title="Add another slot"
-                    >
-                        <PlusCircle style={styles.iconStandard} />
-                    </button>
-                )}
-                {(!isAvailable || slotIndex === 0) && (
-                    <button
-                        onClick={() => onCopySlots(dayIndex)}
-                        style={{
-                            ...styles.iconButton,
-                            visibility:
-                                isAvailable && slotIndex === 0
-                                    ? 'visible'
-                                    : 'hidden',
-                        }}
-                        title="Copy time to all"
-                    >
-                        <Copy style={styles.iconStandard} />
-                    </button>
-                )}
+                <button
+                    onClick={() => onAddSlot(dayIndex)}
+                    style={{
+                        ...styles.iconButton,
+                        visibility:
+                            isAvailable && slotIndex !== 0
+                                ? 'hidden'
+                                : 'visible',
+                    }}
+                    title="Add another slot"
+                >
+                    <PlusCircle style={styles.iconStandard} />
+                </button>
+                <button
+                    onClick={() => onCopySlots(dayIndex)}
+                    style={{
+                        ...styles.iconButton,
+                        visibility:
+                            isAvailable && slotIndex === 0
+                                ? 'visible'
+                                : 'hidden',
+                    }}
+                    title="Copy time to all"
+                >
+                    <Copy style={styles.iconStandard} />
+                </button>
             </div>
         </div>
     );
