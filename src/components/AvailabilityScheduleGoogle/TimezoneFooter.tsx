@@ -17,6 +17,7 @@ export default function TimezoneFooter({
     const dropdownOptions = TIMEZONES.map((tz) => ({
         value: tz.value,
         label: <span>{tz.label}</span>,
+        labelContent: tz.label,
     }));
 
     return (
