@@ -1,8 +1,7 @@
 import { CSSProperties } from 'react';
 
 export const container: CSSProperties = {
-    width: '1200px',
-    maxWidth: '1500px',
+    width: '100%',
 };
 
 export const topControls: CSSProperties = {
@@ -73,9 +72,10 @@ export const dayRow: CSSProperties = {
 };
 
 export const dayLabel: CSSProperties = {
-    width: '4rem',
+    width: '100px',
     fontWeight: 500,
     color: '#4b5563',
+    textAlign: 'left',
 };
 
 export const contentArea: CSSProperties = {
@@ -99,8 +99,8 @@ export const unavailableText: CSSProperties = {
 export const timeInputsContainer: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.75rem',
-    width: '40rem',
+    gap: '0.5rem',
+    width: '30rem',
     flexShrink: 0,
 };
 

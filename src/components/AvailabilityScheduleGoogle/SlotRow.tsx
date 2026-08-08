@@ -126,8 +126,6 @@ export default function SlotRow({
                     />
                 </div>
 
-                <span style={styles.separator}>Note:</span>
-
                 {/* Note Input */}
                 <div style={styles.noteInputWrapper}>
                     <InputGoogle
