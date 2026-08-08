@@ -59,9 +59,7 @@ export default function AvailabilityScheduleGoogle({
     setValue,
     styling,
 }: WUII<ScheduleData>): JSX.Element | null {
-    const [activeTab, setActiveTab] = useState<'weekly' | 'specific'>(
-        'specific'
-    );
+    const [activeTab, setActiveTab] = useState<'weekly' | 'specific'>('weekly');
 
     if (!value || !setValue) {
         return null;
