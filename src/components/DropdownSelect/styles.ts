@@ -39,7 +39,6 @@ const styles: Styles = {
         marginRight: 'auto',
     },
     close: {
-        padding: '1%',
         borderRadius: '50%',
         width: '20px',
         height: '20px',

@@ -64,7 +64,6 @@ const styles: Styles = {
         color: '#000',
     },
     close: {
-        padding: '1%',
         borderRadius: '50%',
         width: '20px',
         height: '20px',
