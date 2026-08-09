@@ -1,6 +1,6 @@
 {
   "name": "@willphan1712000/frontend",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "Frontend Library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

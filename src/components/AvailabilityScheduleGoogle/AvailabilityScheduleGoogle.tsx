@@ -14,6 +14,9 @@ import WUII from '..';
  * A Google Calendar/Appointments style scheduling component that allows users
  * to define their weekly availability and custom specific dates availability.
  *
+ * UTC Time Zone
+ * @link https://upload.wikimedia.org/wikipedia/commons/c/c1/Time_zones_of_the_world-UTC.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
+ *
  * ### Data Interface
  * - `value` (ScheduleData): Object containing scheduling states:
  *   - `timezone` (string): Active timezone identifier (e.g., "America/New_York").
