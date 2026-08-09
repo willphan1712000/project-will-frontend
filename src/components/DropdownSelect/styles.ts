@@ -69,7 +69,7 @@ const styles: Styles = {
         maxHeight: '300px',
         overflowY: 'auto',
         backgroundColor: 'white',
-        zIndex: 99,
+        zIndex: 9999,
     },
     search_border: {
         position: 'sticky',

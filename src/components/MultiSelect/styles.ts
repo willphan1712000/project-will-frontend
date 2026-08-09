@@ -92,6 +92,7 @@ const styles: Styles = {
         maxHeight: '300px',
         overflowY: 'auto',
         backgroundColor: 'white',
+        zIndex: 9999,
     },
     dropdown_border: {
         padding: '5px',
