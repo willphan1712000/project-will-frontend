@@ -2,6 +2,7 @@ import handleAsync from './handleAsync';
 import textProcessing from './textPreprocessing';
 import getOrCreateUUID from './UUID';
 import copyToClipboard from './copyToClipboard';
+import getCurrentTimeZone from './getTimeZone';
 
 const tools = {
     /**
@@ -42,6 +43,12 @@ const tools = {
      * @returns A promise that resolves to true if the copy operation was successful, otherwise false.
      */
     copyToClipboard,
+
+    /**
+     * Retrieves the device's current IANA time zone string.
+     * @returns {string} e.g., "America/New_York"
+     */
+    getCurrentTimeZone,
 };
 
 export default tools;

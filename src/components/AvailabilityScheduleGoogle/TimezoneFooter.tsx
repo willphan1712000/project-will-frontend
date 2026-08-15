@@ -2,15 +2,16 @@ import React from 'react';
 import styles from './styles';
 import DropdownSelect from '@/src/components/DropdownSelect/DropdownSelect';
 import WUII from '..';
+import { tools } from '@/index';
 
 interface TimezoneFooterProps {
-    timezone: string;
+    timezone?: string;
     onTimezoneChange: (tz?: string) => void;
     styling?: WUII['styling'];
 }
 
 export default function TimezoneFooter({
-    timezone,
+    timezone = tools.getCurrentTimeZone(),
     onTimezoneChange,
     styling,
 }: TimezoneFooterProps): React.JSX.Element {
