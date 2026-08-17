@@ -57,7 +57,6 @@ export const styles: { [key: string]: CSSProperties | any } = {
     },
     timeLabel: {
         height: '60px',
-        paddingTop: '8px',
         textAlign: 'center',
         fontSize: '0.75rem',
         color: 'var(--text-muted)',
