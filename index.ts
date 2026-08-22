@@ -9,6 +9,7 @@ export { default as Info } from './src/components/Info/Info';
 export { default as Overlay } from './src/components/Overlay/Overlay';
 export { default as Calendar } from './src/components/Calendar/Calendar';
 export { default as AvailabilityScheduleGoogle } from './src/components/AvailabilityScheduleGoogle/AvailabilityScheduleGoogle';
+export { default as Spinner } from './src/components/Spinner/Spinner';
 
 // Button
 export { default as Button } from './src/components/Buttons/Button';

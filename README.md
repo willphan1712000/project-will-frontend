@@ -16,6 +16,7 @@ Reusable React UI components and frontend utilities packaged for application dev
 - `FileDropZone`
 - `Info`
 - `Overlay`
+- `Spinner`
 - `Button`
 - `ModernButton`
 - `Avatar`
@@ -494,6 +495,21 @@ Props:
 - `options?: object` - Optional custom configurations:
   - `backgroundColor?: string` - Custom background color of the overlay (defaults to `'#fff'`).
 - `children?: React.ReactNode` - Content inside the center container.
+
+### `Spinner`
+
+`Spinner` renders a full-screen loading overlay with an animated spinning indicator and a customizable glowing brand title.
+
+```tsx
+import { Spinner } from '@willphan1712000/frontend';
+
+export default function Example() {
+  return <Spinner brand="WillPhan" />;
+}
+```
+
+Props:
+- `brand?: string` - Custom brand text displayed below the circular spinner (defaults to `'WillPhan'`).
 
 ### `InputGoogle`
 
