@@ -22,6 +22,7 @@ export { default as Avatar } from './src/components/Avatar/Avatar';
 export { default as InputGoogle } from './src/components/Input/InputGoogle/InputGoogle';
 export { default as TextArea } from './src/components/Input/TextArea/TextArea';
 export { default as InputFile } from './src/components/Input/InputFile';
+export { default as PhoneInput } from './src/components/PhoneInput/PhoneInput';
 
 // Image
 export { default as UploadImage } from './src/components/Image/UploadImage';
