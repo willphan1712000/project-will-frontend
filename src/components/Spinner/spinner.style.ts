@@ -38,7 +38,7 @@ export const styles: Record<string, React.CSSProperties> = {
     circleSpinner: {
         width: '20px',
         height: '20px',
-        border: '4px solid rgba(255, 255, 255, 0.2)',
+        border: '4px solid #fff',
         borderTopColor: '#ffffff',
         borderRadius: '50%',
         animation: 'allinclicks-spin 1s linear infinite',
@@ -49,11 +49,21 @@ export const styles: Record<string, React.CSSProperties> = {
         fontWeight: 600,
         letterSpacing: '2px',
         background:
-            'linear-gradient(110deg, #919191 40%, #ffffff 50%, #919191 60%)',
+            'linear-gradient(110deg, #414040 40%, #ffffff 50%, #414040 60%)',
         backgroundSize: '200% auto',
         color: 'transparent',
         WebkitBackgroundClip: 'text',
         backgroundClip: 'text',
         animation: 'allinclicks-shine-sweep 3s linear infinite',
+    },
+    wrapper: {
+        backgroundColor: '#fff',
+        padding: '30px',
+        borderRadius: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '0.5rem',
     },
 };

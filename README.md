@@ -498,18 +498,27 @@ Props:
 
 ### `Spinner`
 
-`Spinner` renders a full-screen loading overlay with an animated spinning indicator and a customizable glowing brand title.
+`Spinner` renders a full-screen modal loading overlay with an animated spinning circle indicator and customizable text, implementing the `WUII<string>` interface.
 
 ```tsx
 import { Spinner } from '@willphan1712000/frontend';
 
 export default function Example() {
-  return <Spinner brand="WillPhan" />;
+  return (
+    <Spinner
+      value="WillPhan"
+      styling={{
+        textColor: '#6f6f6f',
+      }}
+    />
+  );
 }
 ```
 
 Props:
-- `brand?: string` - Custom brand text displayed below the circular spinner (defaults to `'WillPhan'`).
+- `value?: string` - Custom text displayed below the circular spinner (defaults to `'WillPhan'`).
+- `styling?: object` - Optional custom styling configurations:
+  - `textColor?: string` - Color for the text gradient base and active spinner top border (defaults to `'#6f6f6f'`).
 
 ### `InputGoogle`
 
