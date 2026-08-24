@@ -24,7 +24,7 @@ export const others = {
 const styles: Styles = {
     input: {
         boxSizing: 'border-box',
-        height: '40px',
+        height: '100%',
         width: '100%',
         border: `${others.border} ${others.borderRelease}`,
         borderRadius: '6px',
@@ -35,6 +35,7 @@ const styles: Styles = {
     },
     container: {
         width: '100%',
+        height: '100%',
         position: 'relative',
     },
     label: {

@@ -189,6 +189,12 @@ export const COUNTRIES: CountryData[] = [
         flagUrl: 'https://flagcdn.com/w40/cm.png',
     },
     {
+        code: 'US',
+        name: 'United States',
+        dialCode: '+1',
+        flagUrl: 'https://flagcdn.com/w40/us.png',
+    },
+    {
         code: 'CA',
         name: 'Canada',
         dialCode: '+1',
@@ -1117,12 +1123,6 @@ export const COUNTRIES: CountryData[] = [
         name: 'United Kingdom',
         dialCode: '+44',
         flagUrl: 'https://flagcdn.com/w40/gb.png',
-    },
-    {
-        code: 'US',
-        name: 'United States',
-        dialCode: '+1',
-        flagUrl: 'https://flagcdn.com/w40/us.png',
     },
     {
         code: 'UY',

@@ -76,6 +76,7 @@ const PhoneInput = ({
                     options={COUNTRY_OPTIONS}
                     isReadOnly={isReadOnly}
                     styling={styling}
+                    description="Country Code"
                 />
             </div>
             <div style={styles.inputWrapper}>
