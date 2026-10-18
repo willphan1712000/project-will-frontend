@@ -32,7 +32,7 @@ export const styles: Record<string, React.CSSProperties> = {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '0.5rem',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
         zIndex: 9999,
     },
     circleSpinner: {
