@@ -25,6 +25,9 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
+              with:
+                  node-version: 'lts/*'
+                  registry-url: 'https://registry.npmjs.org'
 
             - name: Setup Nodejs
               uses: actions/setup-node@v4
@@ -42,6 +45,11 @@ jobs:
 
             - name: Release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically generated to help authenticate workflow jobs without needing to store a personal access token
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc && npm publish --access=public
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
+                V=$(node -p "require('./package.json').version")
+                if npm view @willphan1712000/frontend@$V version >/dev/null 2>&1; then
+                  echo "Version $V already published, skipping"
+                else
+                  npm publish --access=public
+                fi
