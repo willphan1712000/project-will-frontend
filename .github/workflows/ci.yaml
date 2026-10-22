@@ -1,5 +1,5 @@
-# This workflow will upload a Python Package to PyPI when a release is created
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
+# This workflow builds the Node package (TypeScript) and verifies NPM authentication
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -15,17 +15,12 @@ on:
 
 permissions:
     contents: read # allow workflows to only (read or write) in the repo
-    issues: write # allow workflows to create, edit, and delete issues
-    pull-requests: write # allow workflows to modify PR metadata, such as adding labels, comments, and mergeing PRs
 
 jobs:
     NPM-Release:
         runs-on: ubuntu-latest
 
         steps:
-            - name: check whoami and token
-              env:
-                NODE_AUTH_TOKEN: $${{ secrets.NPM_TOKEN }}
             - name: Checkout Repository
               uses: actions/checkout@v4
 
@@ -33,6 +28,12 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 'lts/*'
+                  registry-url: 'https://registry.npmjs.org'
+
+            - name: check whoami and token
+              run: npm whoami
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             - name: Install dependencies
               run: npm ci

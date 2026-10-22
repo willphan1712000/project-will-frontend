@@ -1,12 +1,12 @@
-# This workflow will upload a Python Package to PyPI when a release is created
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
+# This workflow publishes the Node package (TypeScript) to NPM when changes are pushed to main
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Node Package (Typescript) to NPM
+name: Release to NPM
 
 on:
     push:
@@ -15,8 +15,6 @@ on:
 
 permissions:
     contents: read # allow workflows to only (read or write) in the repo
-    issues: write # allow workflows to create, edit, and delete issues
-    pull-requests: write # allow workflows to modify PR metadata, such as adding labels, comments, and mergeing PRs
 
 jobs:
     NPM-Release:
@@ -25,14 +23,12 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
-              with:
-                  node-version: 'lts/*'
-                  registry-url: 'https://registry.npmjs.org'
 
             - name: Setup Nodejs
               uses: actions/setup-node@v4
               with:
                   node-version: 'lts/*'
+                  registry-url: 'https://registry.npmjs.org'
 
             - name: Install dependencies
               run: npm ci
@@ -45,11 +41,11 @@ jobs:
 
             - name: Release
               env:
-                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
-                V=$(node -p "require('./package.json').version")
-                if npm view @willphan1712000/frontend@$V version >/dev/null 2>&1; then
-                  echo "Version $V already published, skipping"
-                else
-                  npm publish --access=public
-                fi
+                  V=$(node -p "require('./package.json').version")
+                  if npm view @willphan1712000/frontend@$V version >/dev/null 2>&1; then
+                    echo "Version $V already published, skipping"
+                  else
+                    npm publish --access=public
+                  fi
