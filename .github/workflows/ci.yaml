@@ -23,6 +23,9 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: check whoami and token
+              env:
+                NODE_AUTH_TOKEN: $${{ secrets.NPM_TOKEN }}
             - name: Checkout Repository
               uses: actions/checkout@v4
 
